@@ -1,0 +1,134 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if ((typeof Symbol === "function" ? Symbol.iterator : "@@iterator") in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _lodash = require("lodash");
+
+var _reactNative = require("react-native");
+
+var _es = require("victory-core/es");
+
+var _es2 = require("victory-chart/es");
+
+var hypotenuse = function hypotenuse(x, y) {
+  return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+};
+
+var screenSize = hypotenuse(_reactNative.Dimensions.get("window").width, _reactNative.Dimensions.get("window").height);
+
+var Helpers = _extends({}, _es2.RawZoomHelpers, {
+  onTouchEnd: function onTouchEnd() {
+    return [{
+      target: "parent",
+      mutation: function mutation() {
+        return { panning: false, originalPinchDistance: null };
+      }
+    }];
+  },
+  onTouchPinch: function onTouchPinch(evt, targetProps, eventKey, ctx) {
+    var onZoomDomainChange = targetProps.onZoomDomainChange,
+        zoomDimension = targetProps.zoomDimension,
+        domain = targetProps.domain,
+        zoomDomain = targetProps.zoomDomain;
+    var touches = evt.nativeEvent.touches;
+
+    if (!targetProps.allowZoom) {
+      return {};
+    }
+    var originalDomain = this.getDomain(targetProps);
+    var lastDomain = (0, _lodash.defaults)({}, targetProps.currentDomain || zoomDomain || originalDomain, domain);
+    var x = lastDomain.x,
+        y = lastDomain.y;
+
+    var currentDomain = {
+      x: zoomDimension === "y" ? lastDomain.x : this.scaleNative(x, evt, targetProps, "x"),
+      y: zoomDimension === "x" ? lastDomain.y : this.scaleNative(y, evt, targetProps, "y")
+    };
+    var resumeAnimation = this.handleAnimation(ctx);
+    var pinchDistance = this.getPinchDistance(touches);
+    var originalPinchDistance = targetProps.originalPinchDistance || pinchDistance;
+
+    var zoomActive = pinchDistance !== originalPinchDistance || targetProps.zoomActive && !(0, _lodash.isEqual)(originalDomain, lastDomain);
+
+    if ((0, _lodash.isFunction)(onZoomDomainChange)) {
+      onZoomDomainChange(currentDomain);
+    }
+    return [{
+      target: "parent",
+      callback: resumeAnimation,
+      mutation: function mutation() {
+        return {
+          domain: currentDomain, currentDomain: currentDomain, originalDomain: originalDomain, cachedZoomDomain: zoomDomain,
+          parentControlledProps: ["domain"], panning: false, originalPinchDistance: originalPinchDistance, zoomActive: zoomActive
+        };
+      }
+    }];
+  },
+  getPinchDistance: function getPinchDistance(_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        a = _ref2[0],
+        b = _ref2[1];
+
+    return hypotenuse(b.locationX - a.locationX, b.locationY - a.locationY);
+  },
+  getScaleFactorNative: function getScaleFactorNative(evt, props) {
+    var touches = evt.nativeEvent.touches;
+
+    var originalPinchDistance = props.originalPinchDistance || 0;
+    var currentPinchDistance = this.getPinchDistance(touches);
+    var scaledPinchChange = (currentPinchDistance - originalPinchDistance) / screenSize;
+    return 1 - scaledPinchChange;
+  },
+  scaleNative: function scaleNative(currentDomain, evt, props, axis) {
+    var _currentDomain = _slicedToArray(currentDomain, 2),
+        from = _currentDomain[0],
+        to = _currentDomain[1];
+
+    var range = Math.abs(to - from);
+    var minimumZoom = props.minimumZoom && props.minimumZoom[axis];
+    var factor = this.getScaleFactorNative(evt, props);
+    if (minimumZoom && range <= minimumZoom && factor < 1) {
+      return currentDomain;
+    }
+
+    var _getDomain$axis = _slicedToArray(this.getDomain(props)[axis], 2),
+        fromBound = _getDomain$axis[0],
+        toBound = _getDomain$axis[1];
+
+    var percent = this.getScalePercent(evt, props, axis);
+    var point = factor * from + percent * (factor * range);
+    var minDomain = this.getMinimumDomain(point, props, axis);
+
+    var _getScaledDomain = this.getScaledDomain(currentDomain, factor, percent),
+        _getScaledDomain2 = _slicedToArray(_getScaledDomain, 2),
+        newMin = _getScaledDomain2[0],
+        newMax = _getScaledDomain2[1];
+
+    var newDomain = [newMin > fromBound && newMin < toBound ? newMin : fromBound, newMax < toBound && newMax > fromBound ? newMax : toBound];
+    var domain = Math.abs(minDomain[1] - minDomain[0]) > Math.abs(newDomain[1] - newDomain[0]) ? minDomain : newDomain;
+    return _es.Collection.containsDates([fromBound, toBound]) ? [new Date(domain[0]), new Date(domain[1])] : domain;
+  }
+});
+
+var makeThrottledHandler = function makeThrottledHandler(handler) {
+  var throttledHandler = (0, _lodash.throttle)(handler, 16, { leading: true });
+  return function (evt) {
+    for (var _len = arguments.length, otherParams = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      otherParams[_key - 1] = arguments[_key];
+    }
+
+    evt.persist();
+    return throttledHandler.apply(undefined, [evt].concat(otherParams));
+  };
+};
+
+exports.default = {
+  onTouchStart: Helpers.onMouseDown.bind(Helpers),
+  onTouchEnd: Helpers.onTouchEnd.bind(Helpers),
+  onTouchMove: makeThrottledHandler(Helpers.onMouseMove.bind(Helpers)),
+  onTouchPinch: makeThrottledHandler(Helpers.onTouchPinch.bind(Helpers))
+};

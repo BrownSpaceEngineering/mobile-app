@@ -1,0 +1,333 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _includes2 = require("lodash/includes");
+
+var _includes3 = _interopRequireDefault(_includes2);
+
+var _uniq2 = require("lodash/uniq");
+
+var _uniq3 = _interopRequireDefault(_uniq2);
+
+var _pickBy2 = require("lodash/pickBy");
+
+var _pickBy3 = _interopRequireDefault(_pickBy2);
+
+var _without2 = require("lodash/without");
+
+var _without3 = _interopRequireDefault(_without2);
+
+var _isFunction2 = require("lodash/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isEmpty2 = require("lodash/isEmpty");
+
+var _isEmpty3 = _interopRequireDefault(_isEmpty2);
+
+var _partial2 = require("lodash/partial");
+
+var _partial3 = _interopRequireDefault(_partial2);
+
+var _merge2 = require("lodash/merge");
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+var _extend2 = require("lodash/extend");
+
+var _extend3 = _interopRequireDefault(_extend2);
+
+var _assign2 = require("lodash/assign");
+
+var _assign3 = _interopRequireDefault(_assign2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+exports.default = {
+  getEvents: function getEvents(props, target, eventKey, getScopedEvents) {
+    var _this = this;
+
+    var getEventsByTarget = function getEventsByTarget(events) {
+      var getSelectedEvents = function getSelectedEvents() {
+        var targetEvents = events.reduce(function (memo, event) {
+          if (event.target !== undefined) {
+            return "" + event.target === "" + target ? memo.concat(event) : memo;
+          }
+          return memo.concat(event);
+        }, []);
+
+        if (eventKey !== undefined && target !== "parent") {
+          return targetEvents.filter(function (obj) {
+            var targetKeys = obj.eventKey;
+            var useKey = function useKey(key) {
+              return key ? "" + key === "" + eventKey : true;
+            };
+            return Array.isArray(targetKeys) ? targetKeys.some(function (k) {
+              return useKey(k);
+            }) : useKey(targetKeys);
+          });
+        }
+        return targetEvents;
+      };
+
+      var selectedEvents = getSelectedEvents();
+      return Array.isArray(selectedEvents) && selectedEvents.reduce(function (memo, event) {
+        return event ? (0, _assign3.default)(memo, event.eventHandlers) : memo;
+      }, {});
+    };
+
+    var getAllEvents = function getAllEvents() {
+      if (Array.isArray(_this.componentEvents)) {
+        var _componentEvents;
+
+        return Array.isArray(props.events) ? (_componentEvents = _this.componentEvents).concat.apply(_componentEvents, _toConsumableArray(props.events)) : _this.componentEvents;
+      }
+      return props.events;
+    };
+
+    var allEvents = getAllEvents();
+    var ownEvents = allEvents && (0, _isFunction3.default)(getScopedEvents) ? getScopedEvents(getEventsByTarget(allEvents), target) : undefined;
+    if (!props.sharedEvents) {
+      return ownEvents;
+    }
+    var getSharedEvents = props.sharedEvents.getEvents;
+    var sharedEvents = props.sharedEvents.events && getSharedEvents(getEventsByTarget(props.sharedEvents.events), target);
+    return (0, _assign3.default)({}, sharedEvents, ownEvents);
+  },
+
+  getScopedEvents: function getScopedEvents(events, namespace, childType, baseProps) {
+    var _this2 = this;
+
+    if ((0, _isEmpty3.default)(events)) {
+      return {};
+    }
+
+    baseProps = baseProps || this.baseProps;
+
+    var getTargetProps = function getTargetProps(identifier, type) {
+      var childName = identifier.childName,
+          target = identifier.target,
+          key = identifier.key;
+
+      var baseType = type === "props" ? baseProps : _this2.state || {};
+      var base = childName === undefined || childName === null || !baseType[childName] ? baseType : baseType[childName];
+      return key === "parent" ? base.parent : base[key] && base[key][target];
+    };
+
+    var parseEvent = function parseEvent(eventReturn, eventKey) {
+      var childNames = namespace === "parent" ? eventReturn.childName : eventReturn.childName || childType;
+      var target = eventReturn.target || namespace;
+
+      var getKeys = function getKeys(childName) {
+        if (eventReturn.eventKey === "all") {
+          return baseProps[childName] ? (0, _without3.default)(Object.keys(baseProps[childName]), "parent") : (0, _without3.default)(Object.keys(baseProps), "parent");
+        } else if (eventReturn.eventKey === undefined && eventKey === "parent") {
+          return baseProps[childName] ? Object.keys(baseProps[childName]) : Object.keys(baseProps);
+        }
+        return eventReturn.eventKey !== undefined ? eventReturn.eventKey : eventKey;
+      };
+
+      var getMutationObject = function getMutationObject(key, childName) {
+        var baseState = _this2.state || {};
+        if (!(0, _isFunction3.default)(eventReturn.mutation)) {
+          return baseState;
+        }
+        var mutationTargetProps = getTargetProps({ childName: childName, key: key, target: target }, "props");
+        var mutationTargetState = getTargetProps({ childName: childName, key: key, target: target }, "state");
+        var mutatedProps = eventReturn.mutation((0, _assign3.default)({}, mutationTargetProps, mutationTargetState), baseProps);
+        var childState = baseState[childName] || {};
+        var extendState = function extendState(state) {
+          return target === "parent" ? (0, _extend3.default)(state[key], mutatedProps) : (0, _extend3.default)(state[key], _defineProperty({}, target, mutatedProps));
+        };
+        return childName !== undefined && childName !== null ? (0, _extend3.default)(baseState, _defineProperty({}, childName, (0, _extend3.default)(childState, _defineProperty({}, key, extendState(childState))))) : (0, _extend3.default)(baseState, _defineProperty({}, key, extendState(baseState)));
+      };
+
+      var getReturnByChild = function getReturnByChild(childName) {
+        var mutationKeys = getKeys(childName);
+        return Array.isArray(mutationKeys) ? mutationKeys.reduce(function (memo, key) {
+          return (0, _assign3.default)(memo, getMutationObject(key, childName));
+        }, {}) : getMutationObject(mutationKeys, childName);
+      };
+
+      var allChildNames = childNames === "all" ? (0, _without3.default)(Object.keys(baseProps), "parent") : childNames;
+      return Array.isArray(allChildNames) ? allChildNames.reduce(function (memo, childName) {
+        return (0, _assign3.default)(memo, getReturnByChild(childName));
+      }, {}) : getReturnByChild(allChildNames);
+    };
+
+    var parseEventReturn = function parseEventReturn(eventReturn, eventKey) {
+      return Array.isArray(eventReturn) ? eventReturn.reduce(function (memo, props) {
+        memo = (0, _merge3.default)({}, memo, parseEvent(props, eventKey));
+        return memo;
+      }, {}) : parseEvent(eventReturn, eventKey);
+    };
+
+    var compileCallbacks = function compileCallbacks(eventReturn) {
+      var getCallback = function getCallback(obj) {
+        return (0, _isFunction3.default)(obj.callback) && obj.callback;
+      };
+      var callbacks = Array.isArray(eventReturn) ? eventReturn.map(function (evtObj) {
+        return getCallback(evtObj);
+      }) : [getCallback(eventReturn)];
+      var callbackArray = callbacks.filter(function (callback) {
+        return callback !== false;
+      });
+      return callbackArray.length ? function () {
+        return callbackArray.forEach(function (callback) {
+          return callback();
+        });
+      } : undefined;
+    };
+
+    var onEvent = function onEvent(evt, childProps, eventKey, eventName) {
+      var eventReturn = events[eventName](evt, childProps, eventKey, _this2);
+      if (eventReturn) {
+        var callbacks = compileCallbacks(eventReturn);
+        _this2.setState(parseEventReturn(eventReturn, eventKey), callbacks);
+      }
+    };
+
+    return Object.keys(events).reduce(function (memo, event) {
+      memo[event] = onEvent;
+      return memo;
+    }, {});
+  },
+
+  getPartialEvents: function getPartialEvents(events, eventKey, childProps) {
+    return events ? Object.keys(events).reduce(function (memo, eventName) {
+      memo[eventName] = (0, _partial3.default)(events[eventName], _partial3.default.placeholder, childProps, eventKey, eventName);
+      return memo;
+    }, {}) : {};
+  },
+
+  getEventState: function getEventState(eventKey, namespace, childType) {
+    var state = this.state || {};
+    if (!childType) {
+      return eventKey === "parent" ? state[eventKey] && state[eventKey][namespace] || state[eventKey] : state[eventKey] && state[eventKey][namespace];
+    }
+    return state[childType] && state[childType][eventKey] && state[childType][eventKey][namespace];
+  },
+
+  getExternalMutationsWithChildren: function getExternalMutationsWithChildren(mutations, baseProps, baseState, childNames) {
+    var _this3 = this;
+
+    baseProps = baseProps || {};
+    baseState = baseState || {};
+
+    return childNames.reduce(function (memo, childName) {
+      var childState = baseState[childName];
+      var mutation = _this3.getExternalMutations(mutations, baseProps[childName], baseState[childName], childName);
+      memo[childName] = mutation ? mutation : childState;
+      return (0, _pickBy3.default)(memo, function (v) {
+        return !(0, _isEmpty3.default)(v);
+      });
+    }, {});
+  },
+
+  getExternalMutations: function getExternalMutations(mutations, baseProps, baseState, childName) {
+    var _this4 = this;
+
+    baseProps = baseProps || {};
+    baseState = baseState || {};
+
+    var eventKeys = Object.keys(baseProps);
+    return eventKeys.reduce(function (memo, eventKey) {
+      var keyState = baseState[eventKey] || {};
+      var keyProps = baseProps[eventKey] || {};
+      if (eventKey === "parent") {
+        var identifier = { eventKey: eventKey, target: "parent" };
+        var mutation = _this4.getExternalMutation(mutations, keyProps, keyState, identifier);
+        memo[eventKey] = typeof mutation !== "undefined" ? (0, _assign3.default)({}, keyState, mutation) : keyState;
+      } else {
+        var targets = (0, _uniq3.default)(Object.keys(keyProps).concat(Object.keys(keyState)));
+        memo[eventKey] = targets.reduce(function (m, target) {
+          var identifier = { eventKey: eventKey, target: target, childName: childName };
+          var mutation = _this4.getExternalMutation(mutations, keyProps[target], keyState[target], identifier);
+          m[target] = typeof mutation !== "undefined" ? (0, _assign3.default)({}, keyState[target], mutation) : keyState[target];
+          return (0, _pickBy3.default)(m, function (v) {
+            return !(0, _isEmpty3.default)(v);
+          });
+        }, {});
+      }
+      return (0, _pickBy3.default)(memo, function (v) {
+        return !(0, _isEmpty3.default)(v);
+      });
+    }, {});
+  },
+
+  getExternalMutation: function getExternalMutation(mutations, baseProps, baseState, identifier) {
+
+    var filterMutations = function filterMutations(mutation, type) {
+      if (typeof mutation[type] === "string") {
+        return mutation[type] === "all" || mutation[type] === identifier[type];
+      } else if (Array.isArray(mutation[type])) {
+        var stringArray = mutation[type].map(function (m) {
+          return "" + m;
+        });
+        return (0, _includes3.default)(stringArray, identifier[type]);
+      } else {
+        return false;
+      }
+    };
+
+    mutations = Array.isArray(mutations) ? mutations : [mutations];
+    var scopedMutations = mutations;
+    if (identifier.childName) {
+      scopedMutations = mutations.filter(function (m) {
+        return filterMutations(m, "childName");
+      });
+    }
+
+    var targetMutations = scopedMutations.filter(function (m) {
+      return filterMutations(m, "target");
+    });
+    if ((0, _isEmpty3.default)(targetMutations)) {
+      return undefined;
+    }
+    var keyMutations = targetMutations.filter(function (m) {
+      return filterMutations(m, "eventKey");
+    });
+    if ((0, _isEmpty3.default)(keyMutations)) {
+      return undefined;
+    }
+    return keyMutations.reduce(function (memo, curr) {
+      var mutationFunction = curr && (0, _isFunction3.default)(curr.mutation) ? curr.mutation : function () {
+        return undefined;
+      };
+      var currentMutation = mutationFunction((0, _assign3.default)({}, baseProps, baseState));
+      return (0, _merge3.default)({}, memo, currentMutation);
+    }, {});
+  },
+
+  getComponentEvents: function getComponentEvents(props, components) {
+    var events = Array.isArray(components) && components.reduce(function (memo, componentName) {
+      var _memo;
+
+      var component = props[componentName];
+      var defaultEvents = component && component.type && component.type.defaultEvents;
+      var componentEvents = (0, _isFunction3.default)(defaultEvents) ? defaultEvents(component.props) : defaultEvents;
+      memo = Array.isArray(componentEvents) ? (_memo = memo).concat.apply(_memo, _toConsumableArray(componentEvents)) : memo;
+      return memo;
+    }, []);
+    return events && events.length ? events : undefined;
+  }
+};

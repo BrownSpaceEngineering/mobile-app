@@ -1,0 +1,189 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _jsxFileName = "/Users/willem.speckmann/BSE/node_modules/victory-native/lib/components/victory-container.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactNativeSvg = require("react-native-svg");
+
+var _reactNativeSvg2 = _interopRequireDefault(_reactNativeSvg);
+
+var _lodash = require("lodash");
+
+var _reactNative = require("react-native");
+
+var _es = require("victory-core/es");
+
+var _index = require("../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _default = function (_VictoryContainer) {
+  _inherits(_default, _VictoryContainer);
+
+  function _default(props) {
+    _classCallCheck(this, _default);
+
+    var _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this, props));
+
+    _this.panResponder = _this.getResponder();
+    return _this;
+  }
+
+  _createClass(_default, [{
+    key: "getResponder",
+    value: function getResponder() {
+      var yes = function yes() {
+        return true;
+      };
+      var no = function no() {
+        return false;
+      };
+      return _reactNative.PanResponder.create({
+        onStartShouldSetPanResponder: yes,
+
+        onStartShouldSetPanResponderCapture: no,
+
+        onMoveShouldSetPanResponder: yes,
+
+        onMoveShouldSetPanResponderCapture: yes,
+
+        onShouldBlockNativeResponder: yes,
+
+        onPanResponderTerminationRequest: yes,
+
+        onPanResponderGrant: this.handleResponderGrant.bind(this),
+
+        onPanResponderMove: this.handleResponderMove.bind(this),
+
+        onPanResponderRelease: this.handleResponderEnd.bind(this),
+
+        onPanResponderTerminate: this.handleResponderEnd.bind(this)
+      });
+    }
+  }, {
+    key: "callOptionalEventCallback",
+    value: function callOptionalEventCallback(eventName, evt) {
+      var callback = (0, _lodash.get)(this.props.events, eventName);
+      if (callback) {
+        evt.persist();
+        callback(evt, this.props, "__unknownEventKey__", eventName);
+      }
+    }
+  }, {
+    key: "handleResponderGrant",
+    value: function handleResponderGrant(evt) {
+      if (this.props.onTouchStart) {
+        this.props.onTouchStart(evt);
+      }
+      this.callOptionalEventCallback("onTouchStart", evt);
+    }
+  }, {
+    key: "handleResponderMove",
+    value: function handleResponderMove(evt) {
+      var touches = evt.nativeEvent.touches;
+
+      if (touches && touches.length === 2) {
+        this.callOptionalEventCallback("onTouchPinch", evt);
+      } else {
+        this.callOptionalEventCallback("onTouchMove", evt);
+      }
+    }
+  }, {
+    key: "handleResponderEnd",
+    value: function handleResponderEnd(evt) {
+      if (this.props.onTouchEnd) {
+        this.props.onTouchEnd(evt);
+      }
+      this.callOptionalEventCallback("onTouchEnd", evt);
+    }
+  }, {
+    key: "renderContainer",
+    value: function renderContainer(props, svgProps, style) {
+      var title = props.title,
+          desc = props.desc,
+          className = props.className,
+          width = props.width,
+          height = props.height,
+          portalZIndex = props.portalZIndex,
+          responsive = props.responsive;
+
+      var children = this.getChildren(props);
+      var dimensions = responsive ? { width: "100%", height: "100%" } : { width: width, height: height };
+      var baseStyle = _index.NativeHelpers.getStyle((0, _lodash.omit)(style, ["width", "height"]));
+      var divStyle = (0, _lodash.assign)({}, baseStyle, { position: "relative" });
+      var portalDivStyle = { zIndex: portalZIndex, position: "absolute", top: 0, left: 0 };
+      var portalSvgStyle = (0, _lodash.assign)({ overflow: "visible" }, dimensions);
+      var portalProps = { width: width, height: height, viewBox: svgProps.viewBox, style: portalSvgStyle };
+      return _react2.default.createElement(
+        _reactNative.View,
+        _extends({}, this.panResponder.panHandlers, { style: divStyle, touchAction: "box-none",
+          className: className, ref: props.containerRef,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 83
+          }
+        }),
+        _react2.default.createElement(
+          _reactNativeSvg2.default,
+          _extends({}, svgProps, { style: dimensions, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 86
+            }
+          }),
+          title ? _react2.default.createElement(
+            "title",
+            { id: "title", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 87
+              }
+            },
+            title
+          ) : null,
+          desc ? _react2.default.createElement(
+            "desc",
+            { id: "desc", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 88
+              }
+            },
+            desc
+          ) : null,
+          children
+        ),
+        _react2.default.createElement(
+          _reactNative.View,
+          { style: portalDivStyle, touchAction: "box-none", pointerEvents: "box-none", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 91
+            }
+          },
+          _react2.default.createElement(_index.Portal, _extends({}, portalProps, { ref: this.savePortalRef, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 92
+            }
+          }))
+        )
+      );
+    }
+  }]);
+
+  return _default;
+}(_es.VictoryContainer);
+
+exports.default = _default;

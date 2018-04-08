@@ -1,0 +1,39 @@
+
+
+var LegacyAsyncStorage = {
+  migrateItems: function migrateItems(items) {
+    return regeneratorRuntime.async(function migrateItems$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  },
+  getItem: function getItem(key, callback) {
+    return new Promise(function (resolve, reject) {
+      callback && callback(null, null);
+      resolve(null);
+    });
+  },
+  getAllKeys: function getAllKeys(callback) {
+    return new Promise(function (resolve, reject) {
+      callback && callback(null, []);
+      resolve([]);
+    });
+  },
+  flushGetRequests: function flushGetRequests() {},
+  multiGet: function multiGet(keys, callback) {
+    return new Promise(function (resolve, reject) {
+      var result = keys.map(function (key) {
+        return [key, null];
+      });
+      callback && callback(null, result);
+      resolve(result);
+    });
+  }
+};
+
+module.exports = LegacyAsyncStorage;

@@ -1,0 +1,113 @@
+
+
+'use strict';
+
+var _jsxFileName = '/Users/willem.speckmann/BSE/node_modules/react-native/Libraries/Components/ToolbarAndroid/ToolbarAndroid.android.js';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var Image = require('Image');
+var NativeMethodsMixin = require('NativeMethodsMixin');
+var React = require('React');
+var PropTypes = require('prop-types');
+var ReactNativeViewAttributes = require('ReactNativeViewAttributes');
+var UIManager = require('UIManager');
+var ViewPropTypes = require('ViewPropTypes');
+var ColorPropType = require('ColorPropType');
+
+var createReactClass = require('create-react-class');
+var requireNativeComponent = require('requireNativeComponent');
+var resolveAssetSource = require('resolveAssetSource');
+
+var optionalImageSource = PropTypes.oneOfType([Image.propTypes.source, PropTypes.oneOf([])]);
+
+var ToolbarAndroid = createReactClass({
+  displayName: 'ToolbarAndroid',
+  mixins: [NativeMethodsMixin],
+
+  propTypes: _extends({}, ViewPropTypes, {
+    actions: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      icon: optionalImageSource,
+      show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
+      showWithText: PropTypes.bool
+    })),
+
+    logo: optionalImageSource,
+
+    navIcon: optionalImageSource,
+
+    onActionSelected: PropTypes.func,
+
+    onIconClicked: PropTypes.func,
+
+    overflowIcon: optionalImageSource,
+
+    subtitle: PropTypes.string,
+
+    subtitleColor: ColorPropType,
+
+    title: PropTypes.string,
+
+    titleColor: ColorPropType,
+
+    contentInsetStart: PropTypes.number,
+
+    contentInsetEnd: PropTypes.number,
+
+    rtl: PropTypes.bool,
+
+    testID: PropTypes.string
+  }),
+
+  render: function render() {
+    var nativeProps = _extends({}, this.props);
+    if (this.props.logo) {
+      nativeProps.logo = resolveAssetSource(this.props.logo);
+    }
+    if (this.props.navIcon) {
+      nativeProps.navIcon = resolveAssetSource(this.props.navIcon);
+    }
+    if (this.props.overflowIcon) {
+      nativeProps.overflowIcon = resolveAssetSource(this.props.overflowIcon);
+    }
+    if (this.props.actions) {
+      var nativeActions = [];
+      for (var i = 0; i < this.props.actions.length; i++) {
+        var action = _extends({}, this.props.actions[i]);
+        if (action.icon) {
+          action.icon = resolveAssetSource(action.icon);
+        }
+        if (action.show) {
+          action.show = UIManager.ToolbarAndroid.Constants.ShowAsAction[action.show];
+        }
+        nativeActions.push(action);
+      }
+      nativeProps.nativeActions = nativeActions;
+    }
+
+    return React.createElement(NativeToolbar, _extends({ onSelect: this._onSelect }, nativeProps, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 196
+      }
+    }));
+  },
+
+  _onSelect: function _onSelect(event) {
+    var position = event.nativeEvent.position;
+    if (position === -1) {
+      this.props.onIconClicked && this.props.onIconClicked();
+    } else {
+      this.props.onActionSelected && this.props.onActionSelected(position);
+    }
+  }
+});
+
+var NativeToolbar = requireNativeComponent('ToolbarAndroid', ToolbarAndroid, {
+  nativeOnly: {
+    nativeActions: true
+  }
+});
+
+module.exports = ToolbarAndroid;

@@ -1,0 +1,40 @@
+"use strict";
+
+var arrays = require("../../utils/arrays"),
+    GrammarError = require("../../grammar-error"),
+    asts = require("../asts"),
+    visitor = require("../visitor");
+
+function reportInfiniteRecursion(ast) {
+  var visitedRules = [];
+
+  var check = visitor.build({
+    rule: function rule(node) {
+      visitedRules.push(node.name);
+      check(node.expression);
+      visitedRules.pop(node.name);
+    },
+
+    sequence: function sequence(node) {
+      arrays.every(node.elements, function (element) {
+        check(element);
+
+        return !asts.alwaysConsumesOnSuccess(ast, element);
+      });
+    },
+
+    rule_ref: function rule_ref(node) {
+      if (arrays.contains(visitedRules, node.name)) {
+        visitedRules.push(node.name);
+
+        throw new GrammarError("Possible infinite loop when parsing (left recursion: " + visitedRules.join(" -> ") + ").", node.location);
+      }
+
+      check(asts.findRule(ast, node.name));
+    }
+  });
+
+  check(ast);
+}
+
+module.exports = reportInfiniteRecursion;

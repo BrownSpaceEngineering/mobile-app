@@ -1,0 +1,60 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _class,
+    _temp,
+    _jsxFileName = "/Users/willem.speckmann/BSE/node_modules/victory-native/lib/components/victory-group.js";
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactNative = require("react-native");
+
+var _reactNativeSvg = require("react-native-svg");
+
+var _es = require("victory-chart/es");
+
+var _victoryContainer = require("./victory-container");
+
+var _victoryContainer2 = _interopRequireDefault(_victoryContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _default = (_temp = _class = function (_VictoryGroup) {
+  _inherits(_default, _VictoryGroup);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  return _default;
+}(_es.VictoryGroup), _class.defaultProps = _extends({}, _es.VictoryGroup.defaultProps, {
+  containerComponent: _react2.default.createElement(_victoryContainer2.default, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    }
+  }),
+  groupComponent: _react2.default.createElement(_reactNativeSvg.G, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    }
+  }),
+  width: _reactNative.Dimensions.get("window").width
+}), _temp);
+
+exports.default = _default;

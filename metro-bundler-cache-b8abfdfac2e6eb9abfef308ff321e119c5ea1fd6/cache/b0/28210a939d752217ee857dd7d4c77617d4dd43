@@ -1,0 +1,145 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class,
+    _temp,
+    _jsxFileName = "/Users/willem.speckmann/BSE/node_modules/victory-native/lib/components/victory-tooltip.js";
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactNativeSvg = require("react-native-svg");
+
+var _es = require("victory-core/es");
+
+var _victoryLabel = require("./victory-label");
+
+var _victoryLabel2 = _interopRequireDefault(_victoryLabel);
+
+var _index = require("../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _default = (_temp = _class = function (_VictoryTooltip) {
+  _inherits(_default, _VictoryTooltip);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "renderTooltip",
+    value: function renderTooltip(props) {
+      var evaluatedProps = this.getEvaluatedProps(props);
+      var flyoutComponent = evaluatedProps.flyoutComponent,
+          labelComponent = evaluatedProps.labelComponent,
+          groupComponent = evaluatedProps.groupComponent,
+          active = evaluatedProps.active,
+          renderInPortal = evaluatedProps.renderInPortal;
+
+      if (!active) {
+        return renderInPortal ? _react2.default.createElement(
+          _index.VictoryPortal,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 49
+            }
+          },
+          _react2.default.createElement(_reactNativeSvg.G, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 49
+            }
+          })
+        ) : _react2.default.createElement(_reactNativeSvg.G, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 49
+          }
+        });
+      }
+      var calculatedValues = this.getCalculatedValues(evaluatedProps);
+      var children = [_react2.default.cloneElement(flyoutComponent, this.getFlyoutProps(evaluatedProps, calculatedValues)), _react2.default.cloneElement(labelComponent, this.getLabelProps(evaluatedProps, calculatedValues))];
+      var tooltip = _react2.default.cloneElement(groupComponent, { role: "presentation" }, children);
+      return renderInPortal ? _react2.default.createElement(
+        _index.VictoryPortal,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 57
+          }
+        },
+        tooltip
+      ) : tooltip;
+    }
+  }]);
+
+  return _default;
+}(_es.VictoryTooltip), _class.defaultProps = _extends({}, _es.VictoryTooltip.defaultProps, {
+  labelComponent: _react2.default.createElement(_victoryLabel2.default, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    }
+  }),
+  flyoutComponent: _react2.default.createElement(_index.Flyout, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    }
+  }),
+  groupComponent: _react2.default.createElement(_reactNativeSvg.G, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
+    }
+  })
+}), _class.defaultEvents = [{
+  target: "data",
+  eventHandlers: {
+    onPressIn: function onPressIn(targetProps) {
+      return [{
+        target: "labels",
+        mutation: function mutation() {
+          return { active: true };
+        }
+      }, {
+        target: "data",
+        mutation: function mutation() {
+          return targetProps.activateData ? { active: true } : { active: undefined };
+        }
+      }];
+    },
+    onPressOut: function onPressOut() {
+      return [{
+        target: "labels",
+        mutation: function mutation() {
+          return { active: undefined };
+        }
+      }, {
+        target: "data",
+        mutation: function mutation() {
+          return { active: undefined };
+        }
+      }];
+    }
+  }
+}], _temp);
+
+exports.default = _default;

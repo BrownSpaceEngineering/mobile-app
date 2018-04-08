@@ -1,0 +1,28 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createContainer = undefined;
+
+var _es = require("victory-chart/es");
+
+var _index = require("../index");
+
+var _victoryZoomContainer = require("../components/victory-zoom-container");
+
+var _victoryVoronoiContainer = require("../components/victory-voronoi-container");
+
+var _victorySelectionContainer = require("../components/victory-selection-container");
+
+var _victoryBrushContainer = require("../components/victory-brush-container");
+
+var _victoryCursorContainer = require("../components/victory-cursor-container");
+
+var createContainer = exports.createContainer = (0, _es.makeCreateContainerFunction)({
+  zoom: [_es.zoomContainerMixin, _victoryZoomContainer.zoomContainerMixin],
+  voronoi: [_es.voronoiContainerMixin, _victoryVoronoiContainer.voronoiContainerMixin],
+  selection: [_es.selectionContainerMixin, _victorySelectionContainer.selectionContainerMixin],
+  brush: [_es.brushContainerMixin, _victoryBrushContainer.brushContainerMixin],
+  cursor: [_es.cursorContainerMixin, _victoryCursorContainer.cursorContainerMixin]
+}, _index.VictoryContainer);
+
+exports.default = createContainer;

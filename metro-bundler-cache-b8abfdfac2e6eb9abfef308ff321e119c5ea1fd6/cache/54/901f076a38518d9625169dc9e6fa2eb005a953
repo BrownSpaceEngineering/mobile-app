@@ -1,0 +1,113 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react2 = require("react");
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require("./../../../../react-transform-hmr/lib/index.js");
+
+var _index2 = _interopRequireDefault(_index);
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class,
+    _temp,
+    _jsxFileName = "/Users/willem.speckmann/BSE/node_modules/victory-native/lib/components/victory-primitives/path.js";
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _victoryCore = require("victory-core");
+
+var _reactNativeSvg = require("react-native-svg");
+
+var _index3 = require("../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  VPath: {
+    displayName: "VPath"
+  }
+};
+
+var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+  filename: "/Users/willem.speckmann/BSE/node_modules/victory-native/lib/components/victory-primitives/path.js",
+  components: _components,
+  locals: [module],
+  imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _reactTransformHmrLibIndexJs2(Component, id);
+  };
+}
+
+var VPath = _wrapComponent("VPath")((_temp = _class = function (_React$Component) {
+  _inherits(VPath, _React$Component);
+
+  function VPath() {
+    _classCallCheck(this, VPath);
+
+    return _possibleConstructorReturn(this, (VPath.__proto__ || Object.getPrototypeOf(VPath)).apply(this, arguments));
+  }
+
+  _createClass(VPath, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return !_victoryCore.Collection.areVictoryPropsEqual(this.props, nextProps);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          d = _props.d,
+          role = _props.role,
+          shapeRendering = _props.shapeRendering,
+          className = _props.className,
+          clipPath = _props.clipPath,
+          transform = _props.transform,
+          events = _props.events;
+
+      var style = _index3.NativeHelpers.getStyle(this.props.style);
+      return _react3.default.createElement(_reactNativeSvg.Path, _extends({
+        d: d,
+        transform: transform,
+        className: className,
+        clipPath: clipPath,
+        role: role || "presentation",
+        shapeRendering: shapeRendering || "auto"
+      }, style, events, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28
+        }
+      }));
+    }
+  }]);
+
+  return VPath;
+}(_react3.default.Component), _class.propTypes = {
+  className: _propTypes2.default.string,
+  clipPath: _propTypes2.default.string,
+  d: _propTypes2.default.string,
+  events: _propTypes2.default.object,
+  role: _propTypes2.default.string,
+  shapeRendering: _propTypes2.default.string,
+  style: _propTypes2.default.object,
+  transform: _propTypes2.default.string
+}, _temp));
+
+exports.default = VPath;

@@ -1,0 +1,56 @@
+"use strict";
+
+var objects = {
+  keys: function keys(object) {
+    var result = [],
+        key;
+
+    for (key in object) {
+      if (object.hasOwnProperty(key)) {
+        result.push(key);
+      }
+    }
+
+    return result;
+  },
+
+  values: function values(object) {
+    var result = [],
+        key;
+
+    for (key in object) {
+      if (object.hasOwnProperty(key)) {
+        result.push(object[key]);
+      }
+    }
+
+    return result;
+  },
+
+  clone: function clone(object) {
+    var result = {},
+        key;
+
+    for (key in object) {
+      if (object.hasOwnProperty(key)) {
+        result[key] = object[key];
+      }
+    }
+
+    return result;
+  },
+
+  defaults: function defaults(object, _defaults) {
+    var key;
+
+    for (key in _defaults) {
+      if (_defaults.hasOwnProperty(key)) {
+        if (!(key in object)) {
+          object[key] = _defaults[key];
+        }
+      }
+    }
+  }
+};
+
+module.exports = objects;

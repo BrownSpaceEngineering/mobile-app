@@ -1,0 +1,45 @@
+"use strict";
+
+var arrays = require("./utils/arrays"),
+    objects = require("./utils/objects");
+
+var peg = {
+  VERSION: "0.10.0",
+
+  GrammarError: require("./grammar-error"),
+  parser: require("./parser"),
+  compiler: require("./compiler"),
+
+  generate: function generate(grammar, options) {
+    options = options !== void 0 ? options : {};
+
+    function convertPasses(passes) {
+      var converted = {},
+          stage;
+
+      for (stage in passes) {
+        if (passes.hasOwnProperty(stage)) {
+          converted[stage] = objects.values(passes[stage]);
+        }
+      }
+
+      return converted;
+    }
+
+    options = objects.clone(options);
+
+    var plugins = "plugins" in options ? options.plugins : [],
+        config = {
+      parser: peg.parser,
+      passes: convertPasses(peg.compiler.passes)
+    };
+
+    arrays.each(plugins, function (p) {
+      p.use(config, options);
+    });
+
+    return peg.compiler.compile(config.parser.parse(grammar), config.passes, options);
+  }
+};
+
+module.exports = peg;

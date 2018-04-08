@@ -1,0 +1,17 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = require("lodash");
+
+exports.default = {
+  getStyle: function getStyle(style) {
+    if (!style) {
+      return undefined;
+    }
+
+    var unsupportedProps = ["pointerEvents", "x", "y", "_x", "_y", "userSelect"];
+    var strokeProperties = ["stroke", "strokeWidth", "strokeOpacity", "strokeDasharray", "strokeDashoffset", "strokeLinecap", "strokeLinejoin"];
+    return style.stroke === "none" || style.stroke === "transparent" ? (0, _lodash.omit)(style, [].concat(unsupportedProps, strokeProperties)) : (0, _lodash.omit)(style, unsupportedProps);
+  }
+};

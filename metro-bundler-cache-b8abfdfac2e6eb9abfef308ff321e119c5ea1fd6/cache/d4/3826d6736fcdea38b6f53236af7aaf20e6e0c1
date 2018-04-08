@@ -1,0 +1,42 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if ((typeof Symbol === 'function' ? Symbol.iterator : '@@iterator') in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+exports.default = function (colorOrBrush) {
+    if (colorOrBrush === 'none' || colorOrBrush == null) {
+        return null;
+    }
+
+    try {
+        var matched = colorOrBrush.match(_patternReg2.default);
+
+        if (matched) {
+            return [1, matched[1]];
+        } else {
+            var _Color$rgb$array = (0, _color2.default)(colorOrBrush).rgb().array(),
+                _Color$rgb$array2 = _slicedToArray(_Color$rgb$array, 4),
+                r = _Color$rgb$array2[0],
+                g = _Color$rgb$array2[1],
+                b = _Color$rgb$array2[2],
+                _Color$rgb$array2$ = _Color$rgb$array2[3],
+                a = _Color$rgb$array2$ === undefined ? 1 : _Color$rgb$array2$;
+
+            return [0, r / 255, g / 255, b / 255, a];
+        }
+    } catch (err) {
+        console.warn('"' + colorOrBrush + '" is not a valid color or brush');
+        return null;
+    }
+};
+
+var _color = require('color');
+
+var _color2 = _interopRequireDefault(_color);
+
+var _patternReg = require('./patternReg');
+
+var _patternReg2 = _interopRequireDefault(_patternReg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

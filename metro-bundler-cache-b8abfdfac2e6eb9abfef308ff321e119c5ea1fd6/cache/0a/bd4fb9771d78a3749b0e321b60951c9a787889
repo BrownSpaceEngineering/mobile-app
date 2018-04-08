@@ -1,0 +1,330 @@
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/Users/willem.speckmann/BSE/App.js';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNative = require('react-native');
+
+var _reactNativeMaps = require('react-native-maps');
+
+var _reactNativeMaps2 = _interopRequireDefault(_reactNativeMaps);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _victoryNative = require('victory-native');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  MyApp: {
+    displayName: 'MyApp'
+  }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+  filename: '/Users/willem.speckmann/BSE/App.js',
+  components: _components,
+  locals: [module],
+  imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+  };
+}
+
+var styles = _reactNative.StyleSheet.create({
+  container: _extends({}, _reactNative.StyleSheet.absoluteFillObject, {
+    alignSelf: 'stretch',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  }),
+  map: _extends({}, _reactNative.StyleSheet.absoluteFillObject),
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'black'
+  }
+});
+
+var data = [{ quarter: 1, earnings: 13000 }, { quarter: 2, earnings: 16500 }, { quarter: 3, earnings: 14250 }, { quarter: 4, earnings: 19000 }];
+
+module.exports = _wrapComponent('MyApp')(function (_React$Component) {
+  _inherits(MyApp, _React$Component);
+
+  function MyApp() {
+    var _ref;
+
+    var _temp, _this2, _ret;
+
+    _classCallCheck(this, MyApp);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = MyApp.__proto__ || Object.getPrototypeOf(MyApp)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {
+      latitude: 20,
+      longitude: 20,
+      altitude: 0,
+      userLatitude: 10,
+      userLongitude: 10,
+      modalVisible: false
+    }, _temp), _possibleConstructorReturn(_this2, _ret);
+  }
+
+  _createClass(MyApp, [{
+    key: 'openModal',
+    value: function openModal() {
+      this.setState({ modalVisible: true });
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal() {
+      this.setState({ modalVisible: false });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this = this;
+      this.serverRequest = _axios2.default.get('http://0.0.0.0/api/get_lonlatalt').then(function (result) {
+        _this.setState({
+          latitude: result.latitude,
+          longitude: result.longitude,
+          altitude: result.altitude });
+      }).catch(function (error) {
+        alert(error);
+        return undefined;
+      });
+      function success(pos) {
+        _this.setState({
+          userLatitude: pos.coords.latitude,
+          userLongitude: pos.coords.longitude });
+      };
+      navigator.geolocation.getCurrentPosition(success);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      return _react3.default.createElement(
+        _reactNative.View,
+        { style: styles.container, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 82
+          }
+        },
+        _react3.default.createElement(
+          _reactNativeMaps2.default,
+          {
+            style: styles.map,
+            initialRegion: {
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: 50,
+              longitudeDelta: 50
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 83
+            }
+          },
+          _react3.default.createElement(_reactNativeMaps2.default.Marker, {
+            coordinate: {
+              latitude: this.state.userLatitude,
+              longitude: this.state.userLongitude
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 92
+            }
+          }),
+          _react3.default.createElement(
+            _reactNativeMaps2.default.Marker,
+            {
+              coordinate: {
+                latitude: this.state.latitude,
+                longitude: this.state.longitude
+              },
+              onPress: function onPress() {
+                return _this3.openModal();
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 98
+              }
+            },
+            _react3.default.createElement(_reactNative.Image, {
+              source: require('./node_modules/assets/logo.png'),
+              style: { width: 40, height: 40 }, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 105
+              }
+            })
+          )
+        ),
+        _react3.default.createElement(
+          _reactNative.Modal,
+          {
+            visible: this.state.modalVisible,
+            animationType: 'slide',
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal();
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 111
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.ScrollView,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 116
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              { style: styles.modalContainer, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 117
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                { style: styles.innerContainer, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 118
+                  }
+                },
+                _react3.default.createElement(
+                  _victoryNative.VictoryChart,
+                  { width: 350, theme: _victoryNative.VictoryTheme.material, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 119
+                    }
+                  },
+                  _react3.default.createElement(_victoryNative.VictoryBar, { data: data, x: 'quarter', y: 'earnings', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 120
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _victoryNative.VictoryChart,
+                  { width: 350, theme: _victoryNative.VictoryTheme.material, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 122
+                    }
+                  },
+                  _react3.default.createElement(_victoryNative.VictoryLine, { data: data, x: 'quarter', y: 'earnings', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 123
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _victoryNative.VictoryChart,
+                  { width: 350, theme: _victoryNative.VictoryTheme.material, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 125
+                    }
+                  },
+                  _react3.default.createElement(_victoryNative.VictoryScatter, {
+                    style: { data: { fill: "#c43a31" } },
+                    size: 7,
+                    data: [{ x: 1, y: 2.0 }, { x: 2.5, y: 2.8 }, { x: 3.1, y: 5.5 }, { x: 3.9, y: 6.3 }, { x: 5.0, y: 7 }],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 126
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _victoryNative.VictoryChart,
+                  { width: 350, theme: _victoryNative.VictoryTheme.material, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 138
+                    }
+                  },
+                  _react3.default.createElement(
+                    _victoryNative.VictoryStack,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 139
+                      }
+                    },
+                    _react3.default.createElement(_victoryNative.VictoryArea, {
+                      data: [{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }],
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 140
+                      }
+                    }),
+                    _react3.default.createElement(_victoryNative.VictoryArea, {
+                      data: [{ x: "a", y: 1 }, { x: "b", y: 4 }, { x: "c", y: 5 }],
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 143
+                      }
+                    }),
+                    _react3.default.createElement(_victoryNative.VictoryArea, {
+                      data: [{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }],
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 146
+                      }
+                    })
+                  )
+                ),
+                _react3.default.createElement(_reactNative.Button, {
+                  onPress: function onPress() {
+                    return _this3.closeModal();
+                  },
+                  title: 'Close',
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 151
+                  }
+                })
+              )
+            )
+          )
+        ),
+        _react3.default.createElement(_reactNative.Button, {
+          onPress: function onPress() {
+            return _this3.openModal();
+          },
+          title: 'View data',
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 160
+          }
+        })
+      );
+    }
+  }]);
+
+  return MyApp;
+}(_react3.default.Component));

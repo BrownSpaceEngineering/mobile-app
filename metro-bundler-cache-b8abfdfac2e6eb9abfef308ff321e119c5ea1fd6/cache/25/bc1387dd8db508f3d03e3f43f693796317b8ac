@@ -1,0 +1,115 @@
+"use strict";
+
+var arrays = {
+  range: function range(start, stop) {
+    var length = stop - start,
+        result = new Array(length),
+        i,
+        j;
+
+    for (i = 0, j = start; i < length; i++, j++) {
+      result[i] = j;
+    }
+
+    return result;
+  },
+
+  find: function find(array, valueOrPredicate) {
+    var length = array.length,
+        i;
+
+    if (typeof valueOrPredicate === "function") {
+      for (i = 0; i < length; i++) {
+        if (valueOrPredicate(array[i])) {
+          return array[i];
+        }
+      }
+    } else {
+      for (i = 0; i < length; i++) {
+        if (array[i] === valueOrPredicate) {
+          return array[i];
+        }
+      }
+    }
+  },
+
+  indexOf: function indexOf(array, valueOrPredicate) {
+    var length = array.length,
+        i;
+
+    if (typeof valueOrPredicate === "function") {
+      for (i = 0; i < length; i++) {
+        if (valueOrPredicate(array[i])) {
+          return i;
+        }
+      }
+    } else {
+      for (i = 0; i < length; i++) {
+        if (array[i] === valueOrPredicate) {
+          return i;
+        }
+      }
+    }
+
+    return -1;
+  },
+
+  contains: function contains(array, valueOrPredicate) {
+    return arrays.indexOf(array, valueOrPredicate) !== -1;
+  },
+
+  each: function each(array, iterator) {
+    var length = array.length,
+        i;
+
+    for (i = 0; i < length; i++) {
+      iterator(array[i], i);
+    }
+  },
+
+  map: function map(array, iterator) {
+    var length = array.length,
+        result = new Array(length),
+        i;
+
+    for (i = 0; i < length; i++) {
+      result[i] = iterator(array[i], i);
+    }
+
+    return result;
+  },
+
+  pluck: function pluck(array, key) {
+    return arrays.map(array, function (e) {
+      return e[key];
+    });
+  },
+
+  every: function every(array, predicate) {
+    var length = array.length,
+        i;
+
+    for (i = 0; i < length; i++) {
+      if (!predicate(array[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  some: function some(array, predicate) {
+    var length = array.length,
+        i;
+
+    for (i = 0; i < length; i++) {
+      if (predicate(array[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+};
+
+module.exports = arrays;
