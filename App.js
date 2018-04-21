@@ -84,23 +84,23 @@ module.exports = class MyApp extends React.Component {
             longitudeDelta: 50
           }}
         >
-        <MapView.Marker
-          coordinate={{
-            latitude: this.state.userLatitude,
-            longitude: this.state.userLongitude
-          }}
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.userLatitude,
+              longitude: this.state.userLongitude
+            }}
           />
-        <MapView.Marker
-          coordinate={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude
-          }}
-          onPress={() => this.openModal()}
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude
+            }}
+            onPress={() => this.openModal()}
           >
-        <Image
-          source={require('./assets/logo.png')}
-          style={{width:40, height:40}} />
-        </MapView.Marker>
+            <Image
+              source={require('./assets/logo.png')}
+              style={{width:40, height:40}} />
+          </MapView.Marker>
         </MapView>
 
         <Modal
@@ -108,48 +108,48 @@ module.exports = class MyApp extends React.Component {
           animationType={'slide'}
           onRequestClose={() => this.closeModal()}
         >
-        <ScrollView>
-          <View style={styles.modalContainer}>
-            <View style={styles.innerContainer}>
-              <VictoryChart width={350} theme={VictoryTheme.material}>
-                <VictoryBar data={data} x="quarter" y="earnings" />
-              </VictoryChart>
-              <VictoryChart width={350} theme={VictoryTheme.material}>
-                <VictoryLine data={data} x="quarter" y="earnings" />
-              </VictoryChart>
-              <VictoryChart width={350} theme={VictoryTheme.material}>
-              <VictoryScatter
-                style={{ data: { fill: "#c43a31" } }}
-                size={7}
-                data={[
-                  { x: 1, y: 2.0 },
-                  { x: 2.5, y: 2.8 },
-                  { x: 3.1, y: 5.5 },
-                  { x: 3.9, y: 6.3 },
-                  { x: 5.0, y: 7 }
-                ]}
-              />
-              </VictoryChart>
-              <VictoryChart width={350} theme={VictoryTheme.material}>
-                <VictoryStack>
-                  <VictoryArea
-                    data={[{x: "a", y: 2}, {x: "b", y: 3}, {x: "c", y: 5}]}
+          <ScrollView>
+            <View style={styles.modalContainer}>
+              <View style={styles.innerContainer} pointerEvents="none">
+                <VictoryChart width={350} theme={VictoryTheme.material}>
+                  <VictoryBar data={data} x="quarter" y="earnings" />
+                </VictoryChart>
+                <VictoryChart width={350} theme={VictoryTheme.material}>
+                  <VictoryLine data={data} x="quarter" y="earnings" />
+                </VictoryChart>
+                <VictoryChart width={350} theme={VictoryTheme.material}>
+                  <VictoryScatter
+                    style={{ data: { fill: "#c43a31" } }}
+                    size={7}
+                    data={[
+                      { x: 1, y: 2.0 },
+                      { x: 2.5, y: 2.8 },
+                      { x: 3.1, y: 5.5 },
+                      { x: 3.9, y: 6.3 },
+                      { x: 5.0, y: 7 }
+                    ]}
                   />
-                  <VictoryArea
-                    data={[{x: "a", y: 1}, {x: "b", y: 4}, {x: "c", y: 5}]}
-                  />
-                  <VictoryArea
-                    data={[{x: "a", y: 3}, {x: "b", y: 2}, {x: "c", y: 6}]}
-                  />
-                </VictoryStack>
-              </VictoryChart>
-              <Button
-              onPress={() => this.closeModal()}
-              title="Close"
-              >
-              </Button>
+                </VictoryChart>
+                <VictoryChart width={350} theme={VictoryTheme.material}>
+                  <VictoryStack>
+                    <VictoryArea
+                      data={[{x: "a", y: 2}, {x: "b", y: 3}, {x: "c", y: 5}]}
+                    />
+                    <VictoryArea
+                      data={[{x: "a", y: 1}, {x: "b", y: 4}, {x: "c", y: 5}]}
+                    />
+                    <VictoryArea
+                      data={[{x: "a", y: 3}, {x: "b", y: 2}, {x: "c", y: 6}]}
+                    />
+                  </VictoryStack>
+                </VictoryChart>
+                <Button
+                onPress={() => this.closeModal()}
+                title="Close"
+                >
+                </Button>
+              </View>
             </View>
-          </View>
           </ScrollView>
         </Modal>
         <Button
