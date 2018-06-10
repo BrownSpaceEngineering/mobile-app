@@ -1,9 +1,19 @@
 {
   "expo": {
+   "name": "Your App Name",
+   //"icon": "./assets/logo.png",
+   "version": "1.0.0",
+   "slug": "equisat",   
+   "ios": {
+     "bundleIdentifier": "org.brownspace.equisat"
+   },
+   "android": {
+     "package": "org.brownspace.equisat"
+   },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
       "backgroundColor": "#000000"
     },
-    "sdkVersion": "23.0.0",
+    "sdkVersion": "27.0.0",
 }}
