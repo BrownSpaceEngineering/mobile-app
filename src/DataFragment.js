@@ -91,7 +91,7 @@ const HistoricalView = () => (
 export default class DataFragment extends React.Component {
 
   state = {
-    index: 1,
+    index: 0,
     routes: [
       { key: 'first', title: 'Current' },
       { key: 'second', title: 'Historical' },

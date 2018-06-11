@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, View, Image, ScrollView, Share, WebView } from
 import axios from 'axios'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
+import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
 
 import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
@@ -34,12 +35,66 @@ global.styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-  },  
+  },
+    tabbar: {
+    backgroundColor: '#263238',
+    overflow: 'hidden',
+  },
+  icon: {
+    backgroundColor: 'transparent',
+    color: 'white',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.8,
+  },
+  indicator: {    
+    backgroundColor: '#6aa2c8',  
+  },
+  badge: {
+    marginTop: 4,
+    marginRight: 32,
+    backgroundColor: '#f44336',
+    height: 24,
+    width: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+  },
+  count: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: -2,
+  },
+  label: {
+    fontSize: 10,
+    marginTop: 3,
+    marginBottom: 1.5,
+    backgroundColor: 'transparent',
+  },
 });
 
+type State = NavigationState<
+  Route<{
+    key: string,
+    icon: string,
+    title: string,
+    color: string,
+  }>
+>;
+
 export default class MainActivity extends React.Component {
-  state = {      
-      activeTab: 'track',
+  state = {
+    index: 1,
+    routes: [
+      { key: 'cad', icon: 'printer-3d', color: '#FFFFFF', title: 'CAD'},
+      { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},
+      { key: 'data', icon: 'chart-line', color: '#FFFFFF', title: 'Data'},
+    ],
   }
 
   static navigationOptions =
@@ -109,6 +164,43 @@ export default class MainActivity extends React.Component {
     )
   }
 
+  _handleIndexChange = index =>
+    this.setState({
+    index,
+  });
+
+   _renderScene = SceneMap({
+    cad: CADFragment,
+    track: TrackFragment,
+    data: DataFragment,
+  });
+
+  _renderIcon = ({ route }) => (    
+    <Icon name={route.icon} size={24} style={styles.icon} />
+  );
+
+  _renderBadge = ({ route }) => {
+    if (route.key === '2') {
+      return (
+        <View style={styles.badge}>
+          <Text style={styles.count}>42</Text>
+        </View>
+      );
+    }
+    return null;
+  };
+
+  _renderTabBar = props => (    
+    <TabBar
+      {...props}
+      renderIcon={this._renderIcon}      
+      renderBadge={this._renderBadge}      
+      indicatorStyle={styles.indicator}
+      labelStyle={styles.label}
+      style={styles.tabbar}
+    />
+  );
+
   render() {
     return (      
       <ThemeProvider uiTheme={uiTheme}>
@@ -141,31 +233,15 @@ export default class MainActivity extends React.Component {
             }}
             style={{container: {elevation: 0,}}}
           />
-          <View style={{ flex: 1 }}>
-            {/* Your screen contents depending on current tab. */
-              this.displayActiveTabView(this.state.activeTab)
-            }
-          </View>
-          <BottomNavigation active={this.state.activeTab} hidden={false} style={{container:{backgroundColor: "#19222a"}}}>
-          <BottomNavigation.Action
-              key="cad"
-              icon="3d-rotation"
-              label="CAD"
-              onPress={() => this.setState({ activeTab: 'cad' })}
+          <TabView
+            style={this.props.style}
+            navigationState={this.state}
+            renderScene={this._renderScene}
+            renderTabBar={this._renderTabBar}
+            tabBarPosition="bottom"
+            onIndexChange={this._handleIndexChange}
+            swipeEnabled={false}
           />
-          <BottomNavigation.Action
-              key="track"
-              icon="my-location"
-              label="Track"
-              onPress={() => this.setState({ activeTab: 'track' })}
-          />
-          <BottomNavigation.Action
-              key="data"
-              icon="show-chart"
-              label="Data"
-              onPress={() => this.setState({ activeTab: 'data' })}
-          />
-      </BottomNavigation>
         </View>
       </ThemeProvider>
     );
