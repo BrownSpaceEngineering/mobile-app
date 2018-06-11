@@ -1,6 +1,6 @@
 'use strict'
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet, Status, StatusBar, Platform} from 'react-native';
 
 const IOS_STATUS_BAR_HEIGHT = 20;
 const ANDROID_STATUS_BAR_HEIGHT = 25;
@@ -16,8 +16,8 @@ class StatusBarBackground extends Component{
 
 const styles = StyleSheet.create({
   statusBarBackground: {
-    height: (Platform.OS === 'ios') ? IOS_STATUS_BAR_HEIGHT : ANDROID_STATUS_BAR_HEIGHT,
-    backgroundColor: "#2d5b9f",
+    height: StatusBar.currentHeight,
+    backgroundColor: "#19222a",
   }
 
 })

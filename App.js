@@ -13,15 +13,16 @@ import SettingsActivity from './SettingsActivity';
 // you can set your style right here, it'll be propagated to application
 global.uiTheme = {
     palette: {
-        primaryColor: "#5284CE",
-        accentColor: "#FFFFFF",
-        //primaryTextColor: "#5284CE",
-        //secondaryTextColor: "#5284CE",
-        //alternateTextColor: "#5284CE"
+        primaryColor: "#FFFFFF",
+        accentColor: "#5284CE",
+        primaryTextColor: "#FFFFFF",
+        secondaryTextColor: "#788ca1",
+        alternateTextColor: "#FFFFFF"
     },
-    toolbar: {
-        container: {
+    toolbar: 
+{        container: {
             height: 60,
+            backgroundColor: "#19222a",
         },
     },
 };
@@ -61,6 +62,8 @@ class MainActivity extends React.Component {
       modalVisible: false,
       activeTab: 'track',
   }
+
+  mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"off"}]}]
 
   static navigationOptions =
   {
@@ -123,7 +126,7 @@ class MainActivity extends React.Component {
     );
   }
 
-  trackTabView() {
+  trackTabView() {    
     return (
       <View style={styles.container}>
         <MapView
@@ -134,6 +137,7 @@ class MainActivity extends React.Component {
             latitudeDelta: 50,
             longitudeDelta: 50
           }}
+          customMapStyle={this.mapStyle}
         >
           <MapView.Marker
             coordinate={{
@@ -257,31 +261,31 @@ class MainActivity extends React.Component {
                       break;
                   }                
               }              
-            }}
+            }}          
           />            
           <View style={{ flex: 1 }}>
             {/* Your screen contents depending on current tab. */            
               this.displayActiveTabView(this.state.activeTab)            
             }          
           </View>
-          <BottomNavigation active={this.state.activeTab} hidden={false} >
+          <BottomNavigation active={this.state.activeTab} hidden={false} style={{container:{backgroundColor: "#19222a"}}}>
           <BottomNavigation.Action
               key="cad"
               icon="3d-rotation"
-              label="CAD"
-              onPress={() => this.setState({ activeTab: 'cad' })}
+              label="CAD"              
+              onPress={() => this.setState({ activeTab: 'cad' })}              
           />
           <BottomNavigation.Action
               key="track"
               icon="my-location"
               label="Track"
-              onPress={() => this.setState({ activeTab: 'track' })}
+              onPress={() => this.setState({ activeTab: 'track' })}              
           />
           <BottomNavigation.Action
               key="data"
               icon="show-chart"
               label="Data"
-              onPress={() => this.setState({ activeTab: 'data' })}
+              onPress={() => this.setState({ activeTab: 'data' })}              
           />        
       </BottomNavigation>
         </View>
