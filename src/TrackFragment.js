@@ -41,7 +41,7 @@ export default class TrackFragment extends React.Component {
               onPress={() => this.openModal()}
             >
               <Image
-                source={require('./assets/logo.png')}
+                source={require('../assets/logo.png')}
                 style={{width:40, height:40}} />
             </MapView.Marker>
           </MapView>            
