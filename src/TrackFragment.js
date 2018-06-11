@@ -7,45 +7,45 @@ const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibili
 export default class TrackFragment extends React.Component {
 
   state = {
-      latitude: 20,
-      longitude: 20,
-      altitude: 0,
-      userLatitude: 10,
-      userLongitude: 10,      
+    latitude: 20,
+    longitude: 20,
+    altitude: 0,
+    userLatitude: 10,
+    userLongitude: 10,
   }
 
-  render() {    
-      return(
-        <View style={styles.container}>
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-              latitudeDelta: 50,
-              longitudeDelta: 50
+  render() {
+    return(
+      <View style={styles.container}>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: 50,
+            longitudeDelta: 50
+          }}
+          customMapStyle={mapStyle}
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.userLatitude,
+              longitude: this.state.userLongitude
             }}
-            customMapStyle={mapStyle}
+          />
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude
+            }}
+            onPress={() => this.openModal()}
           >
-            <MapView.Marker
-              coordinate={{
-                latitude: this.state.userLatitude,
-                longitude: this.state.userLongitude
-              }}
-            />
-            <MapView.Marker
-              coordinate={{
-                latitude: this.state.latitude,
-                longitude: this.state.longitude
-              }}
-              onPress={() => this.openModal()}
-            >
-              <Image
-                source={require('../assets/logo.png')}
-                style={{width:40, height:40}} />
-            </MapView.Marker>
-          </MapView>            
-        </View> 
-      );
+            <Image
+              source={require('../assets/logo.png')}
+              style={{width:40, height:40}} />
+          </MapView.Marker>
+        </MapView>
+      </View>
+    );
   }
 }

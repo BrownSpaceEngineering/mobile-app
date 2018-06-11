@@ -3,11 +3,9 @@ import { Dimensions, StyleSheet, View, ScrollView } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryStack, VictoryArea } from "victory-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 
-const DISPLAY_WIDTH = Dimensions.get('window').width
-
 const initialLayout = {
   height: 0,
-  width: DISPLAY_WIDTH,
+  width: Dimensions.get('window').width,
 };
 
 const styles = StyleSheet.create({
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tab: {
-    width: DISPLAY_WIDTH / 2,
+    width: Dimensions.get('window').width / 2,
   },   
   tabbar: {
     backgroundColor: '#19222a',

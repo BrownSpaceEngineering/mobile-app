@@ -9,7 +9,6 @@ import TrackFragment from './TrackFragment';
 import DataFragment from './DataFragment';
 import CADFragment from './CADFragment';
 
-// you can set your style right here, it'll be propagated to application
 global.uiTheme = {
     palette: {
         primaryColor: "#FFFFFF",
@@ -26,7 +25,6 @@ global.uiTheme = {
     },
 };
 
-
 global.styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -40,9 +38,8 @@ global.styles = StyleSheet.create({
 });
 
 export default class MainActivity extends React.Component {
-  state = {
-      modalVisible: false,
-      activeTab: 'data',
+  state = {      
+      activeTab: 'track',
   }
 
   static navigationOptions =
@@ -50,26 +47,13 @@ export default class MainActivity extends React.Component {
      header: null,
   };
 
-  OpenSettingsFunction = () =>
-  {
-     this.props.navigation.navigate('SettingsActivity');
-  }
+  OpenSettingsFunction = () => { this.props.navigation.navigate('SettingsActivity'); }
 
-  ShareMessage=()=>
-    {
-      Share.share(
-      {      
-        message: "I'm tracking EQUiSat, Brown University's first-ever satellite, using the EQUiSat App! equisat.brownspace.org",        
-      });
-    }
-
-  openModal() {
-    this.setState({modalVisible: true});
-  }
-
-  closeModal() {
-    this.setState({modalVisible: false});
-  }
+  ShareMessage=()=> {
+    Share.share({      
+      message: "I'm tracking EQUiSat, Brown University's first-ever satellite, using the EQUiSat App! equisat.brownspace.org",        
+    });
+  }  
 
   componentDidMount() {
     var _this = this;
@@ -151,39 +135,39 @@ export default class MainActivity extends React.Component {
                       //about
                       this.showAboutDialog()
                       break;
-                  }                
-              }              
+                  }
+                  break;
+              }
             }}
             style={{container: {elevation: 0,}}}
-          />            
+          />
           <View style={{ flex: 1 }}>
-            {/* Your screen contents depending on current tab. */            
-              this.displayActiveTabView(this.state.activeTab)            
-            }          
+            {/* Your screen contents depending on current tab. */
+              this.displayActiveTabView(this.state.activeTab)
+            }
           </View>
           <BottomNavigation active={this.state.activeTab} hidden={false} style={{container:{backgroundColor: "#19222a"}}}>
           <BottomNavigation.Action
               key="cad"
               icon="3d-rotation"
-              label="CAD"              
-              onPress={() => this.setState({ activeTab: 'cad' })}              
+              label="CAD"
+              onPress={() => this.setState({ activeTab: 'cad' })}
           />
           <BottomNavigation.Action
               key="track"
               icon="my-location"
               label="Track"
-              onPress={() => this.setState({ activeTab: 'track' })}              
+              onPress={() => this.setState({ activeTab: 'track' })}
           />
           <BottomNavigation.Action
               key="data"
               icon="show-chart"
               label="Data"
-              onPress={() => this.setState({ activeTab: 'data' })}              
-          />        
+              onPress={() => this.setState({ activeTab: 'data' })}
+          />
       </BottomNavigation>
         </View>
       </ThemeProvider>
     );
   }
 }
-
