@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, Button, Modal, View, Image, ScrollView, Share, WebView } from 'react-native';
+import { Alert, StyleSheet, Text, View, Image, ScrollView, Share, WebView } from 'react-native';
 import axios from 'axios'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
@@ -20,11 +20,11 @@ global.uiTheme = {
         secondaryTextColor: "#788ca1",
         alternateTextColor: "#FFFFFF"
     },
-    toolbar: 
-{        container: {
-            height: 60,
-            backgroundColor: "#19222a",
-        },
+    toolbar: {
+      container: {
+        height: 60,
+        backgroundColor: "#19222a",
+      },
     },
 };
 
@@ -38,18 +38,13 @@ global.styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'black',
-  },
+  },  
 });
 
 class MainActivity extends React.Component {
-  state = {      
+  state = {
       modalVisible: false,
-      activeTab: 'track',
+      activeTab: 'data',
   }
 
   static navigationOptions =
