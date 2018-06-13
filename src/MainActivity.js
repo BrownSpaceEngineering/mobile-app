@@ -4,6 +4,7 @@ import axios from 'axios'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
+import { Font } from 'expo';
 
 import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
@@ -95,6 +96,7 @@ export default class MainActivity extends React.Component {
       { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},
       { key: 'data', icon: 'chart-line', color: '#FFFFFF', title: 'Data'},
     ],
+    loading: true
   }
 
   static navigationOptions =
@@ -111,7 +113,11 @@ export default class MainActivity extends React.Component {
   }  
 
   componentDidMount() {
+    Font.loadAsync({
+      'Roboto': require('../assets/fonts/Roboto-Medium.ttf'),
+    });
     var _this = this;
+    setTimeout(function(){_this.setState({ loading: false })}, 100);
     /* TODO:
     Fix the API call*/
     /*this.serverRequest =
@@ -202,7 +208,10 @@ export default class MainActivity extends React.Component {
   );
 
   render() {
-    return (      
+    if (this.state.loading) {
+      return <Expo.AppLoading/>;
+    } else {
+      return (      
       <ThemeProvider uiTheme={uiTheme}>
         <View style={{ flex: 1 }}>
           <StatusBarBackground/>
@@ -245,5 +254,6 @@ export default class MainActivity extends React.Component {
         </View>
       </ThemeProvider>
     );
+    }    
   }
 }
