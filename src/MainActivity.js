@@ -27,7 +27,7 @@ global.uiTheme = {
     },
 };
 
-global.styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     alignSelf: 'stretch',
@@ -38,19 +38,13 @@ global.styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
     tabbar: {
-    backgroundColor: '#263238',
+    backgroundColor: '#19222a',
     overflow: 'hidden',
   },
   icon: {
     backgroundColor: 'transparent',
     color: 'white',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: 0.8,
-  },
+  },  
   indicator: {    
     backgroundColor: '#6aa2c8',  
   },
