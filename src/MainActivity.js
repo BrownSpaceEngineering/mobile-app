@@ -92,6 +92,13 @@ type State = NavigationState<
 >;
 
 export default class MainActivity extends React.Component {
+  searchButton = {
+    autoFocus: true,
+    placeholder: 'Type a location for next pass',
+    onChangeText: (text) => this.trackFragment.setState({ searchText: text }),
+    onSubmitEditing: () => this._getGeocodeLatLong(),              
+  };
+
   state = {
     index: 1,
     routes: [
@@ -101,12 +108,14 @@ export default class MainActivity extends React.Component {
     ],
     loading: true,
     showSearchSpinner: false,
+    searchButton: this.searchButton,
+    searchBarOpen: false,
   }
 
   static navigationOptions =
   {
      header: null,
-  };
+  };  
 
   OpenSettingsFunction = () => { this.props.navigation.navigate('SettingsActivity'); }
 
@@ -173,7 +182,8 @@ export default class MainActivity extends React.Component {
       var _this = this;
       setTimeout(function(){ _this.trackFragment.searchLocMarker.showCallout(); }, 300);
     }
-    this.setState({showSearchSpinner: false})    
+    this.setState({ showSearchSpinner: false });
+    this.setState({ searchBarOpen: false });  
   };  
 
   showAboutDialog() {
@@ -191,17 +201,28 @@ export default class MainActivity extends React.Component {
     )
   }
 
-  _handleIndexChange = index =>
-    this.setState({
-    index,
-  });
+  _handleIndexChange = index => {
+    this.setState({ index });    
+    switch(index) {            
+      case 1: //on track tab        
+        if (this.state.searchButton == null) {
+          this.setState({ searchButton: this.searchButton });
+        }
+        break;
+      default: //otherwise
+        if (this.state.searchButton != null) {
+          this.setState({ searchButton: null });
+        }        
+        break;
+    }
+  }    
 
   _renderScene = ({ route }) => {
   switch(route.key) {
-      case "cad":
+      case "cad":        
         return <CADFragment/>;
         break;
-      case "track":
+      case "track":                  
         return <TrackFragment ref={trackFragment => {this.trackFragment = trackFragment}}/>;
         break;
       case "data":        
@@ -236,6 +257,26 @@ export default class MainActivity extends React.Component {
     />
   );
 
+  onactionItemselected(e) {
+    switch(e.action) {
+      case "share":
+        {this.ShareMessage()}
+        break;
+      case "menu":
+        switch(e.index) {
+          case 0:
+            //settings
+            {this.OpenSettingsFunction()}
+            break;
+          case 1:
+            //about
+            this.showAboutDialog()
+            break;
+        }
+        break;
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return <Expo.AppLoading/>;
@@ -252,32 +293,10 @@ export default class MainActivity extends React.Component {
               actions: ['share',],
               menu: { labels: ['Settings', 'About'] }
             }}
-            searchable={{
-              autoFocus: true,
-              placeholder: 'Type a location for next pass',
-              onChangeText: (text) => this.trackFragment.setState({ searchText: text }),
-              onSubmitEditing: () => this._getGeocodeLatLong(),              
-            }}
-            onRightElementPress={(e) => {
-              switch(e.action) {
-                case "share":
-                  {this.ShareMessage()}
-                  break;
-                case "menu":
-                  switch(e.index) {
-                    case 0:
-                      //settings
-                      {this.OpenSettingsFunction()}
-                      break;
-                    case 1:
-                      //about
-                      this.showAboutDialog()
-                      break;
-                  }
-                  break;
-              }
-            }}
+            searchable={this.state.searchButton}
+            onRightElementPress={(e) => this.onactionItemselected(e)}
             style={{container: {elevation: 0,}}}
+            isSearchActive={this.state.searchBarOpen}
           />
           <TabView
             style={this.props.style}
