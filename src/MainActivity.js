@@ -1,27 +1,29 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, View, Image, ScrollView, Share, WebView } from 'react-native';
+import { ActivityIndicator, Alert, Dimensions, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
 import axios from 'axios'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
-import { Font } from 'expo';
+import { Font, Location, Permissions } from 'expo';
 
 import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
 import DataFragment from './DataFragment';
 import CADFragment from './CADFragment';
 
+const TOOLBAR_HEIGHT = 60;
+
 global.uiTheme = {
     palette: {
-        primaryColor: "#FFFFFF",
+        primaryColor: "#19222a",
         accentColor: "#5284CE",
-        primaryTextColor: "#FFFFFF",
+        primaryTextColor: "#19222a",
         secondaryTextColor: "#788ca1",
         alternateTextColor: "#FFFFFF"
     },
     toolbar: {
       container: {
-        height: 60,
+        height: TOOLBAR_HEIGHT,
         backgroundColor: "#19222a",        
       },
     },
@@ -44,8 +46,8 @@ const styles = StyleSheet.create({
   icon: {
     backgroundColor: 'transparent',
     color: 'white',
-  },  
-  indicator: {    
+  },
+  indicator: {
     backgroundColor: '#6aa2c8',  
   },
   badge: {
@@ -71,6 +73,13 @@ const styles = StyleSheet.create({
     marginBottom: 1.5,
     backgroundColor: 'transparent',
   },
+  searchSpinner: {
+    position: 'absolute',
+    top: (StatusBar.currentHeight + TOOLBAR_HEIGHT / 2 - 17.5),
+    alignSelf: 'flex-end',
+    right: Dimensions.get('window').width / 10,
+    zIndex: 100,
+  }
 });
 
 type State = NavigationState<
@@ -90,7 +99,8 @@ export default class MainActivity extends React.Component {
       { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},
       { key: 'data', icon: 'chart-line', color: '#FFFFFF', title: 'Data'},
     ],
-    loading: true
+    loading: true,
+    showSearchSpinner: false,
   }
 
   static navigationOptions =
@@ -132,22 +142,39 @@ export default class MainActivity extends React.Component {
           userLongitude: pos.coords.longitude});
       };
     navigator.geolocation.getCurrentPosition(success);*/
-  }
+  }  
 
-  displayActiveTabView(activeTab) {    
-    switch(activeTab) {
-      case "cad":
-        return <CADFragment/>;
-        break;
-      case "track":
-        return <TrackFragment/>;
-        break;
-      case "data":
-        //return this.dataTabView();
-        return <DataFragment/>;
-        break;
+  _getGeocodeLatLong = async () => {
+    this.setState({showSearchSpinner: true});    
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {      
+      this.trackFragment.setState({ locErrorSnackbarVisible: true });
+      var _this = this;
+      setTimeout(function(){_this.trackFragment.setState({ locErrorSnackbarVisible: false })}, 5000);
+    }    
+    var locations = await Location.geocodeAsync(this.trackFragment.state.searchText);
+    if (locations.length == 0) {      
+      this.trackFragment.setState({ searchErrorSnackbarVisible: true });
+      var _this = this;
+      setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
+    } else {
+      var searchLat = locations[0].latitude;
+      var searchLong = locations[0].longitude;
+      this.trackFragment.setState({ searchLat });
+      this.trackFragment.setState({ searchLong });
+      this.trackFragment.setState({ showSearchLocMarker: true})
+      let region = {
+        latitude: searchLat,
+        longitude: searchLong,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      }
+      this.trackFragment.map.animateToRegion(region);
+      var _this = this;
+      setTimeout(function(){ _this.trackFragment.searchLocMarker.showCallout(); }, 300);
     }
-  }
+    this.setState({showSearchSpinner: false})    
+  };  
 
   showAboutDialog() {
     Alert.alert(
@@ -169,11 +196,19 @@ export default class MainActivity extends React.Component {
     index,
   });
 
-   _renderScene = SceneMap({
-    cad: CADFragment,
-    track: TrackFragment,
-    data: DataFragment,
-  });
+  _renderScene = ({ route }) => {
+  switch(route.key) {
+      case "cad":
+        return <CADFragment/>;
+        break;
+      case "track":
+        return <TrackFragment ref={trackFragment => {this.trackFragment = trackFragment}}/>;
+        break;
+      case "data":        
+        return <DataFragment/>;
+        break;
+    }
+  }
 
   _renderIcon = ({ route }) => (    
     <Icon name={route.icon} size={24} style={styles.icon} />
@@ -205,15 +240,23 @@ export default class MainActivity extends React.Component {
     if (this.state.loading) {
       return <Expo.AppLoading/>;
     } else {
+      let searchSpinner = (this.state.showSearchSpinner) ? (<ActivityIndicator animating={this.state.showSearchSpinner} size="large" color="#19222a"  style={styles.searchSpinner}/>) : (null);
       return (      
       <ThemeProvider uiTheme={uiTheme}>
         <View style={{ flex: 1 }}>
           <StatusBarBackground/>
-          <Toolbar 
+          {searchSpinner}
+          <Toolbar
             centerElement="EQUiSat" 
             rightElement={{
               actions: ['share',],
               menu: { labels: ['Settings', 'About'] }
+            }}
+            searchable={{
+              autoFocus: true,
+              placeholder: 'Type a location for next pass',
+              onChangeText: (text) => this.trackFragment.setState({ searchText: text }),
+              onSubmitEditing: () => this._getGeocodeLatLong(),              
             }}
             onRightElementPress={(e) => {
               switch(e.action) {

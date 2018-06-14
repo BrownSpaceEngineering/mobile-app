@@ -6,7 +6,7 @@ import ActionButton from 'react-native-action-button';
 import { Location, Permissions } from 'expo';
 import SnackBar from 'react-native-snackbar-component'
 
-const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"off"}]}]
+const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#d7dee5"},{"lightness":40},{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#19222a"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
 
 const styles = StyleSheet.create({
   container: {
@@ -35,19 +35,25 @@ export default class TrackFragment extends React.Component {
     satAltitude: 0,
     satLocButtonSize: 60,
 
+    searchText: "",
+    searchLat: 0,
+    searchLong: 0,
+    showSearchLocMarker: false,
+    searchErrorSnackbarVisible: false,
+    searchLocCalloutText: "EQUiSat will pass over this location on 7/2/2018 at 8:00pm.",
+
     userLat: 0,
     userLong: 0,
     userLocErrorSnackbarVisible: false,
-    gotUserLoc: false,
-    userLocButtonSize: 0,
+    gotUserLoc: false,    
     showUserLoc: false,
-    userLocOpacity: 0,
-    userLocCalloutText: "EQUiSat will pass overhead you on 6/30/2018 at 7:00pm."
+    showUserLocMarker: false,
+    userLocCalloutText: "EQUiSat will pass over you on 6/30/2018 at 7:00pm."
   }
 
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status == 'granted') {
+    if (status !== 'granted') {
       var _this = this;
       _this.setState({ locErrorSnackbarVisible: true })
       setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
@@ -57,8 +63,8 @@ export default class TrackFragment extends React.Component {
     var userLong = location.coords.longitude;
     this.setState({ userLat });
     this.setState({ userLong });
-    this.setState({ userLocButtonSize: 60 });
-    this.setState({ userLocOpacity: 1.0 });
+    this.setState({ gotUserLoc: true });
+    this.setState({ showUserLocMarker: true });
   };  
 
   componentDidMount() {
@@ -70,10 +76,10 @@ export default class TrackFragment extends React.Component {
     let region = {
       latitude: this.state.userLat,
       longitude: this.state.userLong,
-      latitudeDelta: 50,
-      longitudeDelta: 50
+      latitudeDelta: 0.5,
+      longitudeDelta: 0.5,
     }
-    this.map.animateToRegion(region);    
+    this.map.animateToRegion(region);
     var _this = this;
     setTimeout(function(){ _this.userLocMarker.showCallout(); }, 300);
   }
@@ -100,10 +106,23 @@ export default class TrackFragment extends React.Component {
               latitude: this.state.userLat,
               longitude: this.state.userLong
             }}
-            opacity={this.state.userLocOpacity}
+            opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
             <MapView.Callout>
               <Text>{this.state.userLocCalloutText}</Text>
+            </MapView.Callout>
+          </MapView.Marker>
+
+          <MapView.Marker
+            ref={ref => { this.searchLocMarker = ref; }}
+            coordinate={{
+              latitude: this.state.searchLat,
+              longitude: this.state.searchLong
+            }}
+            opacity={this.state.showSearchLocMarker ? 1.0 : 0}
+          >
+            <MapView.Callout>
+              <Text>{this.state.searchLocCalloutText}</Text>
             </MapView.Callout>
           </MapView.Marker>
 
@@ -121,7 +140,7 @@ export default class TrackFragment extends React.Component {
         </MapView>        
         <ActionButton 
           buttonColor="#6aa2c8"
-          size={this.state.userLocButtonSize}
+          size={this.state.gotUserLoc ? 60 : 0}
           renderIcon={active => active ? (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} /> ) : (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} />)}
           offsetX={15}
           offsetY={90}
@@ -131,7 +150,7 @@ export default class TrackFragment extends React.Component {
         />
         <ActionButton 
           buttonColor="#6aa2c8"
-          size={this.state.satLocButtonSize}
+          size={60}
           renderIcon={active => active ? (<EQUiSatIcon/> ) : (<EQUiSatIcon/>)}
           offsetX={15}
           offsetY={15}
@@ -140,6 +159,7 @@ export default class TrackFragment extends React.Component {
           onPress={() => { this.centerSatLoc() }}
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
+        <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
       </View>
     );
   }
