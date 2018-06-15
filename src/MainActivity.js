@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
   },
   searchSpinner: {
     position: 'absolute',
-    top: (StatusBar.currentHeight + TOOLBAR_HEIGHT / 2 - 17.5),
+    top: (STATUS_BAR_HEIGHT + TOOLBAR_HEIGHT / 2 - 17.5),
     alignSelf: 'flex-end',
-    right: Dimensions.get('window').width / 10,
+    right: Dimensions.get('window').width / 8,
     zIndex: 100,
   }
 });
@@ -130,27 +130,7 @@ export default class MainActivity extends React.Component {
       'Roboto': require('../assets/fonts/Roboto-Medium.ttf'),
     });
     var _this = this;
-    setTimeout(function(){_this.setState({ loading: false })}, 100);
-    /* TODO:
-    Fix the API call*/
-    /*this.serverRequest =
-      axios
-        .get('http://0.0.0.0/api/get_lonlatalt')
-        .then(function(result) {
-          _this.setState({
-            latitude: result.latitude,
-            longitude: result.longitude,
-            altitude: result.altitude});
-        })
-        .catch(function (error) {
-          alert(error);
-          return undefined; });
-    function success(pos) {
-        _this.setState({
-          userLatitude: pos.coords.latitude,
-          userLongitude: pos.coords.longitude});
-      };
-    navigator.geolocation.getCurrentPosition(success);*/
+    setTimeout(function(){_this.setState({ loading: false })}, 100);    
   }  
 
   _getGeocodeLatLong = async () => {
