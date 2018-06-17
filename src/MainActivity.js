@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActivityIndicator, Alert, Dimensions, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
-import axios from 'axios'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
@@ -134,6 +133,7 @@ export default class MainActivity extends React.Component {
   }  
 
   _getGeocodeLatLong = async () => {
+    this.trackFragment.setState({ lockedToSatLoc: false });
     this.setState({showSearchSpinner: true});    
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {      
@@ -270,7 +270,7 @@ export default class MainActivity extends React.Component {
           <Toolbar
             centerElement="EQUiSat" 
             rightElement={{
-              actions: ['share',],
+              actions: ['share'],
               menu: { labels: ['Settings', 'About'] }
             }}
             searchable={this.state.searchButton}

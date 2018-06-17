@@ -6,6 +6,7 @@ import ActionButton from 'react-native-action-button';
 import { Location, Permissions } from 'expo';
 import SnackBar from 'react-native-snackbar-component';
 import axios from 'axios';
+import 'es6-symbol/implement';
 
 const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#d7dee5"},{"lightness":40},{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#19222a"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
 
@@ -26,6 +27,13 @@ const styles = StyleSheet.create({
   },
 });
 
+//TLE Stuff
+const TLEJS = require('tle.js');
+const tlejs = new TLEJS();
+const satName = 'ISS (ZARYA)';
+const TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
+
+
 const isAndroid = (Platform.OS === 'android');
 const satMarkerImage = require('../assets/equisat_logo_white.png');
 const satMarkerImage_android = require('../assets/equisat_logo_white_android.png');
@@ -39,7 +47,9 @@ export default class TrackFragment extends React.Component {
     satLocButtonSize: 60,
     satCoord: {latitude: 0, longitude: 0},
     satCoords: [],
-    lockedToSatLoc: true,    
+    lockedToSatLoc: true,
+
+    TLEReady: false,  
 
     searchText: "",
     searchLat: 0,
@@ -73,38 +83,60 @@ export default class TrackFragment extends React.Component {
     this.setState({ showUserLocMarker: true });
   };
 
-  updateSatLocation(_this) {
-    this.serverRequest =
+  getTLE = async (_this) => {
+    _this.serverRequest = 
       axios
-        .get('http://13.58.206.57/api/get_lonlatalt')
+        .get('https://www.celestrak.com/NORAD/elements/stations.txt')
         .then(function(result) {
-          let satCoord = {latitude: result.data.latitude, longitude: result.data.longitude};        
-          _this.setState({ satCoord });
-          _this.setState({ satAlt: result.data.altitude });
-          let satCoords = [ ..._this.state.satCoords, satCoord];
-          _this.setState({ satCoords });                    
-          if (_this.state.lockedToSatLoc) {
-            let region = {
-              latitude: result.data.latitude,
-              longitude: result.data.longitude,
-              latitudeDelta: 50,
-              longitudeDelta: 50,
-            }
-            _this.map.animateToRegion(region);
+          var sats = result.data
+          var startIndex = sats.indexOf(satName);
+          var endIndex = startIndex;
+          for (var i = 0; i < 3; i++) {
+            endIndex= sats.indexOf("\n", endIndex+1);
           }          
+          var TLEStr = sats.substring(startIndex, endIndex)
+          if (TLEStr != "") {
+            console.log(TLEStr);
+            _this.TLEStr = TLEStr;
+          } else {
+            console.log("Could not parse TLE");
+          }
+          _this.setState({ TLEReady: true })
         })
         .catch(function (error) {
-          alert(error);
+          console.log(error);
           return undefined; });
-  }  
+  };
+
+  updateSatLocation(_this) {    
+    if (_this.state.TLEReady) {
+      const satPosition = tlejs.getLatLon(this.TLEStr);      
+      var latitude = satPosition.lat;
+      var longitude = satPosition.lng;      
+      let satCoord = {latitude: latitude, longitude: longitude};        
+      _this.setState({ satCoord });
+      let satCoords = [ ..._this.state.satCoords, satCoord];
+      _this.setState({ satCoords });
+      if (_this.state.lockedToSatLoc) {      
+        let region = {
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 50,
+          longitudeDelta: 50,
+        }
+        _this.map.animateToRegion(region);    
+      }
+    }
+  }
 
   componentDidMount() {
     this._getLocationAsync(); //get user location
     var _this = this;
-    //get sat location
+    this.getTLE(_this);
+    //get sat location every second
     setInterval(function(){
       _this.updateSatLocation(_this);
-    }, 2000);      
+    }, 2500);
   }
 
   showUserLoc() {

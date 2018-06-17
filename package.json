@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "es6-symbol": "^3.1.1",
     "expo": "27.0.2",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-27.0.2.tar.gz",
@@ -30,6 +31,7 @@
     "react-native-tab-view": "^1.0.2",
     "react-navigation": "^2.2.5",
     "react-vis": "^1.9.2",
+    "tle.js": "^1.0.21",
     "victory": "^0.25.7",
     "victory-native": "^0.17.4"
   },
