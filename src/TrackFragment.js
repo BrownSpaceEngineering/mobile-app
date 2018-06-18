@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const trackServerPrefix = "http://13.58.206.57/"
+
 //TLE Stuff
 const TLEJS = require('tle.js');
 const tlejs = new TLEJS();
@@ -37,6 +39,8 @@ const TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-
 const isAndroid = (Platform.OS === 'android');
 const satMarkerImage = require('../assets/equisat_logo_white.png');
 const satMarkerImage_android = require('../assets/equisat_logo_white_android.png');
+
+const nextPassErrorStr = "Could not determine next EQUiSat pass over this location. Try again later.";
 
 export default class TrackFragment extends React.Component {
 
@@ -54,18 +58,68 @@ export default class TrackFragment extends React.Component {
     searchText: "",
     searchLat: 0,
     searchLong: 0,
+    searchNextPass: null,
     showSearchLocMarker: false,
     searchErrorSnackbarVisible: false,
-    searchLocCalloutText: "EQUiSat will pass over this location on 7/2/2018 at 8:00pm.",
+    searchLocCalloutText: nextPassErrorStr,
 
     userLat: 0,
     userLong: 0,
+    userAlt: 0,
     userLocErrorSnackbarVisible: false,
     gotUserLoc: false,    
     showUserLoc: false,
     showUserLocMarker: false,
-    userLocCalloutText: "EQUiSat will pass over you on 6/30/2018 at 7:00pm."
-  }  
+    userNextPass: null,
+    userLocCalloutText: nextPassErrorStr,
+  }
+
+  printDate(date) {
+    // Create an array with the current month, day and time
+      var dateArr = [ date.getMonth() + 1, date.getDate(), date.getFullYear() ];
+    // Create an array with the current hour, minute and second
+      var timeArr = [ date.getHours(), date.getMinutes(), date.getSeconds() ];
+    // Determine AM or PM suffix based on the hour
+      var suffix = ( timeArr[0] < 12 ) ? "AM" : "PM";
+    // Convert hour from military time
+      timeArr[0] = ( timeArr[0] < 12 ) ? timeArr[0] : timeArr[0] - 12;
+    // If hour is 0, set it to 12
+      timeArr[0] = timeArr[0] || 12;
+    // If seconds and minutes are less than 10, add a zero
+      for ( var i = 1; i < 3; i++ ) {
+        if ( timeArr[i] < 10 ) {
+          timeArr[i] = "0" + timeArr[i];
+        }
+      }
+    // Return the formatted string
+      return dateArr.join("/") + " at " + timeArr.join(":") + " " + suffix;
+}
+
+  getPassTimeString(riseTime) {    
+    return "EQUiSat will pass over this location on " + this.printDate(riseTime);
+  }
+
+  getNextPass(_this, lat, long, alt, isUserLoc) {
+    _this.serverRequest = 
+      axios
+        .get(trackServerPrefix + "api/get_next_pass/"+ satName + "/" + long + "," + lat + "," + alt)
+        .then(function(result) {          
+          if (result.status == 200) {
+            var riseTime = new Date(result.data.rise_time*1000);
+            if (isUserLoc) {
+              _this.setState({ userNextPass: result.data });
+              _this.setState({ userLocCalloutText: _this.getPassTimeString(riseTime) });
+            } else {
+              _this.setState({ searchNextPass: result.data });              
+              _this.setState({ searchLocCalloutText: _this.getPassTimeString(riseTime) });
+              setTimeout(function(){ _this.searchLocMarker.showCallout(); }, 300);
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          return undefined; });
+  }
 
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -74,12 +128,15 @@ export default class TrackFragment extends React.Component {
       _this.setState({ locErrorSnackbarVisible: true })
       setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
     }
-    var location = await Location.getCurrentPositionAsync({});    
+    var location = await Location.getCurrentPositionAsync({});      
     var userLat = location.coords.latitude;
     var userLong = location.coords.longitude;
+    var userAlt = location.coords.longitude;
     this.setState({ userLat });
     this.setState({ userLong });
-    this.setState({ gotUserLoc: true });
+    this.setState({ userAlt });
+    this.setState({ gotUserLoc: true });    
+    this.getNextPass(this, userLat, userLong, userAlt, true);
     this.setState({ showUserLocMarker: true });
   };
 
@@ -95,8 +152,7 @@ export default class TrackFragment extends React.Component {
             endIndex= sats.indexOf("\n", endIndex+1);
           }          
           var TLEStr = sats.substring(startIndex, endIndex)
-          if (TLEStr != "") {
-            console.log(TLEStr);
+          if (TLEStr != "") {            
             _this.TLEStr = TLEStr;
           } else {
             console.log("Could not parse TLE");
@@ -128,6 +184,40 @@ export default class TrackFragment extends React.Component {
       }
     }
   }
+
+  _getGeocodeLatLong = async () => {
+    this.setState({ lockedToSatLoc: false });
+    this.setState({showSearchSpinner: true});    
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {      
+      this.setState({ locErrorSnackbarVisible: true });
+      var _this = this;
+      setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
+    }    
+    var locations = await Location.geocodeAsync(this.state.searchText);
+    if (locations.length == 0) {      
+      this.setState({ searchErrorSnackbarVisible: true });
+      var _this = this;
+      setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
+    } else {
+      var searchLat = locations[0].latitude;
+      var searchLong = locations[0].longitude;
+      this.setState({ searchLat });
+      this.setState({ searchLong });
+      this.setState({ showSearchLocMarker: true})
+      let region = {
+        latitude: searchLat,
+        longitude: searchLong,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      }
+      this.map.animateToRegion(region);
+      var _this = this;
+      this.getNextPass(this, searchLat, searchLong, 0, false);      
+    }    
+    this.setState({ showSearchSpinner: false });
+    this.setState({ searchBarOpen: false });  
+  };  
 
   componentDidMount() {
     this._getLocationAsync(); //get user location

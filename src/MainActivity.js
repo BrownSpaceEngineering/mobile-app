@@ -95,7 +95,7 @@ export default class MainActivity extends React.Component {
     autoFocus: true,
     placeholder: 'Type a location for next pass',
     onChangeText: (text) => this.trackFragment.setState({ searchText: text }),
-    onSubmitEditing: () => this._getGeocodeLatLong(),              
+    onSubmitEditing: () => this.trackFragment._getGeocodeLatLong(),              
   };
 
   state = {
@@ -132,39 +132,7 @@ export default class MainActivity extends React.Component {
     setTimeout(function(){_this.setState({ loading: false })}, 100);    
   }  
 
-  _getGeocodeLatLong = async () => {
-    this.trackFragment.setState({ lockedToSatLoc: false });
-    this.setState({showSearchSpinner: true});    
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {      
-      this.trackFragment.setState({ locErrorSnackbarVisible: true });
-      var _this = this;
-      setTimeout(function(){_this.trackFragment.setState({ locErrorSnackbarVisible: false })}, 5000);
-    }    
-    var locations = await Location.geocodeAsync(this.trackFragment.state.searchText);
-    if (locations.length == 0) {      
-      this.trackFragment.setState({ searchErrorSnackbarVisible: true });
-      var _this = this;
-      setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
-    } else {
-      var searchLat = locations[0].latitude;
-      var searchLong = locations[0].longitude;
-      this.trackFragment.setState({ searchLat });
-      this.trackFragment.setState({ searchLong });
-      this.trackFragment.setState({ showSearchLocMarker: true})
-      let region = {
-        latitude: searchLat,
-        longitude: searchLong,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
-      }
-      this.trackFragment.map.animateToRegion(region);
-      var _this = this;
-      setTimeout(function(){ _this.trackFragment.searchLocMarker.showCallout(); }, 300);
-    }
-    this.setState({ showSearchSpinner: false });
-    this.setState({ searchBarOpen: false });  
-  };  
+    
 
   showAboutDialog() {
     Alert.alert(
@@ -242,7 +210,9 @@ export default class MainActivity extends React.Component {
       case "share":
         {this.ShareMessage()}
         break;
-      case "menu":
+      case "settings":
+        {this.OpenSettingsFunction()}
+      /*case "menu":
         switch(e.index) {
           case 0:
             //settings
@@ -253,7 +223,7 @@ export default class MainActivity extends React.Component {
             this.showAboutDialog()
             break;
         }
-        break;
+        break;*/
     }
   }
 
@@ -270,8 +240,8 @@ export default class MainActivity extends React.Component {
           <Toolbar
             centerElement="EQUiSat" 
             rightElement={{
-              actions: ['share'],
-              menu: { labels: ['Settings', 'About'] }
+              actions: ['share', 'settings'],
+              //menu: { labels: ['Settings', 'About'] }
             }}
             searchable={this.state.searchButton}
             onRightElementPress={(e) => this.onactionItemselected(e)}
