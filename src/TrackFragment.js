@@ -170,9 +170,7 @@ export default class TrackFragment extends React.Component {
       var latitude = satPosition.lat;
       var longitude = satPosition.lng;      
       let satCoord = {latitude: latitude, longitude: longitude};        
-      _this.setState({ satCoord });
-      let satCoords = [ ..._this.state.satCoords, satCoord];
-      _this.setState({ satCoords });
+      _this.setState({ satCoord });      
       if (_this.state.lockedToSatLoc) {      
         let region = {
           latitude: latitude,
@@ -217,13 +215,23 @@ export default class TrackFragment extends React.Component {
     }    
     this.setState({ showSearchSpinner: false });
     this.setState({ searchBarOpen: false });  
-  };  
+  };
+
+  setOrbitPathCoords(orbitLineArr) {    
+    var satCoords = [];
+    for (var i = 0; i < orbitLineArr.length; i++) {      
+      satCoords = [ ...satCoords, {latitude: orbitLineArr[i][0], longitude: orbitLineArr[i][1]}];
+    }    
+    this.setState({ satCoords });
+  }
 
   componentDidMount() {
     this._getLocationAsync(); //get user location
     var _this = this;
-    this.getTLE(_this);
+    this.getTLE(this);
     //get sat location every second
+    var orbitLines = tlejs.getGroundTrackLatLng(TLEStr);
+    this.setOrbitPathCoords(orbitLines[1])    
     setInterval(function(){
       _this.updateSatLocation(_this);
     }, 2500);
