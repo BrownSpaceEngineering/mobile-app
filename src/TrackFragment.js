@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Alert, Platform, StyleSheet, Text, View, Image} from 'react-native';
 import MapView from 'react-native-maps';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { Button } from 'react-native-material-ui';
 import ActionButton from 'react-native-action-button';
 import { Location, Permissions } from 'expo';
 import SnackBar from 'react-native-snackbar-component';
@@ -47,7 +48,7 @@ export default class TrackFragment extends React.Component {
   state = {
     mapLat: 0,
     mapLong: 0,    
-    satAlt: 0,
+    curSatInfo: {lat: 0, lng: 0, height: 0, velocity: 0},
     satLocButtonSize: 60,
     satCoord: {latitude: 0, longitude: 0},
     satCoords: [],
@@ -58,10 +59,10 @@ export default class TrackFragment extends React.Component {
     searchText: "",
     searchLat: 0,
     searchLong: 0,
-    searchNextPass: null,
+    searchNextPass: {max_alt: 0, max_alt_time: 0, rise_azimuth: 0, rise_time: 0, set_azimuth: 0, set_time: 0},
+    searchNextPassError: true,
     showSearchLocMarker: false,
-    searchErrorSnackbarVisible: false,
-    searchLocCalloutText: nextPassErrorStr,
+    searchErrorSnackbarVisible: false,    
 
     userLat: 0,
     userLong: 0,
@@ -70,15 +71,15 @@ export default class TrackFragment extends React.Component {
     gotUserLoc: false,    
     showUserLoc: false,
     showUserLocMarker: false,
-    userNextPass: null,
-    userLocCalloutText: nextPassErrorStr,
+    userNextPass: {max_alt: 0, max_alt_time: 0, rise_azimuth: 0, rise_time: 0, set_azimuth: 0, set_time: 0},
+    userNextPassError: true,
   }
 
   printDate(date) {
     // Create an array with the current month, day and time
       var dateArr = [ date.getMonth() + 1, date.getDate(), date.getFullYear() ];
     // Create an array with the current hour, minute and second
-      var timeArr = [ date.getHours(), date.getMinutes(), date.getSeconds() ];
+      var timeArr = [ date.getHours(), date.getMinutes() ];
     // Determine AM or PM suffix based on the hour
       var suffix = ( timeArr[0] < 12 ) ? "AM" : "PM";
     // Convert hour from military time
@@ -93,27 +94,24 @@ export default class TrackFragment extends React.Component {
       }
     // Return the formatted string
       return dateArr.join("/") + " at " + timeArr.join(":") + " " + suffix;
-}
-
-  getPassTimeString(riseTime) {    
-    return "EQUiSat will pass over this location on " + this.printDate(riseTime);
-  }
+}  
 
   getNextPass(_this, lat, long, alt, isUserLoc) {
+    this.setState({ lockedToSatLoc: false });
     _this.serverRequest = 
       axios
         .get(trackServerPrefix + "api/get_next_pass/"+ satName + "/" + long + "," + lat + "," + alt)
-        .then(function(result) {          
-          if (result.status == 200) {
-            var riseTime = new Date(result.data.rise_time*1000);
-            if (isUserLoc) {
-              _this.setState({ userNextPass: result.data });
-              _this.setState({ userLocCalloutText: _this.getPassTimeString(riseTime) });
-            } else {
-              _this.setState({ searchNextPass: result.data });              
-              _this.setState({ searchLocCalloutText: _this.getPassTimeString(riseTime) });
-              setTimeout(function(){ _this.searchLocMarker.showCallout(); }, 300);
-            }
+        .then(function(result) {
+          var isError = (result.status != 200);
+          console.log(isError);
+          console.log(result.data);
+          if (isUserLoc) {
+            _this.setState({ userNextPassError: isError })
+            _this.setState({ userNextPass: result.data });
+          } else {
+            _this.setState({ searchNextPassError: isError })
+            _this.setState({ searchNextPass: result.data });
+            setTimeout(function(){ _this.searchLocMarker.showCallout(); }, 1000);
           }
         })
         .catch(function (error) {
@@ -170,7 +168,11 @@ export default class TrackFragment extends React.Component {
       var latitude = satPosition.lat;
       var longitude = satPosition.lng;      
       let satCoord = {latitude: latitude, longitude: longitude};        
-      _this.setState({ satCoord });      
+      _this.setState({ satCoord });
+      curSatInfo = tlejs.getSatelliteInfo(TLEStr, Date.now(), latitude, longitude, 0);      
+      curSatInfo["height"] = curSatInfo["height"].toFixed(2);
+      curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);      
+      _this.setState({ curSatInfo });
       if (_this.state.lockedToSatLoc) {      
         let region = {
           latitude: latitude,
@@ -182,6 +184,22 @@ export default class TrackFragment extends React.Component {
       }
     }
   }
+
+makeSearchMarker(location) {  
+  var searchLat = location.latitude;
+  var searchLong = location.longitude;
+  this.setState({ searchLat });
+  this.setState({ searchLong });
+  this.setState({ showSearchLocMarker: true})
+  let region = {
+    latitude: searchLat,
+    longitude: searchLong,
+    latitudeDelta: 0.5,
+    longitudeDelta: 0.5,
+  }
+  this.map.animateToRegion(region);  
+  this.getNextPass(this, searchLat, searchLong, 0, false);
+}
 
   _getGeocodeLatLong = async () => {
     this.setState({ lockedToSatLoc: false });
@@ -198,20 +216,7 @@ export default class TrackFragment extends React.Component {
       var _this = this;
       setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
     } else {
-      var searchLat = locations[0].latitude;
-      var searchLong = locations[0].longitude;
-      this.setState({ searchLat });
-      this.setState({ searchLong });
-      this.setState({ showSearchLocMarker: true})
-      let region = {
-        latitude: searchLat,
-        longitude: searchLong,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
-      }
-      this.map.animateToRegion(region);
-      var _this = this;
-      this.getNextPass(this, searchLat, searchLong, 0, false);      
+      this.makeSearchMarker(locations[0]);
     }    
     this.setState({ showSearchSpinner: false });
     this.setState({ searchBarOpen: false });  
@@ -231,10 +236,8 @@ export default class TrackFragment extends React.Component {
     this.getTLE(this);
     //get sat location every second
     var orbitLines = tlejs.getGroundTrackLatLng(TLEStr);
-    this.setOrbitPathCoords(orbitLines[1])    
-    setInterval(function(){
-      _this.updateSatLocation(_this);
-    }, 2500);
+    this.setOrbitPathCoords(orbitLines[1]);
+    setInterval(function(){_this.updateSatLocation(_this);}, 2500);
   }
 
   showUserLoc() {
@@ -251,10 +254,6 @@ export default class TrackFragment extends React.Component {
     setTimeout(function(){ _this.userLocMarker.showCallout(); }, 300);
   }
 
-  onPanDragStart() {
-    this.setState({ lockedToSatLoc: false });
-  }
-
   snapToSat() {
     this.setState({ lockedToSatLoc: true })
     let region = {
@@ -264,6 +263,34 @@ export default class TrackFragment extends React.Component {
       longitudeDelta: 50,
     }
     this.map.animateToRegion(region);
+  
+  }
+
+  showCalloutText(userLoc) {
+    var isError = userLoc ? this.state.userNextPassError : this.state.searchNextPassError;
+    var nextPass = userLoc ? this.state.userNextPass : this.state.searchNextPass;
+    if (isError) {
+      return <Text>{nextPassErrorStr}</Text>;
+    } else {
+      return (
+        <View style={{flex: 1}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Next Pass</Text>
+          <Text>Rise Time: {this.printDate(new Date(nextPass.rise_time *1000))}</Text>
+          <Text>Rise Azimuth: {nextPass.rise_azimuth.toFixed(2)}°</Text>
+          <Text>Max Alt. Angle: {nextPass.max_alt.toFixed(2)}°</Text>
+          <Text>Max Alt. Time: {this.printDate(new Date(nextPass.max_alt_time *1000))}</Text>
+          <Text>Set Azimuth: {nextPass.set_azimuth.toFixed(2)}°</Text>
+          <Text>Set Time: {this.printDate(new Date(nextPass.set_time *1000))}</Text>
+          <Button accent text="Notify Me" />
+        </View>
+      );
+    }
+  }
+
+  notifyNextPass(isError) {
+    if (!isError) {
+      Alert.alert("Notify placeholder");
+    }
   }
 
   render() {    
@@ -271,11 +298,9 @@ export default class TrackFragment extends React.Component {
       <View 
         style={styles.container}        
       >        
-        <MapView
-          onMoveShouldSetResponder={() => {
-            this.onPanDragStart()
-            return true
-          }}        
+        <MapView          
+          onPanDrag={e => this.setState({ lockedToSatLoc: false })}
+          onLongPress={e => this.makeSearchMarker(e.nativeEvent.coordinate)}
           ref={map => {this.map = map}}
           style={styles.map}
           initialRegion={{
@@ -296,8 +321,8 @@ export default class TrackFragment extends React.Component {
             }}
             opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
-            <MapView.Callout>
-              <Text>{this.state.userLocCalloutText}</Text>
+            <MapView.Callout onPress={e => this.notifyNextPass(this.state.userNextPassError)} >              
+              {this.showCalloutText(true)}
             </MapView.Callout>
           </MapView.Marker>
 
@@ -309,8 +334,8 @@ export default class TrackFragment extends React.Component {
             }}
             opacity={this.state.showSearchLocMarker ? 1.0 : 0}
           >
-            <MapView.Callout>
-              <Text>{this.state.searchLocCalloutText}</Text>
+            <MapView.Callout onPress={e => this.notifyNextPass(this.state.searchNextPassError)}>
+              {this.showCalloutText(false)}
             </MapView.Callout>
           </MapView.Marker>
 
@@ -321,6 +346,13 @@ export default class TrackFragment extends React.Component {
             opacity={(this.state.satCoord.latitude != 0 || this.state.satCoord.latitude != 0)  ? 1.0 : 0}
           >
             {isAndroid ? null : <Image source={satMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
+            <MapView.Callout>
+              <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>EQUiSat</Text>
+              <Text>Latitude: {this.state.curSatInfo.lat}</Text>
+              <Text>Longitude: {this.state.curSatInfo.lng}</Text>
+              <Text>Altitude: {this.state.curSatInfo.height}km</Text>
+              <Text>Velocity: {this.state.curSatInfo.velocity}km/s</Text>
+            </MapView.Callout>
           </MapView.Marker.Animated>
           
           <MapView.Polyline            
