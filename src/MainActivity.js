@@ -15,7 +15,7 @@ const TOOLBAR_HEIGHT = 60;
 global.uiTheme = {
     palette: {
         primaryColor: "#19222a",
-        accentColor: "#5284CE",
+        accentColor: "#19222a",
         primaryTextColor: "#19222a",
         secondaryTextColor: "#788ca1",
         alternateTextColor: "#FFFFFF"

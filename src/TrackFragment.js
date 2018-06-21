@@ -102,9 +102,7 @@ export default class TrackFragment extends React.Component {
       axios
         .get(trackServerPrefix + "api/get_next_pass/"+ satName + "/" + long + "," + lat + "," + alt)
         .then(function(result) {
-          var isError = (result.status != 200);
-          console.log(isError);
-          console.log(result.data);
+          var isError = (result.status != 200);          
           if (isUserLoc) {
             _this.setState({ userNextPassError: isError })
             _this.setState({ userNextPass: result.data });
@@ -152,6 +150,7 @@ export default class TrackFragment extends React.Component {
           var TLEStr = sats.substring(startIndex, endIndex)
           if (TLEStr != "") {            
             _this.TLEStr = TLEStr;
+            console.log(TLEStr);
           } else {
             console.log("Could not parse TLE");
           }
@@ -237,7 +236,11 @@ makeSearchMarker(location) {
     //get sat location every second
     var orbitLines = tlejs.getGroundTrackLatLng(TLEStr);
     this.setOrbitPathCoords(orbitLines[1]);
-    setInterval(function(){_this.updateSatLocation(_this);}, 2500);
+    this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.satUpdateAsyncID);
   }
 
   showUserLoc() {
