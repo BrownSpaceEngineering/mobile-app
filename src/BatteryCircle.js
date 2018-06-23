@@ -1,13 +1,40 @@
 //'use strict'
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+
+const CHARGING_COLOR = "#00C853";
+const DISCHARGING_COLOR = "#FF6D00";
+
+const styles = StyleSheet.create({  
+  rowContainer: {    
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  chargingIcon: {    
+    backgroundColor: "transparent",
+    color: CHARGING_COLOR,
+  },
+  dischargingIcon: {    
+    backgroundColor: "transparent",
+    color: DISCHARGING_COLOR,
+  },
+  chargeLabelContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
 
 class BatteryCircle extends Component {
   static propTypes = {
     voltage: PropTypes.number.isRequired,
     isLion: PropTypes.bool.isRequired,
+    charging: PropTypes.bool.isRequired,
+    dicharging: PropTypes.bool,
+    number: PropTypes.number.isRequired,
   }
 
   lifepo4VoltageToPercentage(voltage) {
@@ -65,25 +92,51 @@ getBatteryColor(percentage){
     return ["hsl(",hue,",100%,50%)"].join("");
   }
 
+getTemperatureColor(tempInC) {
+    // Map the temperature to a 0-1 range
+    var a = (tempInC + 30)/60;
+    a = (a < 0) ? 0 : ((a > 1) ? 1 : a);
+    
+    // Scrunch the green/cyan range in the middle
+    var sign = (a < .5) ? -1 : 1;
+    a = sign * Math.pow(2 * Math.abs(a - .5), .35)/2 + .5;
+    
+    // Linear interpolation between the cold and hot
+    var h0 = 259;
+    var h1 = 12;
+    var h = (h0) * (1 - a) + (h1) * (a);
+    
+    //return pusher.color("hsv", h, 75, 90).hex6();
+    return ["hsl(",h,",100%,50%)"].join("");
+};
+
   render() {
-    const { voltage, isLion } = this.props;
+    const { voltage, isLion, charging, discharging, number } = this.props;
     var percent = isLion ? this.lionVoltageToPercentage(voltage) : this.lifepo4VoltageToPercentage(voltage);
-    var color = this.getBatteryColor(percent)    
+    //var color = charging ? CHARGING_COLOR : uiTheme.palette.accentColor;  //this.getBatteryColor(percent)    
+    var color = uiTheme.palette.accentColor;
     return(
-      <AnimatedCircularProgress
-        size={80}
-        width={5}
-        fill={percent}
-        backgroundColor="#3d5875"
-        tintColor={color} >
-        {
-          (fill) => (
-            <Text style={{ fontSize: 20, color: color, }}>
-              { percent }%
-            </Text>
-          )
-        }
-      </AnimatedCircularProgress>
+      <View>
+        <AnimatedCircularProgress
+          size={80}
+          width={5}
+          fill={percent}
+          backgroundColor="#3d5875"
+          tintColor={color} >
+          {
+            (fill) => (
+              <View style={styles.chargeLabelContainer}>              
+                <Text style={{ fontSize: 20, color: color, }}>
+                  { percent }%
+                </Text>
+                {charging ? <Icon name="battery-charging" size={17} style={styles.chargingIcon} /> : null}
+                {discharging ? <Icon name="battery-minus" size={17} style={styles.dischargingIcon} /> : null}
+              </View>
+            )
+          }
+        </AnimatedCircularProgress>
+        <Text style={{ fontSize: 10, color: color, textAlign: 'center'}}> {number} </Text>
+      </View>
     );
   }
 }

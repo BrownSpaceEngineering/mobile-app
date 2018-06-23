@@ -15,8 +15,8 @@ const TOOLBAR_HEIGHT = 60;
 global.uiTheme = {
     palette: {
         primaryColor: "#19222a",
-        accentColor: "#19222a",
-        primaryTextColor: "#19222a",
+        accentColor: "#6aa2c8",
+        primaryTextColor: "#FFFFFF",
         secondaryTextColor: "#788ca1",
         alternateTextColor: "#FFFFFF"
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   indicator: {
-    backgroundColor: '#6aa2c8',  
+    backgroundColor: uiTheme.palette.accentColor,
   },
   badge: {
     marginTop: 4,
@@ -99,7 +99,7 @@ export default class MainActivity extends React.Component {
   };
 
   state = {
-    index: 1,
+    index: 2,
     routes: [
       { key: 'cad', icon: 'printer-3d', color: '#FFFFFF', title: 'CAD'},
       { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},

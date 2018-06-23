@@ -1,14 +1,19 @@
 {
   "expo": {
    "name": "EQUiSat",
-   //"icon": "./assets/logo.png",
+   "icon": "./assets/equisat_logo_white.png",
    "version": "1.0.0",
    "slug": "equisat",   
    "ios": {
      "bundleIdentifier": "org.brownspace.equisat"
    },
    "android": {
-     "package": "org.brownspace.equisat"
+     "package": "org.brownspace.equisat",
+     "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSyD8uo6zoHAD9qhDDKVf38zdg76c4KsC-Vg"
+      }
+    }        
    },
     "splash": {
       "image": "./assets/splash.png",

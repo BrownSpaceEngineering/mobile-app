@@ -40,6 +40,8 @@ const TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-
 const isAndroid = (Platform.OS === 'android');
 const satMarkerImage = require('../assets/equisat_logo_white.png');
 const satMarkerImage_android = require('../assets/equisat_logo_white_android.png');
+const userMarkerImage_ = require('../assets/user_location_icon.png');
+const userMarkerImage_android = require('../assets/user_location_icon_android.png');
 
 const nextPassErrorStr = "Could not determine next EQUiSat pass over this location. Try again later.";
 
@@ -322,8 +324,10 @@ makeSearchMarker(location) {
               latitude: this.state.userLat,
               longitude: this.state.userLong
             }}
+            image={isAndroid ? userMarkerImage_android : null}
             opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
+            {isAndroid ? null : <Image source={userMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
             <MapView.Callout onPress={e => this.notifyNextPass(this.state.userNextPassError)} >              
               {this.showCalloutText(true)}
             </MapView.Callout>
@@ -361,10 +365,10 @@ makeSearchMarker(location) {
           <MapView.Polyline            
             coordinates={this.state.satCoords}
             strokeWidth={5}
-            strokeColor="#6aa2c8"/>          
+            strokeColor={uiTheme.palette.accentColor}/>
         </MapView>        
         <ActionButton 
-          buttonColor="#6aa2c8"
+          buttonColor={uiTheme.palette.accentColor}
           size={this.state.gotUserLoc ? 60 : 0}
           renderIcon={active => active ? (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} /> ) : (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} />)}
           offsetX={15}
@@ -374,7 +378,7 @@ makeSearchMarker(location) {
           onPress={() => { this.showUserLoc() }}
         />
         <ActionButton 
-          buttonColor="#6aa2c8"
+          buttonColor={uiTheme.palette.accentColor}
           size={60}
           renderIcon={active => active ? (<EQUiSatIcon/> ) : (<EQUiSatIcon/>)}
           offsetX={15}
