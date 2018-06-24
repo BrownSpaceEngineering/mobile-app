@@ -1,0 +1,3 @@
+[submodule "api-library-js"]
+	path = api-library-js
+	url = https://github.com/BrownSpaceEngineering/api-library-js.git
