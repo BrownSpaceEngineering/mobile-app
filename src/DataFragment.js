@@ -8,12 +8,15 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 import BatteryCircle from './BatteryCircle';
 import TempColorText from './TempColorText';
-import DataValue from './DataValue';
+import HorizontalDataValue from './HorizontalDataValue';
+import VerticalDataValue from './VerticalDataValue';
 
 const initialLayout = {
   height: 0,
   width: Dimensions.get('window').width,
 };
+
+import {getSignalsLatestSingle} from '../api-library-js/EQUiSatAPI.js';
 
 const accentColor= "#6aa2c8"
 
@@ -57,17 +60,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 22,
     marginBottom: 7.5,
   },
   cardSubtitle: {
     color: 'white',    
-    fontSize: 17,
-    marginBottom: 5,
+    fontSize: 18,
+    marginBottom: 7,
   },
   cardText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 14,
     marginBottom: 5,
   },
   icon: {    
@@ -89,7 +92,7 @@ export default class DataFragment extends React.Component {
   state = {
     index: 0,
     routes: [
-      { key: 'first', title: 'Current' },
+      { key: 'first', title: 'Latest' },
       { key: 'second', title: 'Historical' },
     ],
 
@@ -102,19 +105,26 @@ export default class DataFragment extends React.Component {
   }
 
   componentDidMount() {
-    this.getBatteryVoltages();
-  }
+    this.getBatteryVoltages();    
+    getSignalsLatestSingle(["LF1REF", "LED3SNS"], 1529996366626, new Date().getTime())
+       .then(function(result) {
+          console.log(result.data);
+        })
+        .catch(function (error) {          
+          console.log(error);
+      });
+  }  
 
   getBatteryVoltages() {
     this.setState({ L1REF: 3.94 });
     this.setState({ L2REF: 4.05 });
-    this.setState({ LF1REF: 2.45 });
-    this.setState({ LF2REF: 3.04 });
+    this.setState({ LF1REF: 2.9 });
+    this.setState({ LF2REF: 3.04 });  
     this.setState({ LF3REF: 3.2 });
-    this.setState({ LF4REF: 3.4 });
+    this.setState({ LF4REF: 3.22 });
   }
 
-  CurrentView = () => (
+  LatestView = () => (
     <ScrollView style={{backgroundColor: "#131a20"}}>
       <View style={styles.dataContainer} >
           <View style={styles.rowContainer} >
@@ -128,19 +138,20 @@ export default class DataFragment extends React.Component {
                 <Icon name="radio-tower" size={20} style={styles.icon} />
                 <Text style={styles.cardText}>Brown University</Text>
               </View>
+              <View style={styles.rowContainerLeft} >
+                <Text style={styles.cardText}>Current State:  </Text>            
+                <Text style={styles.cardText}>IDLE_FLASH</Text>
+              </View>
             </ElevatedView>
             <ElevatedView elevation={5} style={styles.card} >
-              <Text style={styles.cardTitle}>Current Status</Text>            
-              <Text style={styles.cardText}>Current State: IDLE_FLASH</Text>
-              <Text style={styles.cardText}>Next Flash In: 10</Text>
-              <Text style={styles.cardText}>Reboot Count: 1</Text>
+                                      
             </ElevatedView>
           </View>
           <ElevatedView elevation={5} style={styles.card} >
-            <Text style={styles.cardTitle}>Batteries</Text>
+            <Text style={styles.cardTitle}>Battery Info</Text>
             <Text style={styles.cardSubtitle}>Li-Ion</Text>
             <View style={styles.rowContainer} >
-              <BatteryCircle isLion={true} charging={true} discharging={false} number={1} voltage={this.state.L1REF} />
+              <BatteryCircle isLion={true} charging={true} discharging={true} number={1} voltage={this.state.L1REF} />
               <BatteryCircle isLion={true} charging={false} discharging={true} number={2} voltage={this.state.L2REF} />
             </View>
             <Text style={styles.cardSubtitle}>LiFePO4</Text>
@@ -150,46 +161,101 @@ export default class DataFragment extends React.Component {
               <BatteryCircle isLion={false} charging={false} number={3} voltage={this.state.LF3REF} />
               <BatteryCircle isLion={false} charging={false} number={4} voltage={this.state.LF4REF} />
             </View>
-          </ElevatedView>
+            <View style={[styles.rowContainerLeft, {alignItems: 'flex-end', marginTop: 10}]} >
+              <HorizontalDataValue label="Power Draw" value="262 mW" color="#FFFFFF" />
+              <HorizontalDataValue label="Solar Panel Voltage" value="8.76 V" color="#FFFFFF" />
+            </View>
+          </ElevatedView>          
           <ElevatedView elevation={5} style={styles.card} >
-            <Text style={styles.cardTitle}>Temperatures</Text>
+            <Text style={styles.cardTitle}>Ambient Temperatures</Text>
+
             <Text style={styles.cardSubtitle}>LEDs</Text>
             <View style={styles.rowContainer} >
-              <TempColorText name="1" temp={-39.23} />
-              <TempColorText name="2" temp={2.03} />
+              <TempColorText label="1" temp={-39.23} />
+              <TempColorText label="2" temp={2.03} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText name="3" temp={80.13} />
-              <TempColorText name="4" temp={30.10} />
+              <TempColorText label="3" temp={80.13} />
+              <TempColorText label="4" temp={30.10} />
             </View>
+
             <Text style={styles.cardSubtitle}>Batteries</Text>
             <View style={styles.rowContainer} >
-              <TempColorText name="L1" temp={-10.65} />
-              <TempColorText name="L2" temp={48.22} />
+              <TempColorText label="L1" temp={-10.65} />
+              <TempColorText label="L2" temp={48.22} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText name="LF1" temp={20.92} />
-              <TempColorText name="LF3" temp={60.5} />
+              <TempColorText label="LF1" temp={20.92} />
+              <TempColorText label="LF3" temp={60.5} />
+            </View>
+
+            <Text style={styles.cardSubtitle}>Panels</Text>
+            <View style={styles.rowContainer} >
+              <TempColorText label="+X" temp={-10.65} />
+              <TempColorText label="-X" temp={48.22} />
+            </View>
+            <View style={styles.rowContainer} >
+              <TempColorText label="+Y" temp={20.92} />
+              <TempColorText label="-Y" temp={60.5} />
+            </View>
+            <View style={styles.rowContainer} >
+              <TempColorText label="+Z" temp={20.92} />
+              <TempColorText label="-Z" temp={60.5} />
+            </View>
+            <Text style={styles.cardSubtitle}>Misc.</Text>
+            <View style={styles.rowContainer} >
+              <TempColorText label="Radio" temp={-10.65} />
+              <TempColorText label="IMU" temp={48.22} />
+            </View>
+          </ElevatedView>
+          <ElevatedView elevation={5} style={styles.card} >
+            <Text style={styles.cardTitle}>Object Temperatures</Text>            
+            <View style={styles.rowContainer} >
+              <TempColorText label="+X" temp={-10.65} />
+              <TempColorText label="-X" temp={48.22} />
+            </View>
+            <View style={styles.rowContainer} >
+              <TempColorText label="+Y" temp={20.92} />
+              <TempColorText label="-Y" temp={60.5} />
+            </View>
+            <View style={styles.rowContainer} >
+              <TempColorText label="+Z" temp={20.92} />
+              <TempColorText label="-Z" temp={60.5} />
+            </View>
+          </ElevatedView>
+          <ElevatedView elevation={5} style={styles.card} >
+            <Text style={styles.cardTitle}>Photodiodes</Text>            
+            <View style={styles.rowContainer} >
+              <VerticalDataValue label="+X" value={"0"} color="#FFFFFF" />
+              <VerticalDataValue label="-X" value={"1"} color="#FFFFFF" />
+            </View>
+            <View style={styles.rowContainer} >
+              <VerticalDataValue label="+Y" value={"0"} color="#FFFFFF" />
+              <VerticalDataValue label="-Y" value={"2"} color="#FFFFFF" />
+            </View>
+            <View style={styles.rowContainer} >
+              <VerticalDataValue label="+Z" value={"0"} color="#FFFFFF" />
+              <VerticalDataValue label="-Z" value={"3"} color="#FFFFFF" />
             </View>
           </ElevatedView>
           <View style={styles.rowContainer} >
-            <ElevatedView elevation={5} style={styles.card} >
-              <Text style={styles.cardTitle}>Acc</Text>
-                <DataValue label="X" value="1.02g" color="#FFFFFF" />
-                <DataValue label="Y" value="0.00g" color="#FFFFFF" />
-                <DataValue label="Z" value="0.01g" color="#FFFFFF" />
+            <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >              
+                <Text style={styles.cardTitle}>Acc</Text>
+                <HorizontalDataValue label="X" value="1.02g" color="#FFFFFF" />
+                <HorizontalDataValue label="Y" value="0.00g" color="#FFFFFF" />
+                <HorizontalDataValue label="Z" value="0.01g" color="#FFFFFF" />              
             </ElevatedView>
-            <ElevatedView elevation={5} style={styles.card} >
+            <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
               <Text style={styles.cardTitle}>Gyro</Text>
-              <DataValue label="X" value="0.08 d/s" color="#FFFFFF" />
-              <DataValue label="Y" value="0.12 d/s" color="#FFFFFF" />
-              <DataValue label="Z" value="3.2 d/s" color="#FFFFFF" />
+              <HorizontalDataValue label="X" value="0.08 d/s" color="#FFFFFF" />
+              <HorizontalDataValue label="Y" value="0.12 d/s" color="#FFFFFF" />
+              <HorizontalDataValue label="Z" value="3.2 d/s" color="#FFFFFF" />
             </ElevatedView>
-            <ElevatedView elevation={5} style={styles.card} >
+            <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
               <Text style={styles.cardTitle}>Mag</Text>
-              <DataValue label="X" value="10 mG" color="#FFFFFF" />
-              <DataValue label="Y" value="12 mG" color="#FFFFFF" />
-              <DataValue label="Z" value="0 mG" color="#FFFFFF" />
+              <HorizontalDataValue label="X" value="10 mG" color="#FFFFFF" />
+              <HorizontalDataValue label="Y" value="12 mG" color="#FFFFFF" />
+              <HorizontalDataValue label="Z" value="0 mG" color="#FFFFFF" />
             </ElevatedView>
           </View>
       </View>
@@ -245,7 +311,7 @@ export default class DataFragment extends React.Component {
   });
 
   _renderScene = SceneMap({
-    first: this.CurrentView,
+    first: this.LatestView,
     second: this.HistoricalView,
   });
 

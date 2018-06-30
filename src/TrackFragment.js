@@ -28,13 +28,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const trackServerPrefix = "http://13.58.206.57/"
+const trackServerPrefix = "http://tracking.brownspace.org/api/"
 
 //TLE Stuff
 const TLEJS = require('tle.js');
 const tlejs = new TLEJS();
 const satName = 'ISS (ZARYA)';
-const TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
 
 
 const isAndroid = (Platform.OS === 'android');
@@ -77,6 +76,8 @@ export default class TrackFragment extends React.Component {
     userNextPassError: true,
   }
 
+  TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
+
   printDate(date) {
     // Create an array with the current month, day and time
       var dateArr = [ date.getMonth() + 1, date.getDate(), date.getFullYear() ];
@@ -98,11 +99,11 @@ export default class TrackFragment extends React.Component {
       return dateArr.join("/") + " at " + timeArr.join(":") + " " + suffix;
 }  
 
-  getNextPass(_this, lat, long, alt, isUserLoc) {
+  getNextPass(_this, lat, lon, alt, isUserLoc) {
     this.setState({ lockedToSatLoc: false });
     _this.serverRequest = 
       axios
-        .get(trackServerPrefix + "api/get_next_pass/"+ satName + "/" + long + "," + lat + "," + alt)
+        .get(trackServerPrefix + "get_next_pass/"+ satName + "/" + lon + "," + lat + "," + alt)
         .then(function(result) {
           var isError = (result.status != 200);          
           if (isUserLoc) {
@@ -114,7 +115,7 @@ export default class TrackFragment extends React.Component {
             setTimeout(function(){ _this.searchLocMarker.showCallout(); }, 1000);
           }
         })
-        .catch(function (error) {
+        .catch(function (error) {          
           console.log(error);
           return undefined; });
   }
@@ -141,36 +142,30 @@ export default class TrackFragment extends React.Component {
   getTLE = async (_this) => {
     _this.serverRequest = 
       axios
-        .get('https://www.celestrak.com/NORAD/elements/stations.txt')
-        .then(function(result) {
-          var sats = result.data
-          var startIndex = sats.indexOf(satName);
-          var endIndex = startIndex;
-          for (var i = 0; i < 3; i++) {
-            endIndex= sats.indexOf("\n", endIndex+1);
-          }          
-          var TLEStr = sats.substring(startIndex, endIndex)
+        .get(trackServerPrefix + 'equisat_tle')
+        .then(function(result) {          
+          var TLEStr = result.data;
           if (TLEStr != "") {            
             _this.TLEStr = TLEStr;
-            console.log(TLEStr);
+            console.log(this.TLEStr);
           } else {
-            console.log("Could not parse TLE");
-          }
-          _this.setState({ TLEReady: true })
+            console.log("Received blank TLE");
+          }          
         })
         .catch(function (error) {
           console.log(error);
-          return undefined; });
+        });
+    _this.setState({ TLEReady: true })
   };
 
   updateSatLocation(_this) {    
     if (_this.state.TLEReady) {
-      const satPosition = tlejs.getLatLon(this.TLEStr);      
+      const satPosition = tlejs.getLatLon(this.TLEStr);
       var latitude = satPosition.lat;
       var longitude = satPosition.lng;      
       let satCoord = {latitude: latitude, longitude: longitude};        
       _this.setState({ satCoord });
-      curSatInfo = tlejs.getSatelliteInfo(TLEStr, Date.now(), latitude, longitude, 0);      
+      curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), latitude, longitude, 0);      
       curSatInfo["height"] = curSatInfo["height"].toFixed(2);
       curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);      
       _this.setState({ curSatInfo });
@@ -236,9 +231,9 @@ makeSearchMarker(location) {
     var _this = this;
     this.getTLE(this);
     //get sat location every second
-    var orbitLines = tlejs.getGroundTrackLatLng(TLEStr);
+    var orbitLines = tlejs.getGroundTrackLatLng(this.TLEStr);
     this.setOrbitPathCoords(orbitLines[1]);
-    this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2500);
+    this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2000);
   }
 
   componentWillUnmount() {
@@ -282,7 +277,7 @@ makeSearchMarker(location) {
           <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Next Pass</Text>
           <Text>Rise Time: {this.printDate(new Date(nextPass.rise_time *1000))}</Text>
           <Text>Rise Azimuth: {nextPass.rise_azimuth.toFixed(2)}°</Text>
-          <Text>Max Alt. Angle: {nextPass.max_alt.toFixed(2)}°</Text>
+          <Text>Max Alt.: {nextPass.max_alt.toFixed(2)}°</Text>
           <Text>Max Alt. Time: {this.printDate(new Date(nextPass.max_alt_time *1000))}</Text>
           <Text>Set Azimuth: {nextPass.set_azimuth.toFixed(2)}°</Text>
           <Text>Set Time: {this.printDate(new Date(nextPass.set_time *1000))}</Text>

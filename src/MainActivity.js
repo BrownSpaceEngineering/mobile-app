@@ -16,7 +16,7 @@ global.uiTheme = {
     palette: {
         primaryColor: "#19222a",
         accentColor: "#6aa2c8",
-        primaryTextColor: "#FFFFFF",
+        primaryTextColor: "#000000",
         secondaryTextColor: "#788ca1",
         alternateTextColor: "#FFFFFF"
     },

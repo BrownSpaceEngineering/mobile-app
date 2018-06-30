@@ -13,14 +13,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  chargingIcon: {    
-    backgroundColor: "transparent",
-    color: CHARGING_COLOR,
-  },
-  dischargingIcon: {    
-    backgroundColor: "transparent",
-    color: DISCHARGING_COLOR,
-  },
   chargeLabelContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -92,33 +84,15 @@ getBatteryColor(percentage){
     return ["hsl(",hue,",100%,50%)"].join("");
   }
 
-getTemperatureColor(tempInC) {
-    // Map the temperature to a 0-1 range
-    var a = (tempInC + 30)/60;
-    a = (a < 0) ? 0 : ((a > 1) ? 1 : a);
-    
-    // Scrunch the green/cyan range in the middle
-    var sign = (a < .5) ? -1 : 1;
-    a = sign * Math.pow(2 * Math.abs(a - .5), .35)/2 + .5;
-    
-    // Linear interpolation between the cold and hot
-    var h0 = 259;
-    var h1 = 12;
-    var h = (h0) * (1 - a) + (h1) * (a);
-    
-    //return pusher.color("hsv", h, 75, 90).hex6();
-    return ["hsl(",h,",100%,50%)"].join("");
-};
-
   render() {
     const { voltage, isLion, charging, discharging, number } = this.props;
     var percent = isLion ? this.lionVoltageToPercentage(voltage) : this.lifepo4VoltageToPercentage(voltage);
-    //var color = charging ? CHARGING_COLOR : uiTheme.palette.accentColor;  //this.getBatteryColor(percent)    
-    var color = uiTheme.palette.accentColor;
+    var color = this.getBatteryColor(percent);    
+    //var color = uiTheme.palette.accentColor;
     return(
       <View>
         <AnimatedCircularProgress
-          size={80}
+          size={90}
           width={5}
           fill={percent}
           backgroundColor="#3d5875"
@@ -129,13 +103,15 @@ getTemperatureColor(tempInC) {
                 <Text style={{ fontSize: 20, color: color, }}>
                   { percent }%
                 </Text>
-                {charging ? <Icon name="battery-charging" size={17} style={styles.chargingIcon} /> : null}
-                {discharging ? <Icon name="battery-minus" size={17} style={styles.dischargingIcon} /> : null}
+                <View style={styles.rowContainer}>
+                  {charging ? <Icon name="battery-charging" size={20} style={{backgroundColor: "transparent", color: 'white'}} /> : null}
+                  {discharging ? <Icon name="battery-minus" size={20} style={{backgroundColor: "transparent", color: 'white'}} /> : null}
+                </View>
               </View>
             )
           }
         </AnimatedCircularProgress>
-        <Text style={{ fontSize: 10, color: color, textAlign: 'center'}}> {number} </Text>
+        <Text style={{ fontSize: 15, color: color, textAlign: 'center', marginTop: 7}}> {number} </Text>
       </View>
     );
   }

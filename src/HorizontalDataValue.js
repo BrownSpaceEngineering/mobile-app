@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   labelStyle: {    
-    textAlign: 'center',
+    textAlign: 'left',
     color: 'white',
+    fontSize: 14,
   },
   rowContainer: {    
     flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-evenly',
+    flex: 1,    
     alignItems: 'center',
   },
 });
 
-class DataValue extends Component {
+class HorizontalDataValue extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
@@ -28,10 +28,10 @@ class DataValue extends Component {
     return(
       <View style={styles.rowContainer}>
         <Text style={styles.labelStyle}>{label}:</Text>
-        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', color: color }}>{value}</Text>
+        <Text style={{ marginLeft: 5, textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: color }}>{value}</Text>
       </View>
     );
   }
 }
 
-module.exports= DataValue
+module.exports= HorizontalDataValue

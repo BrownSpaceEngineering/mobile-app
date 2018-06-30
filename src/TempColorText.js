@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
 class TempColorText extends Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     temp: PropTypes.number.isRequired,    
   }
 
@@ -41,11 +41,11 @@ class TempColorText extends Component {
 };
 
   render() {
-    const { name, temp } = this.props;    
+    const { label, temp } = this.props;    
     return(
       <View>
-        <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', color: this.getTemperatureColor(temp) }}>{temp}°C</Text>
-        <Text style={styles.labelStyle}>{name}</Text>
+        <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: this.getTemperatureColor(temp) }}>{temp}°C</Text>
+        <Text style={styles.labelStyle}>{label}</Text>
       </View>
     );
   }
