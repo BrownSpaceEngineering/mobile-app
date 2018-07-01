@@ -20,7 +20,10 @@ const styles = StyleSheet.create({
 class VerticalDataValue extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.number.isRequired
+    ]),
     color: PropTypes.string.isRequired,
   }
 

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
 class BatteryCircle extends Component {
   static propTypes = {
-    voltage: PropTypes.number.isRequired,
+    mV: PropTypes.number.isRequired,
     isLion: PropTypes.bool.isRequired,
     charging: PropTypes.bool.isRequired,
     dicharging: PropTypes.bool,
@@ -30,7 +30,7 @@ class BatteryCircle extends Component {
   }
 
   lifepo4VoltageToPercentage(voltage) {
-    //piecewise curve fit
+    //piecewise curve fit    
     var percentage = 0.;
     if (voltage >= 3.299) {
       percentage = 7481.35161972045*Math.pow(voltage, 5) - 129698.307311745*Math.pow(voltage, 4) + 899320.30659425*Math.pow(voltage, 3) - 3117698.8919505*Math.pow(voltage, 2) + 5403781.60634651*voltage - 3746176.3794266;
@@ -85,10 +85,11 @@ getBatteryColor(percentage){
   }
 
   render() {
-    const { voltage, isLion, charging, discharging, number } = this.props;
+    const { mV, isLion, charging, discharging, number } = this.props;
+    var voltage = mV / 1000;
     var percent = isLion ? this.lionVoltageToPercentage(voltage) : this.lifepo4VoltageToPercentage(voltage);
     var color = this.getBatteryColor(percent);    
-    //var color = uiTheme.palette.accentColor;
+    //var color = uiTheme.palette.accentColor;    
     return(
       <View>
         <AnimatedCircularProgress

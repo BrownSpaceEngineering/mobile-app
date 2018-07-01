@@ -143,29 +143,29 @@ export default class TrackFragment extends React.Component {
     _this.serverRequest = 
       axios
         .get(trackServerPrefix + 'equisat_tle')
-        .then(function(result) {          
-          var TLEStr = result.data;
+        .then(function(result) {
+          var TLEStr = result.data.slice(0, -1);
           if (TLEStr != "") {            
-            _this.TLEStr = TLEStr;
-            console.log(this.TLEStr);
+            _this.TLEStr = TLEStr;            
           } else {
             console.log("Received blank TLE");
-          }          
+          }
+          _this.setState({ TLEReady: true });
         })
         .catch(function (error) {
+          _this.setState({ TLEReady: true });
           console.log(error);
-        });
-    _this.setState({ TLEReady: true })
+        });    
   };
 
-  updateSatLocation(_this) {    
-    if (_this.state.TLEReady) {
-      const satPosition = tlejs.getLatLon(this.TLEStr);
-      var latitude = satPosition.lat;
-      var longitude = satPosition.lng;      
+  updateSatLocation(_this) {
+    if (_this.state.TLEReady) {      
+      curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), 0, 0, 0);      
+      var latitude = curSatInfo.lat;
+      var longitude = curSatInfo.lng;      
       let satCoord = {latitude: latitude, longitude: longitude};        
       _this.setState({ satCoord });
-      curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), latitude, longitude, 0);      
+      
       curSatInfo["height"] = curSatInfo["height"].toFixed(2);
       curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);      
       _this.setState({ curSatInfo });

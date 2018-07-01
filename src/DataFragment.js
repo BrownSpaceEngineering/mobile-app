@@ -87,6 +87,8 @@ const data = [
   { quarter: 4, earnings: 19000 }
 ];
 
+const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1","gyroscope","magnetometer1,"];
+
 export default class DataFragment extends React.Component {
 
   state = {
@@ -95,33 +97,32 @@ export default class DataFragment extends React.Component {
       { key: 'first', title: 'Latest' },
       { key: 'second', title: 'Historical' },
     ],
-
-    L1REF: 0,
-    L2REF: 0,
-    LF1REF: 0,
-    LF2REF: 0,
-    LF3REF: 0,
-    LF4REF: 0,    
+    powerDraw: 1,
+    latestData: null,
   }
 
   componentDidMount() {
-    this.getBatteryVoltages();    
-    getSignalsLatestSingle(["LF1REF", "LED3SNS"], 1529996366626, new Date().getTime())
+    var _this = this;
+    getSignalsLatestSingle(curDataSignals)
        .then(function(result) {
-          console.log(result.data);
+          var latestData = result.data;
+          latestData.powerDraw = _this.calculatePowerDraw(latestData);
+          _this.setState({ latestData });
         })
-        .catch(function (error) {          
+        .catch(function (error) {
           console.log(error);
       });
-  }  
+  }
 
-  getBatteryVoltages() {
-    this.setState({ L1REF: 3.94 });
-    this.setState({ L2REF: 4.05 });
-    this.setState({ LF1REF: 2.9 });
-    this.setState({ LF2REF: 3.04 });  
-    this.setState({ LF3REF: 3.2 });
-    this.setState({ LF4REF: 3.22 });
+  calculatePowerDraw(latestData) {
+    var powerDraw = 0;    
+    if (latestData.L1_ST.value && latestData.L1_SNS.value < 0) {
+      powerDraw += (latestData.L1_SNS.value * -1 * latestData.L1_REF.value / 1000);
+    }
+    if (latestData.L2_ST.value && latestData.L2_SNS.value < 0) {
+      powerDraw += (latestData.L2_SNS.value * -1 * latestData.L2_REF.value / 1000);
+    }    
+    return powerDraw.toFixed(0);
   }
 
   LatestView = () => (
@@ -151,19 +152,19 @@ export default class DataFragment extends React.Component {
             <Text style={styles.cardTitle}>Battery Info</Text>
             <Text style={styles.cardSubtitle}>Li-Ion</Text>
             <View style={styles.rowContainer} >
-              <BatteryCircle isLion={true} charging={true} discharging={true} number={1} voltage={this.state.L1REF} />
-              <BatteryCircle isLion={true} charging={false} discharging={true} number={2} voltage={this.state.L2REF} />
+              <BatteryCircle isLion={true} charging={!this.state.latestData.L1_CHGN.value} discharging={this.state.latestData.L1_ST.value} number={1} mV={this.state.latestData.L1_REF.value} />
+              <BatteryCircle isLion={true} charging={!this.state.latestData.L2_CHGN.value} discharging={this.state.latestData.L2_ST.value} number={2} mV={this.state.latestData.L2_REF.value} />
             </View>
             <Text style={styles.cardSubtitle}>LiFePO4</Text>
             <View style={styles.rowContainer} >
-              <BatteryCircle isLion={false} charging={false} number={1} voltage={this.state.LF1REF} />
-              <BatteryCircle isLion={false} charging={false} number={2} voltage={this.state.LF2REF} />
-              <BatteryCircle isLion={false} charging={false} number={3} voltage={this.state.LF3REF} />
-              <BatteryCircle isLion={false} charging={false} number={4} voltage={this.state.LF4REF} />
+              <BatteryCircle isLion={false} charging={!this.state.latestData.LF_B1_CHGN.value} number={1} mV={this.state.latestData.LF1REF.value} />
+              <BatteryCircle isLion={false} charging={!this.state.latestData.LF_B1_CHGN.value} number={2} mV={this.state.latestData.LF2REF.value} />
+              <BatteryCircle isLion={false} charging={!this.state.latestData.LF_B2_CHGN.value} number={3} mV={this.state.latestData.LF3REF.value} />
+              <BatteryCircle isLion={false} charging={!this.state.latestData.LF_B2_CHGN.value} number={4} mV={this.state.latestData.LF4REF.value} />
             </View>
             <View style={[styles.rowContainerLeft, {alignItems: 'flex-end', marginTop: 10}]} >
-              <HorizontalDataValue label="Power Draw" value="262 mW" color="#FFFFFF" />
-              <HorizontalDataValue label="Solar Panel Voltage" value="8.76 V" color="#FFFFFF" />
+              <HorizontalDataValue label="Power Draw" value={this.state.latestData.powerDraw + " mW"} color="#FFFFFF" />
+              <HorizontalDataValue label="Solar Panel Voltage" value={(this.state.latestData.PANELREF.value / 1000) + " V"} color="#FFFFFF" />
             </View>
           </ElevatedView>          
           <ElevatedView elevation={5} style={styles.card} >
@@ -171,91 +172,91 @@ export default class DataFragment extends React.Component {
 
             <Text style={styles.cardSubtitle}>LEDs</Text>
             <View style={styles.rowContainer} >
-              <TempColorText label="1" temp={-39.23} />
-              <TempColorText label="2" temp={2.03} />
+              <TempColorText label="1" temp={this.state.latestData.LED1TEMP.value} />
+              <TempColorText label="2" temp={this.state.latestData.LED2TEMP.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="3" temp={80.13} />
-              <TempColorText label="4" temp={30.10} />
+              <TempColorText label="3" temp={this.state.latestData.LED3TEMP.value} />
+              <TempColorText label="4" temp={this.state.latestData.LED4TEMP.value} />
             </View>
 
             <Text style={styles.cardSubtitle}>Batteries</Text>
             <View style={styles.rowContainer} >
-              <TempColorText label="L1" temp={-10.65} />
-              <TempColorText label="L2" temp={48.22} />
+              <TempColorText label="L1" temp={this.state.latestData.L1_TEMP.value} />
+              <TempColorText label="L2" temp={this.state.latestData.L2_TEMP.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="LF1" temp={20.92} />
-              <TempColorText label="LF3" temp={60.5} />
+              <TempColorText label="LF1" temp={this.state.latestData.LF1_TEMP.value} />
+              <TempColorText label="LF3" temp={this.state.latestData.LF3_TEMP.value} />
             </View>
 
             <Text style={styles.cardSubtitle}>Panels</Text>
             <View style={styles.rowContainer} >
-              <TempColorText label="+X" temp={-10.65} />
-              <TempColorText label="-X" temp={48.22} />
+              <TempColorText label="+X" temp={this.state.latestData.IR_RBF_AMB.value} />
+              <TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_AMB.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="+Y" temp={20.92} />
-              <TempColorText label="-Y" temp={60.5} />
+              <TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_AMB.value} />
+              <TempColorText label="-Y" temp={this.state.latestData.IR_SIDE1_AMB.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="+Z" temp={20.92} />
-              <TempColorText label="-Z" temp={60.5} />
+              <TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_AMB.value} />
+              <TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_AMB.value} />
             </View>
             <Text style={styles.cardSubtitle}>Misc.</Text>
             <View style={styles.rowContainer} >
-              <TempColorText label="Radio" temp={-10.65} />
-              <TempColorText label="IMU" temp={48.22} />
+              <TempColorText label="Radio" temp={this.state.latestData.RAD_TEMP.value} />
+              <TempColorText label="IMU" temp={this.state.latestData.IMU_TEMP.value} />
             </View>
           </ElevatedView>
           <ElevatedView elevation={5} style={styles.card} >
             <Text style={styles.cardTitle}>Object Temperatures</Text>            
             <View style={styles.rowContainer} >
-              <TempColorText label="+X" temp={-10.65} />
-              <TempColorText label="-X" temp={48.22} />
+              <TempColorText label="+X" temp={this.state.latestData.IR_RBF_OBJ.value} />
+              <TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_OBJ.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="+Y" temp={20.92} />
-              <TempColorText label="-Y" temp={60.5} />
+              <TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_OBJ.value} />
+              <TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_OBJ.value} />
             </View>
             <View style={styles.rowContainer} >
-              <TempColorText label="+Z" temp={20.92} />
-              <TempColorText label="-Z" temp={60.5} />
+              <TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_OBJ.value} />
+              <TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_OBJ.value} />
             </View>
           </ElevatedView>
           <ElevatedView elevation={5} style={styles.card} >
             <Text style={styles.cardTitle}>Photodiodes</Text>            
             <View style={styles.rowContainer} >
-              <VerticalDataValue label="+X" value={"0"} color="#FFFFFF" />
-              <VerticalDataValue label="-X" value={"1"} color="#FFFFFF" />
+              <VerticalDataValue label="+X" value={this.state.latestData.PD_TOP2.value} color="#FFFFFF" />
+              <VerticalDataValue label="-X" value={this.state.latestData.PD_SIDE1.value} color="#FFFFFF" />
             </View>
             <View style={styles.rowContainer} >
-              <VerticalDataValue label="+Y" value={"0"} color="#FFFFFF" />
-              <VerticalDataValue label="-Y" value={"2"} color="#FFFFFF" />
+              <VerticalDataValue label="+Y" value={this.state.latestData.PD_FLASH.value} color="#FFFFFF" />
+              <VerticalDataValue label="-Y" value={this.state.latestData.PD_SIDE2.value} color="#FFFFFF" />
             </View>
             <View style={styles.rowContainer} >
-              <VerticalDataValue label="+Z" value={"0"} color="#FFFFFF" />
-              <VerticalDataValue label="-Z" value={"3"} color="#FFFFFF" />
+              <VerticalDataValue label="+Z" value={this.state.latestData.PD_TOP1.value} color="#FFFFFF" />
+              <VerticalDataValue label="-Z" value={this.state.latestData.PD_ACCESS.value} color="#FFFFFF" />
             </View>
           </ElevatedView>
           <View style={styles.rowContainer} >
             <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >              
                 <Text style={styles.cardTitle}>Acc</Text>
-                <HorizontalDataValue label="X" value="1.02g" color="#FFFFFF" />
-                <HorizontalDataValue label="Y" value="0.00g" color="#FFFFFF" />
-                <HorizontalDataValue label="Z" value="0.01g" color="#FFFFFF" />              
+                <HorizontalDataValue label="X" value={this.state.latestData.accelerometer1.value.x + " g"} color="#FFFFFF" />
+                <HorizontalDataValue label="Y" value={this.state.latestData.accelerometer1.value.y + " g"} color="#FFFFFF" />
+                <HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1.value.z + " g"} color="#FFFFFF" />              
             </ElevatedView>
             <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
               <Text style={styles.cardTitle}>Gyro</Text>
-              <HorizontalDataValue label="X" value="0.08 d/s" color="#FFFFFF" />
-              <HorizontalDataValue label="Y" value="0.12 d/s" color="#FFFFFF" />
-              <HorizontalDataValue label="Z" value="3.2 d/s" color="#FFFFFF" />
+              <HorizontalDataValue label="X" value={this.state.latestData.gyroscope.value.x + " d/s"} color="#FFFFFF" />
+              <HorizontalDataValue label="Y" value={this.state.latestData.gyroscope.value.y + " d/s"} color="#FFFFFF" />
+              <HorizontalDataValue label="Z" value={this.state.latestData.gyroscope.value.z + " d/s"} color="#FFFFFF" />
             </ElevatedView>
             <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
               <Text style={styles.cardTitle}>Mag</Text>
-              <HorizontalDataValue label="X" value="10 mG" color="#FFFFFF" />
-              <HorizontalDataValue label="Y" value="12 mG" color="#FFFFFF" />
-              <HorizontalDataValue label="Z" value="0 mG" color="#FFFFFF" />
+              <HorizontalDataValue label="X" value={this.state.latestData.magnetometer1.value.x + " mG"} color="#FFFFFF" />
+              <HorizontalDataValue label="Y" value={this.state.latestData.magnetometer1.value.y + " mG"} color="#FFFFFF" />
+              <HorizontalDataValue label="Z" value={this.state.latestData.magnetometer1.value.z + " mG"} color="#FFFFFF" />
             </ElevatedView>
           </View>
       </View>
@@ -326,16 +327,20 @@ export default class DataFragment extends React.Component {
     />
   );
 
-  render() {    
-    return(
-      <TabView
-        style={[styles.container, this.props.style]}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderTabBar={this._renderTabBar}
-        onIndexChange={this._handleIndexChange}
-        initialLayout={initialLayout}
-      />
-    );
+  render() {
+    if (!this.state.latestData) {
+      return <Expo.AppLoading/>
+    } else {
+      return(
+        <TabView
+          style={[styles.container, this.props.style]}
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          renderTabBar={this._renderTabBar}
+          onIndexChange={this._handleIndexChange}
+          initialLayout={initialLayout}
+        />
+      );
+    }    
   }
 }
