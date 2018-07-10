@@ -4,19 +4,21 @@ import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, Vi
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import ElevatedView from 'react-native-elevated-view';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-
+import timeago from 'timeago.js';
 
 import BatteryCircle from './BatteryCircle';
 import TempColorText from './TempColorText';
 import HorizontalDataValue from './HorizontalDataValue';
 import VerticalDataValue from './VerticalDataValue';
 
+const ta = timeago();
+
 const initialLayout = {
   height: 0,
   width: Dimensions.get('window').width,
 };
 
-import {getSignalsLatestSingle} from '../api-library-js/EQUiSatAPI.js';
+import {getSignalsLatestSingle, getPreambleData, getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
 
 const accentColor= "#6aa2c8"
 
@@ -102,6 +104,18 @@ export default class DataFragment extends React.Component {
   }
 
   componentDidMount() {
+    getSignalsInPeriod(["LF1REF", "LED3SNS"], 1529996366626, new Date().getTime())
+       .then(function(result) {
+          console.log("HERE1");
+          console.log(result);          
+          console.log("DATAAAAAAAAAAAa");
+          console.log(result.data);
+        })
+        .catch(function (error) {
+          console.log("ERRHER");
+          console.log(error);
+      });
+
     var _this = this;
     getSignalsLatestSingle(curDataSignals)
        .then(function(result) {
@@ -112,16 +126,26 @@ export default class DataFragment extends React.Component {
         .catch(function (error) {
           console.log(error);
       });
+    getPreambleData(null, 1)
+       .then(function(result) {
+          if (result.data.length > 0) {
+            var latestPreamble = result.data[0];
+            _this.setState({ latestPreamble });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+      });
   }
 
   calculatePowerDraw(latestData) {
-    var powerDraw = 0;    
+    var powerDraw = 0;
     if (latestData.L1_ST.value && latestData.L1_SNS.value < 0) {
       powerDraw += (latestData.L1_SNS.value * -1 * latestData.L1_REF.value / 1000);
     }
     if (latestData.L2_ST.value && latestData.L2_SNS.value < 0) {
       powerDraw += (latestData.L2_SNS.value * -1 * latestData.L2_REF.value / 1000);
-    }    
+    }
     return powerDraw.toFixed(0);
   }
 
@@ -133,15 +157,15 @@ export default class DataFragment extends React.Component {
               <Text style={styles.cardTitle}>Last Transmission</Text>
               <View style={styles.rowContainerLeft} >
                 <Icon name="clock" size={20} style={styles.icon} />
-                <Text style={styles.cardText}>20 hours ago</Text>
+                <Text style={styles.cardText}>{ta.format(new Date(this.state.latestPreamble.created))}</Text>
               </View>
               <View style={styles.rowContainerLeft} >
                 <Icon name="radio-tower" size={20} style={styles.icon} />
-                <Text style={styles.cardText}>Brown University</Text>
+                <Text style={styles.cardText}>{this.state.latestPreamble.station_names[0]}</Text>
               </View>
               <View style={styles.rowContainerLeft} >
                 <Text style={styles.cardText}>Current State:  </Text>            
-                <Text style={styles.cardText}>IDLE_FLASH</Text>
+                <Text style={styles.cardText}>{this.state.latestPreamble.preamble.satellite_state}</Text>
               </View>
             </ElevatedView>
             <ElevatedView elevation={5} style={styles.card} >
@@ -328,7 +352,7 @@ export default class DataFragment extends React.Component {
   );
 
   render() {
-    if (!this.state.latestData) {
+    if (!this.state.latestData || !this.state.latestPreamble) {
       return <Expo.AppLoading/>
     } else {
       return(

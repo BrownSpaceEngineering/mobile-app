@@ -8,6 +8,8 @@ import { Location, Permissions } from 'expo';
 import SnackBar from 'react-native-snackbar-component';
 import axios from 'axios';
 import 'es6-symbol/implement';
+import DialogInput from 'react-native-dialog-input';
+
 
 const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#d7dee5"},{"lightness":40},{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#19222a"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
 
@@ -74,6 +76,13 @@ export default class TrackFragment extends React.Component {
     showUserLocMarker: false,
     userNextPass: {max_alt: 0, max_alt_time: 0, rise_azimuth: 0, rise_time: 0, set_azimuth: 0, set_time: 0},
     userNextPassError: true,
+
+
+    notifyInputNumberDialogVisible: false,
+    notifyLat: 0,
+    notifyLon: 0,
+    notifyStatusSnackbarVisible: false,
+    notifyStatusSnackbarText: "",
   }
 
   TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
@@ -143,7 +152,8 @@ export default class TrackFragment extends React.Component {
     _this.serverRequest = 
       axios
         .get(trackServerPrefix + 'equisat_tle')
-        .then(function(result) {
+        .then(function(result) {          
+          console.log(TLEStr);
           var TLEStr = result.data.slice(0, -1);
           if (TLEStr != "") {            
             _this.TLEStr = TLEStr;            
@@ -152,7 +162,7 @@ export default class TrackFragment extends React.Component {
           }
           _this.setState({ TLEReady: true });
         })
-        .catch(function (error) {
+        .catch(function (error) {          
           _this.setState({ TLEReady: true });
           console.log(error);
         });    
@@ -287,10 +297,57 @@ makeSearchMarker(location) {
     }
   }
 
-  notifyNextPass(isError) {
+  notifyNextPass(isError, lat, lon) {
     if (!isError) {
-      Alert.alert("Notify placeholder");
+      this.setState({ notifyLat: lat });
+      this.setState({ notifyLon: lon });
+      this.setState({notifyInputNumberDialogVisible: true});
     }
+  }
+
+  registerNumber(phoneNumber) {
+    var _this = this;
+    axios
+      .get(trackServerPrefix + 'register/' + phoneNumber + ',' + this.state.notifyLat, + ',' + this.state.notifyLon)
+      .then(function(result) {
+        _this.setState({ notifyStatusSnackbarVisible: true });
+        _this.setState({ notifyStatusSnackbarText: (result.data.success ? "Successfully registered for SMS notifications" : "Error registering for SMS notifications") });
+        return result.data.success;     
+      })
+      .catch(function (error) {              
+        console.log(error);
+        _this.setState({ notifyStatusSnackbarText: "Error registering for SMS notifications" });
+        return false;
+      });
+  }
+
+  subsribeSMSNotifications(phoneNumber) {
+    var _this = this;
+    //check if number alraedy exists
+    axios
+      .get(trackServerPrefix + 'number_exists/' + phoneNumber)
+      .then(function(result) {
+        if (result.data.number) {
+          //Warn first
+          Alert.alert(
+            'Change Location?',
+            'Do you want to overwrite your previous location (' + result.data.lat + ', ' + result.data.long + ') and get updates for (' + this.state.notifyLat + ', ' + this.state.notifyLon + ') instead?',
+            [
+              {text: 'No'},
+              {text: 'Yes, ', onPress: () => _this.registerNumber(phoneNumber)},
+            ],
+            { cancelable: false }
+          );
+        } else {
+          //subscribe
+          _this.registerNumber(phoneNumber);
+        }
+      })
+      .catch(function (error) {
+        _this.setState({ notifyStatusSnackbarVisible: true });
+        _this.setState({ notifyStatusSnackbarText: "Error contacting SMS notification server"});        
+        console.log(error);
+      });
   }
 
   render() {    
@@ -323,7 +380,7 @@ makeSearchMarker(location) {
             opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
             {isAndroid ? null : <Image source={userMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
-            <MapView.Callout onPress={e => this.notifyNextPass(this.state.userNextPassError)} >              
+            <MapView.Callout onPress={e => this.notifyNextPass(this.state.userNextPassError, this.state.userLat, this.state.userLong)} >              
               {this.showCalloutText(true)}
             </MapView.Callout>
           </MapView.Marker>
@@ -336,7 +393,7 @@ makeSearchMarker(location) {
             }}
             opacity={this.state.showSearchLocMarker ? 1.0 : 0}
           >
-            <MapView.Callout onPress={e => this.notifyNextPass(this.state.searchNextPassError)}>
+            <MapView.Callout onPress={e => this.notifyNextPass(this.state.searchNextPassError, this.state.searchLat, this.state.searchLong)}>
               {this.showCalloutText(false)}
             </MapView.Callout>
           </MapView.Marker>
@@ -384,6 +441,15 @@ makeSearchMarker(location) {
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
         <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
+        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>
+        <DialogInput isDialogVisible={this.state.notifyInputNumberDialogVisible}
+            title={"Subscribe to SMS Notifications"}
+            message={"Enter phone number to receive SMS notifications for EQUiSat passes."}
+            hintInput ={"Phone number"}
+            textInputProps={{keyboardType: "phone-pad"}}
+            submitInput={ (inputText) => {this.subsribeSMSNotifications(inputText)} }
+            closeDialog={ () => {this.setState({ notifyInputNumberDialogVisible: false })}}>
+        </DialogInput>
       </View>
     );
   }
