@@ -536,35 +536,33 @@ export default class DataFragment extends React.Component {
     />
   );
 
-  render() {
-
-    <View>
-      <DateTimePicker
-        isVisible={this.state.startDateTimePickerVisible}
-        onConfirm={this.handleStartDatePicked}
-        onCancel={this.hideStartDateTimePicker}
-        mode={"datetime"}
-      />
-
-      <DateTimePicker
-        isVisible={this.state.endDateTimePickerVisible}
-        onConfirm={this.handleEndDatePicked}
-        onCancel={this.hideEndDateTimePicker}
-        mode={"datetime"}
-      />
-    </View>
+  render() {  
     if (!this.state.latestData) {
       return <Expo.AppLoading/>
     } else {
       return(
-        <TabView
-          style={[styles.container, this.props.style]}
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          renderTabBar={this._renderTabBar}
-          onIndexChange={this._handleIndexChange}
-          initialLayout={initialLayout}
-        />
+        <View style={styles.container}>
+          <DateTimePicker
+          isVisible={this.state.startDateTimePickerVisible}
+          onConfirm={this.handleStartDatePicked}
+          onCancel={this.hideStartDateTimePicker}
+          mode={"datetime"}
+          />
+          <DateTimePicker
+            isVisible={this.state.endDateTimePickerVisible}
+            onConfirm={this.handleEndDatePicked}
+            onCancel={this.hideEndDateTimePicker}
+            mode={"datetime"}
+          />
+          <TabView
+            style={[styles.container, this.props.style]}
+            navigationState={this.state}
+            renderScene={this._renderScene}
+            renderTabBar={this._renderTabBar}
+            onIndexChange={this._handleIndexChange}
+            initialLayout={initialLayout}
+          />
+        </View>
       );
     }
   }
