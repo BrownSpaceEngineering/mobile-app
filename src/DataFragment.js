@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import { Dimensions, StyleSheet, View, ScrollView, Text } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryStack, VictoryArea } from "victory-native";
+import { Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryStack, VictoryArea, VictoryAxis } from "victory-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import ElevatedView from 'react-native-elevated-view';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import CustomMultiPicker from "react-native-multiple-select-list";
+
 
 
 import BatteryCircle from './BatteryCircle';
@@ -16,7 +19,7 @@ const initialLayout = {
   width: Dimensions.get('window').width,
 };
 
-import {getSignalsLatestSingle} from '../api-library-js/EQUiSatAPI.js';
+import {getSignalsLatestSingle, getSignalsLatest, getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
 
 const accentColor= "#6aa2c8"
 
@@ -26,11 +29,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#131a20',
   },
-  rowContainer: {    
+  rowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  rowContainerLeft: {    
+  rowContainerLeft: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
@@ -39,10 +42,10 @@ const styles = StyleSheet.create({
   },
   tab: {
     width: Dimensions.get('window').width / 2,
-  },   
+  },
   tabbar: {
     backgroundColor: '#19222a',
-  },    
+  },
   indicator: {
     backgroundColor: accentColor,
   },
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
     margin: 5,
     padding:10,
     flex: 1,
-    backgroundColor: '#19222a',  
+    backgroundColor: '#19222a',
   },
   cardTitle: {
     color: 'white',
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 7.5,
   },
   cardSubtitle: {
-    color: 'white',    
+    color: 'white',
     fontSize: 18,
     marginBottom: 7,
   },
@@ -73,19 +76,61 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 5,
   },
-  icon: {    
+  icon: {
     backgroundColor: "transparent",
     color: "white",
     paddingRight: 5,
   },
+  innerContainer: {
+    paddingLeft: 15,
+    flex: 1
+  }
 });
 
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 }
+/*const data = [
+  [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3 }, { x: 4, y: 4 }],
+  [{ x: 1.5, y: 400 }, { x: 3, y: 350 }, { x: 3.2, y: 300 }, { x: 4, y: 250 }],
+  [{ x: 1, y: 75 }, { x: 2, y: 85 }, { x: 3, y: 95 }, { x: 4, y: 100 }],
+  [{ x: 1, y: 10000 }, { x: 2, y: 230 }, { x:3, y: 5000 }, { x: 4, y: 9000 }]
+];*/
+
+let signals = ["LF1REF", "LED3SNS", "IR_FLASH_AMB", "L1_TEMP"];
+
+const monthMap = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
 ];
+
+const signalOptionList = {
+  "L_REF":"LiOn voltage",
+  "L_SNS":"LiOn current",
+  "L_TEMP":"LiOn temperature",
+  "PANELREF":"Solar panel voltage",
+  "LFREF":"LiFePo voltage",
+  "LFBSNS":"LiFePo current",
+  "LF_TEMP":"LiFePo temperature",
+  "RAD_TEMP":"Radio temperature",
+  "IMU_TEMP":"IMU temperature",
+  "IR":"IR sensors ",
+  "LEDSNS":"LED current",
+  "LEDTEMP":"LED temperature",
+}
+
+
+const xOffsets = [50, 280, 0, 330];
+const tickPadding = [10, -15, -15, 15];
+const anchors = ["start", "start", "start", "start"];
+const colors = ["yellow", "red", "blue", "green"];
 
 const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1","gyroscope","magnetometer1,"];
 
@@ -99,10 +144,125 @@ export default class DataFragment extends React.Component {
     ],
     powerDraw: 1,
     latestData: null,
+    graphData1: [],
+    graphData2: [],
+    graphData3: [],
+    graphData4: [],
+    graphMaxima: [],
+    graphMinima: [],
+    startDateTime: null,
+    endDateTime: null,
+    startDateTimePickerVisible: false,
+    endDateTimePickerVisible: false
+  }
+
+  showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
+
+  showEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: true });
+
+  hideStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: false });
+
+  hideEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: false });
+
+  handleStartDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    this.hideStartDateTimePicker();
+  };
+
+  handleEndDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    this.hideEndDateTimePicker();
+  };
+
+  _formatTick = (t) => {
+    let tickString = t.toString();
+    alert(t);
+    if (tickString.length > 2) {
+      return tickString[2] == "." ? tickString.slice(0, 1) : tickString.slice(0, 2);
+    } else {
+      return tickString;
+    }
+  }
+
+  getFullData = () => {
+    var data = [];
+    const full_data = [
+      this.state.graphData1,
+      this.state.graphData2,
+      this.state.graphData3,
+      this.state.graphData4
+    ]
+    for (let x = 0; x<4; x++) {
+      if (full_data[x].length > 0) {
+        data.push(full_data[x])
+      }
+    }
+    return data;
+  }
+
+  _getSensorCodes = (code) => {
+    switch (code) {
+      case "L_REF": return ["L1_REF", "L2_REF"];
+      case "L_SNS": return ["L1_SNS", "L2_SNS"];
+      case "L_TEMP": return ["L1_TEMP", "L2_TEMP"];
+      case "PANELREF": return ["PANELREF"];
+      case "LFREF": return ["LF1REF", "LF2REF", "LF3REF", "LF4REF"];
+      case "LFBSNS": return ["LFB1SNS", "LFB2SNS"];
+      case "LF_TEMP": return ["LF1_TEMP"]; //, "LF2_TEMP"]; LF2_TEMP yet to have values, will add back soon
+      case "RAD_TEMP": return ["RAD_TEMP"];
+      case "IMU_TEMP": return ["IMU_TEMP"];
+      case "IR": return ["IR_FLASH_AMB"];
+      case "LEDSNS": return ["LED1SNS", "LED2SNS", "LED3SNS", "LED4SNS"];
+      case "LEDTEMP": return ["LED1TEMP", "LED2TEMP", "LED3TEMP", "LED4TEMP"];
+      default: return;
+    }
+  }
+
+  _setGraphData = (res) => {
+    let data = [];
+    for (let k=0; k<res.length; k++) {
+      if (k > 3) {
+        alert('Please select at most four signals');
+        break;
+      }
+      else {
+        let codes = this._getSensorCodes(res[k]);
+        getSignalsInPeriod(codes, 1529996366626, new Date().getTime())
+          .then(function(result) {
+            let timestamps = result.data[codes[0]]['timestamps'];
+            let values = [];
+            for (let q=0; q<codes.length; q++){
+              values.push(result.data[codes[q]]['values']);
+            }
+            let signal_data = [];
+            for (let b=0; b<timestamps.length; b++) {
+              let dateTime = new Date(timestamps[b]);
+              let avg_values=[];
+              for (let a=0; a<codes.length; a++) {
+                avg_values.push(values[a][b]);
+              }
+              let average = codes.length == 0
+                ? 0
+                : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
+              signal_data.push({x: dateTime, y: average});
+            }
+            k == 0 ? this.setState({graphData1: signal_data})
+              : k == 1
+                ? this.setState({ graphData2: signal_data })
+                : k == 2
+                  ? this.setState({ graphData3: signal_data })
+                  : this.setState({ graphData4: signal_data })
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }
   }
 
   componentDidMount() {
     var _this = this;
+
     getSignalsLatestSingle(curDataSignals)
        .then(function(result) {
           var latestData = result.data;
@@ -115,13 +275,13 @@ export default class DataFragment extends React.Component {
   }
 
   calculatePowerDraw(latestData) {
-    var powerDraw = 0;    
+    var powerDraw = 0;
     if (latestData.L1_ST.value && latestData.L1_SNS.value < 0) {
       powerDraw += (latestData.L1_SNS.value * -1 * latestData.L1_REF.value / 1000);
     }
     if (latestData.L2_ST.value && latestData.L2_SNS.value < 0) {
       powerDraw += (latestData.L2_SNS.value * -1 * latestData.L2_REF.value / 1000);
-    }    
+    }
     return powerDraw.toFixed(0);
   }
 
@@ -140,12 +300,12 @@ export default class DataFragment extends React.Component {
                 <Text style={styles.cardText}>Brown University</Text>
               </View>
               <View style={styles.rowContainerLeft} >
-                <Text style={styles.cardText}>Current State:  </Text>            
+                <Text style={styles.cardText}>Current State:  </Text>
                 <Text style={styles.cardText}>IDLE_FLASH</Text>
               </View>
             </ElevatedView>
             <ElevatedView elevation={5} style={styles.card} >
-                                      
+
             </ElevatedView>
           </View>
           <ElevatedView elevation={5} style={styles.card} >
@@ -166,7 +326,7 @@ export default class DataFragment extends React.Component {
               <HorizontalDataValue label="Power Draw" value={this.state.latestData.powerDraw + " mW"} color="#FFFFFF" />
               <HorizontalDataValue label="Solar Panel Voltage" value={(this.state.latestData.PANELREF.value / 1000) + " V"} color="#FFFFFF" />
             </View>
-          </ElevatedView>          
+          </ElevatedView>
           <ElevatedView elevation={5} style={styles.card} >
             <Text style={styles.cardTitle}>Ambient Temperatures</Text>
 
@@ -210,7 +370,7 @@ export default class DataFragment extends React.Component {
             </View>
           </ElevatedView>
           <ElevatedView elevation={5} style={styles.card} >
-            <Text style={styles.cardTitle}>Object Temperatures</Text>            
+            <Text style={styles.cardTitle}>Object Temperatures</Text>
             <View style={styles.rowContainer} >
               <TempColorText label="+X" temp={this.state.latestData.IR_RBF_OBJ.value} />
               <TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_OBJ.value} />
@@ -225,7 +385,7 @@ export default class DataFragment extends React.Component {
             </View>
           </ElevatedView>
           <ElevatedView elevation={5} style={styles.card} >
-            <Text style={styles.cardTitle}>Photodiodes</Text>            
+            <Text style={styles.cardTitle}>Photodiodes</Text>
             <View style={styles.rowContainer} >
               <VerticalDataValue label="+X" value={this.state.latestData.PD_TOP2.value} color="#FFFFFF" />
               <VerticalDataValue label="-X" value={this.state.latestData.PD_SIDE1.value} color="#FFFFFF" />
@@ -240,11 +400,11 @@ export default class DataFragment extends React.Component {
             </View>
           </ElevatedView>
           <View style={styles.rowContainer} >
-            <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >              
+            <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
                 <Text style={styles.cardTitle}>Acc</Text>
                 <HorizontalDataValue label="X" value={this.state.latestData.accelerometer1.value.x + " g"} color="#FFFFFF" />
                 <HorizontalDataValue label="Y" value={this.state.latestData.accelerometer1.value.y + " g"} color="#FFFFFF" />
-                <HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1.value.z + " g"} color="#FFFFFF" />              
+                <HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1.value.z + " g"} color="#FFFFFF" />
             </ElevatedView>
             <ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
               <Text style={styles.cardTitle}>Gyro</Text>
@@ -264,43 +424,92 @@ export default class DataFragment extends React.Component {
   );
 
   HistoricalView = () => (
+
     <View>
       <ScrollView>
         <View style={styles.dataContainer}>
+
+          <TouchableOpacity onPress={() => console.log(this.getFullData())}>
+            <Text>Select start time</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.showEndDateTimePicker}>
+            <Text>Select start time</Text>
+          </TouchableOpacity>
+
           <View style={styles.innerContainer} pointerEvents="none">
-            <VictoryChart width={350} theme={VictoryTheme.material}>
-              <VictoryBar data={data} x="quarter" y="earnings" />
-            </VictoryChart>
-            <VictoryChart width={350} theme={VictoryTheme.material}>
-              <VictoryLine data={data} x="quarter" y="earnings" />
-            </VictoryChart>
-            <VictoryChart width={350} theme={VictoryTheme.material}>
-              <VictoryScatter
-                style={{ data: { fill: "#c43a31" } }}
-                size={7}
-                data={[
-                  { x: 1, y: 2.0 },
-                  { x: 2.5, y: 2.8 },
-                  { x: 3.1, y: 5.5 },
-                  { x: 3.9, y: 6.3 },
-                  { x: 5.0, y: 7 }
-                ]}
-              />
-            </VictoryChart>
-            <VictoryChart width={350} theme={VictoryTheme.material}>
-              <VictoryStack>
-                <VictoryArea
-                  data={[{x: "a", y: 2}, {x: "b", y: 3}, {x: "c", y: 5}]}
+
+            <VictoryChart
+              theme={VictoryTheme.material}
+              width={330} height={330}
+              domain={{ y: [0, 1] }}
+              scale={{ x: "time" }}
+            >
+             <VictoryAxis />
+              {this.getFullData().map((d, i) => (
+                <VictoryAxis dependentAxis
+                  key={i}
+                  offsetX={xOffsets[i]}
+                  style={{
+                    axis: { stroke: colors[i] },
+                    ticks: { padding: tickPadding[i] },
+                    tickLabels: { fill: colors[i], textAnchor: anchors[i] }
+                  }}
+                  // Use normalized tickValues (0 - 1)
+                  tickValues={[0.25, 0.5, 0.75, 1]}
+                  // Re-scale ticks by multiplying by correct maxima
+                  tickFormat={(t) => {
+                    const graphMax = this.getFullData().map(
+                    	(dataset) => Math.max(...dataset.map((d) => d.y))
+                    );
+                    const graphMin = this.getFullData().map(
+                    	(dataset) => Math.min(...dataset.map((d) => d.y))
+                    );
+
+                    console.log(this.getFullData());
+                    this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i])}
+                  }/*this._formatTick(t, this.state.graphMaxima[i])*/
                 />
-                <VictoryArea
-                  data={[{x: "a", y: 1}, {x: "b", y: 4}, {x: "c", y: 5}]}
+              ))}
+              {this.getFullData().map((d, i) => (
+                <VictoryLine
+                  key={i}
+                  data={d}
+                  style={{ data: { stroke: colors[i] } }}
+                  // normalize data
+                  y={(datum) => {//datum.y / this.state.graphMaxima[i] }
+                    const graphMax = this.getFullData().map(
+                      (dataset) => Math.max(...dataset.map((d) => d.y))
+                    );
+                    const graphMin = this.getFullData().map(
+                      (dataset) => Math.min(...dataset.map((d) => d.y))
+                    );
+                    graphMax[i] - graphMin[i] == 0
+                      ? datum.y
+                      : (datum.y - graphMin[i]) / (graphMax[i] - graphMin[i])}
+                    }
                 />
-                <VictoryArea
-                  data={[{x: "a", y: 3}, {x: "b", y: 2}, {x: "c", y: 6}]}
-                />
-              </VictoryStack>
+              ))}
             </VictoryChart>
           </View>
+          <CustomMultiPicker
+            options={signalOptionList}
+            search={true} // should show search bar?
+            multiple={true} //
+            placeholder={"Search"}
+            placeholderTextColor={'#757575'}
+            returnValue={"value"} // label or value
+            callback={ (res) => this._setGraphData(res) }
+            rowBackgroundColor={"#eee"}
+            rowHeight={40}
+            rowRadius={5}
+            iconColor={"#00a2dd"}
+            iconSize={30}
+            selectedIconName={"ios-checkmark-circle-outline"}
+            unselectedIconName={"ios-radio-button-off-outline"}
+            scrollViewHeight={600}
+            selected={[]} // list of options which are selected by default
+          />
         </View>
       </ScrollView>
     </View>
@@ -328,6 +537,22 @@ export default class DataFragment extends React.Component {
   );
 
   render() {
+
+    <View>
+      <DateTimePicker
+        isVisible={this.state.startDateTimePickerVisible}
+        onConfirm={this.handleStartDatePicked}
+        onCancel={this.hideStartDateTimePicker}
+        mode={"datetime"}
+      />
+
+      <DateTimePicker
+        isVisible={this.state.endDateTimePickerVisible}
+        onConfirm={this.handleEndDatePicked}
+        onCancel={this.hideEndDateTimePicker}
+        mode={"datetime"}
+      />
+    </View>
     if (!this.state.latestData) {
       return <Expo.AppLoading/>
     } else {
@@ -341,6 +566,6 @@ export default class DataFragment extends React.Component {
           initialLayout={initialLayout}
         />
       );
-    }    
+    }
   }
 }
