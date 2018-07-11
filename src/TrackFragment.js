@@ -10,7 +10,6 @@ import axios from 'axios';
 import 'es6-symbol/implement';
 import DialogInput from 'react-native-dialog-input';
 
-
 const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#d7dee5"},{"lightness":40},{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#19222a"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
 
 const styles = StyleSheet.create({
@@ -124,7 +123,7 @@ export default class TrackFragment extends React.Component {
             setTimeout(function(){ _this.searchLocMarker.showCallout(); }, 1000);
           }
         })
-        .catch(function (error) {          
+        .catch(function (error) {
           console.log(error);
           return undefined; });
   }
@@ -143,55 +142,55 @@ export default class TrackFragment extends React.Component {
     this.setState({ userLat });
     this.setState({ userLong });
     this.setState({ userAlt });
-    this.setState({ gotUserLoc: true });    
+    this.setState({ gotUserLoc: true });
     this.getNextPass(this, userLat, userLong, userAlt, true);
     this.setState({ showUserLocMarker: true });
   };
 
   getTLE = async (_this) => {
-    _this.serverRequest = 
+    _this.serverRequest =
       axios
         .get(trackServerPrefix + 'equisat_tle')
-        .then(function(result) {          
+        .then(function(result) {
           console.log(TLEStr);
           var TLEStr = result.data.slice(0, -1);
-          if (TLEStr != "") {            
-            _this.TLEStr = TLEStr;            
+          if (TLEStr != "") {
+            _this.TLEStr = TLEStr;
           } else {
             console.log("Received blank TLE");
           }
           _this.setState({ TLEReady: true });
         })
-        .catch(function (error) {          
+        .catch(function (error) {
           _this.setState({ TLEReady: true });
           console.log(error);
-        });    
+        });
   };
 
   updateSatLocation(_this) {
-    if (_this.state.TLEReady) {      
-      curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), 0, 0, 0);      
+    if (_this.state.TLEReady) {
+      curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), 0, 0, 0);
       var latitude = curSatInfo.lat;
-      var longitude = curSatInfo.lng;      
-      let satCoord = {latitude: latitude, longitude: longitude};        
+      var longitude = curSatInfo.lng;
+      let satCoord = {latitude: latitude, longitude: longitude};
       _this.setState({ satCoord });
       
       curSatInfo["height"] = curSatInfo["height"].toFixed(2);
-      curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);      
+      curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);
       _this.setState({ curSatInfo });
-      if (_this.state.lockedToSatLoc) {      
+      if (_this.state.lockedToSatLoc) {
         let region = {
           latitude: latitude,
           longitude: longitude,
           latitudeDelta: 50,
           longitudeDelta: 50,
         }
-        _this.map.animateToRegion(region);    
+        _this.map.animateToRegion(region);
       }
     }
   }
 
-makeSearchMarker(location) {  
+makeSearchMarker(location) {
   var searchLat = location.latitude;
   var searchLong = location.longitude;
   this.setState({ searchLat });
@@ -203,21 +202,21 @@ makeSearchMarker(location) {
     latitudeDelta: 0.5,
     longitudeDelta: 0.5,
   }
-  this.map.animateToRegion(region);  
+  this.map.animateToRegion(region);
   this.getNextPass(this, searchLat, searchLong, 0, false);
 }
 
   _getGeocodeLatLong = async () => {
     this.setState({ lockedToSatLoc: false });
-    this.setState({showSearchSpinner: true});    
+    this.setState({showSearchSpinner: true});
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {      
+    if (status !== 'granted') {
       this.setState({ locErrorSnackbarVisible: true });
       var _this = this;
       setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
     }    
     var locations = await Location.geocodeAsync(this.state.searchText);
-    if (locations.length == 0) {      
+    if (locations.length == 0) {
       this.setState({ searchErrorSnackbarVisible: true });
       var _this = this;
       setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
@@ -228,11 +227,11 @@ makeSearchMarker(location) {
     this.setState({ searchBarOpen: false });  
   };
 
-  setOrbitPathCoords(orbitLineArr) {    
+  setOrbitPathCoords(orbitLineArr) {
     var satCoords = [];
-    for (var i = 0; i < orbitLineArr.length; i++) {      
+    for (var i = 0; i < orbitLineArr.length; i++) {
       satCoords = [ ...satCoords, {latitude: orbitLineArr[i][0], longitude: orbitLineArr[i][1]}];
-    }    
+    }
     this.setState({ satCoords });
   }
 
@@ -242,6 +241,7 @@ makeSearchMarker(location) {
     this.getTLE(this);
     //get sat location every second
     var orbitLines = tlejs.getGroundTrackLatLng(this.TLEStr);
+    console.log(orbitLines);
     this.setOrbitPathCoords(orbitLines[1]);
     this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2000);
   }
@@ -301,27 +301,30 @@ makeSearchMarker(location) {
     if (!isError) {
       this.setState({ notifyLat: lat });
       this.setState({ notifyLon: lon });
-      this.setState({notifyInputNumberDialogVisible: true});
+      this.setState({notifyInputNumberDialogVisible: true});      
     }
   }
 
   registerNumber(phoneNumber) {
     var _this = this;
     axios
-      .get(trackServerPrefix + 'register/' + phoneNumber + ',' + this.state.notifyLat, + ',' + this.state.notifyLon)
-      .then(function(result) {
-        _this.setState({ notifyStatusSnackbarVisible: true });
+      .get(trackServerPrefix + 'register/' + phoneNumber + ',' + _this.state.notifyLat + ',' + _this.state.notifyLon)
+      .then(function(result) {        
         _this.setState({ notifyStatusSnackbarText: (result.data.success ? "Successfully registered for SMS notifications" : "Error registering for SMS notifications") });
+        _this.setState({ notifyStatusSnackbarVisible: true });      
+        setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
         return result.data.success;     
       })
       .catch(function (error) {              
         console.log(error);
         _this.setState({ notifyStatusSnackbarText: "Error registering for SMS notifications" });
+        _this.setState({ notifyStatusSnackbarVisible: true });
+        setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
         return false;
       });
   }
 
-  subsribeSMSNotifications(phoneNumber) {
+  subscribeSMSNotifications(phoneNumber) {
     var _this = this;
     //check if number alraedy exists
     axios
@@ -331,10 +334,10 @@ makeSearchMarker(location) {
           //Warn first
           Alert.alert(
             'Change Location?',
-            'Do you want to overwrite your previous location (' + result.data.lat + ', ' + result.data.long + ') and get updates for (' + this.state.notifyLat + ', ' + this.state.notifyLon + ') instead?',
+            'Do you want to overwrite your previous location (' + result.data.lat + ', ' + result.data.lon + ') and get updates for (' + _this.state.notifyLat + ', ' + _this.state.notifyLon + ') instead?',
             [
               {text: 'No'},
-              {text: 'Yes, ', onPress: () => _this.registerNumber(phoneNumber)},
+              {text: 'Yes', onPress: () => _this.registerNumber(phoneNumber)},
             ],
             { cancelable: false }
           );
@@ -343,9 +346,10 @@ makeSearchMarker(location) {
           _this.registerNumber(phoneNumber);
         }
       })
-      .catch(function (error) {
+      .catch(function (error) {        
+        _this.setState({ notifyStatusSnackbarText: "Error contacting SMS notification server"});
         _this.setState({ notifyStatusSnackbarVisible: true });
-        _this.setState({ notifyStatusSnackbarText: "Error contacting SMS notification server"});        
+        setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
         console.log(error);
       });
   }
@@ -443,11 +447,14 @@ makeSearchMarker(location) {
         <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
         <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>
         <DialogInput isDialogVisible={this.state.notifyInputNumberDialogVisible}
+            ref={(input) => { this.numberInput = input; }}
             title={"Subscribe to SMS Notifications"}
             message={"Enter phone number to receive SMS notifications for EQUiSat passes."}
             hintInput ={"Phone number"}
-            textInputProps={{keyboardType: "phone-pad"}}
-            submitInput={ (inputText) => {this.subsribeSMSNotifications(inputText)} }
+            submitText={"Register"}
+            textInputProps={{keyboardType: "phone-pad", autoFocus: true}}
+            defaultValue={"TEST"}
+            submitInput={ (inputText) => {this.subscribeSMSNotifications(inputText); this.setState({ notifyInputNumberDialogVisible: false })} }
             closeDialog={ () => {this.setState({ notifyInputNumberDialogVisible: false })}}>
         </DialogInput>
       </View>

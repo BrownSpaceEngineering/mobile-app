@@ -46,7 +46,8 @@ export default class DataFragment extends React.Component {
   );
 
   HistoricalView = () => (
-    <HistoricalDataFragment/>
+    /*<HistoricalDataFragment/>*/
+    <Text>test</Text>
   );
 
   _handleIndexChange = index =>
