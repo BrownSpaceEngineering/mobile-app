@@ -1,21 +1,31 @@
 import React, {Component} from 'react';
-import { Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { Alert, Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryStack, VictoryArea, VictoryAxis } from "victory-native";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CustomMultiPicker from "react-native-multiple-select-list";
+import { Button } from 'react-native-material-ui';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 import {getSignalsLatest, getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
+import {signalToName} from '../api-library-js/HumanReadables.js';
 
 const styles = StyleSheet.create({
 	dataContainer: {
 	    flex: 1,
 	    justifyContent: 'center',
 	    backgroundColor: '#131a20',
+  	},	
+  	rowContainer: {
+		flexDirection: 'row',
+	  	justifyContent: 'space-evenly',
   	},
-	innerContainer: {
-	    paddingLeft: 15,
-	    flex: 1
-  	}
+  	multiSelectContainer: {
+	    backgroundColor: '#19222a',
+  	},
+  	multiSelectSearchIcon: {
+	    backgroundColor: '#FFFFFF',	    
+  	},
 });
 
 /*const data = [
@@ -24,8 +34,6 @@ const styles = StyleSheet.create({
   [{ x: 1, y: 75 }, { x: 2, y: 85 }, { x: 3, y: 95 }, { x: 4, y: 100 }],
   [{ x: 1, y: 10000 }, { x: 2, y: 230 }, { x:3, y: 5000 }, { x: 4, y: 9000 }]
 ];*/
-
-let signals = ["LF1REF", "LED3SNS", "IR_FLASH_AMB", "L1_TEMP"];
 
 const monthMap = [
   "Jan",
@@ -42,40 +50,51 @@ const monthMap = [
   "Dec"
 ];
 
-const signalOptionList = {
-  "L_REF":"LiOn voltage",
-  "L_SNS":"LiOn current",
-  "L_TEMP":"LiOn temperature",
-  "PANELREF":"Solar panel voltage",
-  "LFREF":"LiFePo voltage",
-  "LFBSNS":"LiFePo current",
-  "LF_TEMP":"LiFePo temperature",
-  "RAD_TEMP":"Radio temperature",
-  "IMU_TEMP":"IMU temperature",
-  "IR":"IR sensors ",
-  "LEDSNS":"LED current",
-  "LEDTEMP":"LED temperature",
-}
+const avcSignals = ["L1_REF","L2_REF", "LREF_AVG","L1_SNS","L2_SNS","PANELREF","L_REF","LF1REF","LF2REF","LF3REF","LF4REF","LFREF_AVG","LFB1SNS","LFB1OSNS","LFB2SNS","LFB2OSNS","LFBSNS_AVG","LED1SNS","LED2SNS","LED3SNS","LED4SNS","LEDSNS_AVG"];
+const tempSignals = ["RAD_TEMP","IMU_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","IR_AMB_AVG","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","LEDTEMP_AVG","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","LTEMP_AVG"];
+const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS ","PD_RBF"];
 
-const xOffsets = [50, 280, 0, 330];
+const xOffsets = [50, 280, 0, 400];
 const tickPadding = [10, -15, -15, 15];
 const anchors = ["start", "start", "start", "start"];
-const colors = ["yellow", "red", "blue", "green"];
+const colors = ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 206, 86)", "rgb(75, 192, 192)"];
+
+const maxItems = 4;
 
 class HistoricalDataFragment extends Component {
 
 	state = {
-		graphData1: [],
+	graphData1: [],
     graphData2: [],
     graphData3: [],
     graphData4: [],
     currentSignals: [],
     graphCodes: {"0": [], "1": [], "2": [], "3": []},
-    startDateTime: null,
-    endDateTime: null,
+    startDateTime: new Date(new Date().getTime() - (60*60*24*7*1000)),
+    endDateTime: new Date(),
     startDateTimePickerVisible: false,
-    endDateTimePickerVisible: false
+    endDateTimePickerVisible: false,
+    signalItems: [],
+    selectedItems: [],
+    confirmText: "",
 	}
+
+  onSelectedItemsChange = (selectedItems) => {  	
+    if ( selectedItems.length > maxItems ) {
+    	Alert.alert(
+			'Too Many Signals',
+			'Please select no more than 4 signals.',
+			[    			
+    			{text: 'OK'},
+  			],
+			{ cancelable: false }
+		)
+      return;
+    }
+    this.setState({confirmText:` - ${selectedItems.length}/${maxItems}`});
+    this.setState({ selectedItems });
+    this.setGraphData(selectedItems, this);
+  }
 
   showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
 
@@ -86,16 +105,59 @@ class HistoricalDataFragment extends Component {
   hideEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: false });
 
   handleStartDatePicked = (date) => {
-    this.setState({startDateTime: date.getTime()})
-    this.setGraphData(this.state.currentSignals, this);
+  	if (date.getTime() > this.state.endDateTime.getTime()) {
+  		Alert.alert(
+			'Invalid Start Time',
+			'The start time must be before the end time.',
+			[    			
+    			{text: 'OK'},
+  			],
+			{ cancelable: false }
+		)
+  	} else {
+  		this.setState({startDateTime: date})
+    	this.setGraphData(this.state.selectedItems, this);
+  	}    
     this.hideStartDateTimePicker();
   };
 
   handleEndDatePicked = (date) => {
-    this.setState({endDateTime: date.getTime()})
-    this.setGraphData(this.state.currentSignals, this);
+  	if (date.getTime() < this.state.startDateTime.getTime()) {
+  		Alert.alert(
+			'Invalid End Time',
+			'The end time must be after the start time.',
+			[    			
+    			{text: 'OK'},
+  			],
+			{ cancelable: false }
+		)
+  	} else {
+    	this.setState({endDateTime: date})
+	    this.setGraphData(this.state.selectedItems, this);
+	}
     this.hideEndDateTimePicker();
   };
+
+  componentDidMount() {
+  	this.makeSignalItems();  	
+  }
+
+  makeSignalChildrenArr(signalList) {
+  	var childrenArr = [];
+  	for (var i = 0; i < signalList.length; i++) {
+  		childrenArr.push({name: signalToName(signalList[i]), id: signalList[i]});
+  	}
+  	return childrenArr;
+  }
+
+  makeSignalItems() {
+  	var items = [];
+  	var avc = {name: "Analog Voltage/Current", id: "0", children: this.makeSignalChildrenArr(avcSignals)};
+  	var temps = {name: "Temperatures", id: "1", children: this.makeSignalChildrenArr(tempSignals)};
+  	var attitude = {name: "Attitude Determination", id: "2", children: this.makeSignalChildrenArr(attitudeSignals)};
+  	items.push(avc, temps, attitude);  	
+  	this.setState({ signalItems: items });
+  }
 
   _formatTick = (t) => {
     let tickString = t.toString();
@@ -122,28 +184,22 @@ class HistoricalDataFragment extends Component {
     return data;
   }
 
-  _getSensorCodes = (code) => {
+  _getSignalCodes = (code) => {
     switch (code) {
-      case "L_REF": return ["L1_REF", "L2_REF"];
-      case "L_SNS": return ["L1_SNS", "L2_SNS"];
-      case "L_TEMP": return ["L1_TEMP", "L2_TEMP"];
-      case "PANELREF": return ["PANELREF"];
-      case "LFREF": return ["LF1REF", "LF2REF", "LF3REF", "LF4REF"];
-      case "LFBSNS": return ["LFB1SNS", "LFB2SNS"];
-      case "LF_TEMP": return ["LF1_TEMP"]; //, "LF2_TEMP"]; LF2_TEMP yet to have values, will add back soon
-      case "RAD_TEMP": return ["RAD_TEMP"];
-      case "IMU_TEMP": return ["IMU_TEMP"];
-      case "IR": return ["IR_FLASH_AMB"];
-      case "LEDSNS": return ["LED1SNS", "LED2SNS", "LED3SNS", "LED4SNS"];
-      case "LEDTEMP": return ["LED1TEMP", "LED2TEMP", "LED3TEMP", "LED4TEMP"];
-      default: return;
+      case "LREF_AVG": return ["L1_REF", "L2_REF"];      
+      case "LFREF_AVG": return ["LF1REF", "LF2REF", "LF3REF", "LF4REF"];
+      case "LFBSNS_AVG": return ["LFB1SNS", "LFB2SNS", "LFB1OSNS", "LFB2OSNS"];      
+      case "LEDSNS_AVG": return ["LED1SNS", "LED2SNS", "LED3SNS", "LED4SNS"];
+      case "LEDTEMP_AVG": return ["LED1TEMP", "LED2TEMP", "LED3TEMP", "LED4TEMP"];
+      case "LTEMP_AVG": return ["L1_TEMP", "L2_TEMP", "LF1_TEMP", "LF3_TEMP"];
+      case "IR_AMB_AVG": return ["IR_FLASH_AMB", "IR_SIDE1_AMB", "IR_SIDE2_AMB", "IR_RBF_AMB", "IR_ACCESS_AMB", "IR_TOP1_AMB"];
+      default: return [code];
     }
   }
 
-  setGraphData = (res, _this) => {
-    _this.setState({ currentSignals: res });
+  setGraphData = (res, _this) => {    
     if (res.length == 0) {
-      this.setState(
+      _this.setState(
         {
           graphData1: [],
           graphData2: [],
@@ -152,58 +208,54 @@ class HistoricalDataFragment extends Component {
         }
       )
     }
-    for (let k=0; k<res.length; k++) {
-      if (k > 3) {
-        alert('Please select at most four signals');
-        break;
-      }
-      else {
-        let codes = this._getSensorCodes(res[k]);
-        let graphCodes = this.state.graphCodes;
+    for (let k=0; k<res.length; k++) {      
+        let codes = _this._getSignalCodes(res[k]);
+        let graphCodes = _this.state.graphCodes;
         if (codes != graphCodes[k]) {
-          getSignalsInPeriod(codes, this.state.startDateTime, this.state.endDateTime)
+          getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
             .then(function(result) {
-              let timestamps = result.data[codes[0]]['timestamps'];
-              let values = [];
-              for (let q=0; q<codes.length; q++){
-                values.push(result.data[codes[q]]['values']);
-              }
-              let signal_data = [];
-              for (let b=0; b<timestamps.length; b++) {
-                let dateTime = new Date(timestamps[b]);
-                let avg_values=[];
-                for (let a=0; a<codes.length; a++) {
-                  avg_values.push(values[a][b]);
-                }
-                let average = codes.length == 0
-                  ? 0
-                  : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
-                signal_data.push({x: dateTime, y: average});
-              }
-              k == 0 ? _this.setState(
-              { graphData1: signal_data })
-                : k == 1
-                  ? _this.setState(
-                    { graphData2: signal_data })
-                  : k == 2
-                    ? _this.setState(
-                      { graphData3: signal_data })
-                    : _this.setState({ graphData4: signal_data })
+             	 if (codes[0] in result.data && result.data[codes[0]]['timestamps'].length > 0) {
+	              let timestamps = result.data[codes[0]]['timestamps'];
+	              let values = [];
+	              for (let q=0; q<codes.length; q++){
+	                values.push(result.data[codes[q]]['values']);
+	              }
+	              let signal_data = [];
+	              for (let b=0; b<timestamps.length; b++) {
+	                let dateTime = new Date(timestamps[b]);
+	                let avg_values=[];
+	                for (let a=0; a<codes.length; a++) {
+	                  avg_values.push(values[a][b]);
+	                }
+	                let average = codes.length == 0
+	                  ? 0
+	                  : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
+	                signal_data.push({x: dateTime, y: average});
+	              }
+	              k == 0 ? _this.setState(
+	              { graphData1: signal_data })
+	                : k == 1
+	                  ? _this.setState(
+	                    { graphData2: signal_data })
+	                  : k == 2
+	                    ? _this.setState(
+	                      { graphData3: signal_data })
+	                    : _this.setState({ graphData4: signal_data })
+	            }
             })
             .catch(function (error) {
               console.log(error);
             });
         }
         graphCodes[k] = codes
-        _this.setState({ graphCodes: graphCodes[k] })
-      }
+        _this.setState({ graphCodes: graphCodes[k] })      
     }
   }
 
 
 	render() {
 		return (
-			<View>
+			<View style={styles.dataContainer}>
 			  <DateTimePicker
 	        isVisible={this.state.startDateTimePickerVisible}
 	        onConfirm={this.handleStartDatePicked}
@@ -217,21 +269,9 @@ class HistoricalDataFragment extends Component {
 	        mode={"datetime"}
 	      />
 	      <ScrollView>
-	        <View style={styles.dataContainer}>
-
-	          <TouchableOpacity onPress={this.showStartDateTimePicker}>
-	            <Text>Select start time</Text>
-	          </TouchableOpacity>
-
-	          <TouchableOpacity onPress={this.showEndDateTimePicker}>
-	            <Text>Select end time</Text>
-	          </TouchableOpacity>
-
-	          <View style={styles.innerContainer} pointerEvents="none">
-
+	      	<View pointerEvents="none">
 	            <VictoryChart
 	              theme={VictoryTheme.material}
-	              width={330} height={330}
 	              domain={{ y: [0, 1] }}
 	              scale={{ x: "time" }}
 	            >
@@ -280,26 +320,34 @@ class HistoricalDataFragment extends Component {
 	                />
 	              ))}
 	            </VictoryChart>
-	          </View>
-	          <CustomMultiPicker
-	            options={signalOptionList}
-	            search={true} // should show search bar?
-	            multiple={true} //
-	            placeholder={"Search"}
-	            placeholderTextColor={'#757575'}
-	            returnValue={"value"} // label or value
-	            callback={ (res) => this.setGraphData(res, this) }
-	            rowBackgroundColor={"#eee"}
-	            rowHeight={40}
-	            rowRadius={5}
-	            iconColor={"#00a2dd"}
-	            iconSize={30}
-	            selectedIconName={"ios-checkmark-circle-outline"}
-	            unselectedIconName={"ios-radio-button-off-outline"}
-	            scrollViewHeight={600}
-	            selected={[]} // list of options which are selected by default
-	          />
 	        </View>
+
+	            <View style={[styles.rowContainer, {paddingTop: 5}]}>
+	          		<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
+		          	<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
+	          	</View>
+	          	 <SectionedMultiSelect
+		          items={this.state.signalItems}
+		          uniqueKey='id'
+		          subKey='children'
+		          selectText='Select Signals...'
+		          searchPlaceholderText='Search Signals...'
+		          showDropDowns={true}
+		          readOnlyHeadings={true}
+		          expandDropDowns={true}
+		          showCancelButton={true}
+		          confirmText={`Done${this.state.confirmText}`}
+		          onSelectedItemsChange={this.onSelectedItemsChange}
+		          selectedItems={this.state.selectedItems}
+		          noResultsComponent={<Text style={{color: "#e5e5e5"}}>Sorry, no results</Text>}
+		          searchIconComponent={<Icon name="magnify" size={18} style={{ marginHorizontal: 15, color: "#e5e5e5" }}/>}
+		          selectToggleIconComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          dropDownToggleIconUpComponent={<Icon name="chevron-up" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          dropDownToggleIconDownComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          styles={{container: styles.multiSelectContainer, listContainer: styles.multiSelectContainer, item: styles.multiSelectContainer, subItem: styles.multiSelectContainer, searchBar: styles.multiSelectContainer, searchTextInput: {color: "#e5e5e5"}, selectedItem: {backgroundColor: "#6aa2c8"}}}
+		          colors={{primary: "#6aa2c8", text: "#e5e5e5", subText: "#e5e5e5", chipColor: "#6aa2c8", selectToggleTextColor: "#e5e5e5", itemBackground: "#19222a", success: "#e5e5e5"}}
+		          onConfirm={ () => this.setGraphData(this.state.selectedItems, this) }
+		        />
 	      </ScrollView>
 	    </View>
 		);

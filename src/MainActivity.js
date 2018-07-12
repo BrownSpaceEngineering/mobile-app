@@ -210,8 +210,8 @@ export default class MainActivity extends React.Component {
       case "share":
         {this.ShareMessage()}
         break;
-      case "settings":
-        {this.OpenSettingsFunction()}
+      //case "settings":
+      //  {this.OpenSettingsFunction()}
       /*case "menu":
         switch(e.index) {
           case 0:
@@ -240,7 +240,7 @@ export default class MainActivity extends React.Component {
           <Toolbar
             centerElement="EQUiSat" 
             rightElement={{
-              actions: ['share', 'settings'],
+              actions: ['share'/*, 'settings'*/],
               //menu: { labels: ['Settings', 'About'] }
             }}
             searchable={this.state.searchButton}

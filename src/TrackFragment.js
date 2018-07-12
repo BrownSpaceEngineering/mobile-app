@@ -214,7 +214,7 @@ makeSearchMarker(location) {
       this.setState({ locErrorSnackbarVisible: true });
       var _this = this;
       setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
-    }    
+    }
     var locations = await Location.geocodeAsync(this.state.searchText);
     if (locations.length == 0) {
       this.setState({ searchErrorSnackbarVisible: true });
@@ -222,9 +222,9 @@ makeSearchMarker(location) {
       setTimeout(function(){_this.setState({ searchErrorSnackbarVisible: false })}, 5000);
     } else {
       this.makeSearchMarker(locations[0]);
-    }    
+    }
     this.setState({ showSearchSpinner: false });
-    this.setState({ searchBarOpen: false });  
+    this.setState({ searchBarOpen: false });
   };
 
   setOrbitPathCoords(orbitLineArr) {
@@ -240,8 +240,7 @@ makeSearchMarker(location) {
     var _this = this;
     this.getTLE(this);
     //get sat location every second
-    var orbitLines = tlejs.getGroundTrackLatLng(this.TLEStr);
-    console.log(orbitLines);
+    var orbitLines = tlejs.getGroundTrackLatLng(this.TLEStr);    
     this.setOrbitPathCoords(orbitLines[1]);
     this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2000);
   }
