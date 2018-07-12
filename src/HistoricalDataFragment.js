@@ -64,17 +64,17 @@ const colors = ["yellow", "red", "blue", "green"];
 
 class HistoricalDataFragment extends Component {
 
-	state = {    
+	state = {
 		graphData1: [],
-	    graphData2: [],
-	    graphData3: [],
-	    graphData4: [],
-	    graphMaxima: [],
-	    graphMinima: [],
-	    startDateTime: null,
-	    endDateTime: null,
-	    startDateTimePickerVisible: false,
-	    endDateTimePickerVisible: false
+    graphData2: [],
+    graphData3: [],
+    graphData4: [],
+    currentSignals: [],
+    graphCodes: {"0": [], "1": [], "2": [], "3": []},
+    startDateTime: null,
+    endDateTime: null,
+    startDateTimePickerVisible: false,
+    endDateTimePickerVisible: false
 	}
 
   showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
@@ -86,18 +86,19 @@ class HistoricalDataFragment extends Component {
   hideEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: false });
 
   handleStartDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
+    this.setState({startDateTime: date.getTime()})
+    this.setGraphData(this.state.currentSignals, this);
     this.hideStartDateTimePicker();
   };
 
   handleEndDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
+    this.setState({endDateTime: date.getTime()})
+    this.setGraphData(this.state.currentSignals, this);
     this.hideEndDateTimePicker();
   };
 
   _formatTick = (t) => {
     let tickString = t.toString();
-    alert(t);
     if (tickString.length > 2) {
       return tickString[2] == "." ? tickString.slice(0, 1) : tickString.slice(0, 2);
     } else {
@@ -139,8 +140,18 @@ class HistoricalDataFragment extends Component {
     }
   }
 
-  _setGraphData = (res) => {
-    let data = [];
+  setGraphData = (res, _this) => {
+    _this.setState({ currentSignals: res });
+    if (res.length == 0) {
+      this.setState(
+        {
+          graphData1: [],
+          graphData2: [],
+          graphData3: [],
+          graphData4: []
+        }
+      )
+    }
     for (let k=0; k<res.length; k++) {
       if (k > 3) {
         alert('Please select at most four signals');
@@ -148,142 +159,149 @@ class HistoricalDataFragment extends Component {
       }
       else {
         let codes = this._getSensorCodes(res[k]);
-        getSignalsInPeriod(codes, 1529996366626, new Date().getTime())
-          .then(function(result) {
-            let timestamps = result.data[codes[0]]['timestamps'];
-            let values = [];
-            for (let q=0; q<codes.length; q++){
-              values.push(result.data[codes[q]]['values']);
-            }
-            let signal_data = [];
-            for (let b=0; b<timestamps.length; b++) {
-              let dateTime = new Date(timestamps[b]);
-              let avg_values=[];
-              for (let a=0; a<codes.length; a++) {
-                avg_values.push(values[a][b]);
+        let graphCodes = this.state.graphCodes;
+        if (codes != graphCodes[k]) {
+          getSignalsInPeriod(codes, this.state.startDateTime, this.state.endDateTime)
+            .then(function(result) {
+              let timestamps = result.data[codes[0]]['timestamps'];
+              let values = [];
+              for (let q=0; q<codes.length; q++){
+                values.push(result.data[codes[q]]['values']);
               }
-              let average = codes.length == 0
-                ? 0
-                : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
-              signal_data.push({x: dateTime, y: average});
-            }
-            k == 0 ? this.setState({graphData1: signal_data})
-              : k == 1
-                ? this.setState({ graphData2: signal_data })
-                : k == 2
-                  ? this.setState({ graphData3: signal_data })
-                  : this.setState({ graphData4: signal_data })
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+              let signal_data = [];
+              for (let b=0; b<timestamps.length; b++) {
+                let dateTime = new Date(timestamps[b]);
+                let avg_values=[];
+                for (let a=0; a<codes.length; a++) {
+                  avg_values.push(values[a][b]);
+                }
+                let average = codes.length == 0
+                  ? 0
+                  : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
+                signal_data.push({x: dateTime, y: average});
+              }
+              k == 0 ? _this.setState(
+              { graphData1: signal_data })
+                : k == 1
+                  ? _this.setState(
+                    { graphData2: signal_data })
+                  : k == 2
+                    ? _this.setState(
+                      { graphData3: signal_data })
+                    : _this.setState({ graphData4: signal_data })
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+        graphCodes[k] = codes
+        _this.setState({ graphCodes: graphCodes[k] })
       }
     }
   }
 
-	
+
 	render() {
 		return (
 			<View>
 			  <DateTimePicker
-		        isVisible={this.state.startDateTimePickerVisible}
-		        onConfirm={this.handleStartDatePicked}
-		        onCancel={this.hideStartDateTimePicker}
-		        mode={"datetime"}
-		      />
-		      <DateTimePicker
-		        isVisible={this.state.endDateTimePickerVisible}
-		        onConfirm={this.handleEndDatePicked}
-		        onCancel={this.hideEndDateTimePicker}
-		        mode={"datetime"}
-		      />
-		      <ScrollView>
-		        <View style={styles.dataContainer}>
+	        isVisible={this.state.startDateTimePickerVisible}
+	        onConfirm={this.handleStartDatePicked}
+	        onCancel={this.hideStartDateTimePicker}
+	        mode={"datetime"}
+	      />
+	      <DateTimePicker
+	        isVisible={this.state.endDateTimePickerVisible}
+	        onConfirm={this.handleEndDatePicked}
+	        onCancel={this.hideEndDateTimePicker}
+	        mode={"datetime"}
+	      />
+	      <ScrollView>
+	        <View style={styles.dataContainer}>
 
-		          <TouchableOpacity onPress={() => console.log(this.getFullData())}>
-		            <Text>Select start time</Text>
-		          </TouchableOpacity>
+	          <TouchableOpacity onPress={this.showStartDateTimePicker}>
+	            <Text>Select start time</Text>
+	          </TouchableOpacity>
 
-		          <TouchableOpacity onPress={this.showEndDateTimePicker}>
-		            <Text>Select start time</Text>
-		          </TouchableOpacity>
+	          <TouchableOpacity onPress={this.showEndDateTimePicker}>
+	            <Text>Select end time</Text>
+	          </TouchableOpacity>
 
-		          <View style={styles.innerContainer} pointerEvents="none">
+	          <View style={styles.innerContainer} pointerEvents="none">
 
-		            <VictoryChart
-		              theme={VictoryTheme.material}
-		              width={330} height={330}
-		              domain={{ y: [0, 1] }}
-		              scale={{ x: "time" }}
-		            >
-		             <VictoryAxis />
-		              {this.getFullData().map((d, i) => (
-		                <VictoryAxis dependentAxis
-		                  key={i}
-		                  offsetX={xOffsets[i]}
-		                  style={{
-		                    axis: { stroke: colors[i] },
-		                    ticks: { padding: tickPadding[i] },
-		                    tickLabels: { fill: colors[i], textAnchor: anchors[i] }
-		                  }}
-		                  // Use normalized tickValues (0 - 1)
-		                  tickValues={[0.25, 0.5, 0.75, 1]}
-		                  // Re-scale ticks by multiplying by correct maxima
-		                  tickFormat={(t) => {
-		                    const graphMax = this.getFullData().map(
-		                    	(dataset) => Math.max(...dataset.map((d) => d.y))
-		                    );
-		                    const graphMin = this.getFullData().map(
-		                    	(dataset) => Math.min(...dataset.map((d) => d.y))
-		                    );
+	            <VictoryChart
+	              theme={VictoryTheme.material}
+	              width={330} height={330}
+	              domain={{ y: [0, 1] }}
+	              scale={{ x: "time" }}
+	            >
+	             <VictoryAxis />
+	              {this.getFullData().map((d, i) => (
+	                <VictoryAxis dependentAxis
+	                  key={i}
+	                  offsetX={xOffsets[i]}
+	                  style={{
+	                    axis: { stroke: colors[i] },
+	                    ticks: { padding: tickPadding[i] },
+	                    tickLabels: { fill: colors[i], textAnchor: anchors[i] }
+	                  }}
+	                  // Use normalized tickValues (0 - 1)
+	                  tickValues={[0.25, 0.5, 0.75, 1]}
+	                  // Re-scale ticks by multiplying by correct maxima
+	                  tickFormat={(t) => {
+	                    const graphMax = this.getFullData().map(
+	                    	(dataset) => Math.max(...dataset.map((d) => d.y))
+	                    );
+	                    const graphMin = this.getFullData().map(
+	                    	(dataset) => Math.min(...dataset.map((d) => d.y))
+	                    );
 
-		                    console.log(this.getFullData());
-		                    this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i])}
-		                  }/*this._formatTick(t, this.state.graphMaxima[i])*/
-		                />
-		              ))}
-		              {this.getFullData().map((d, i) => (
-		                <VictoryLine
-		                  key={i}
-		                  data={d}
-		                  style={{ data: { stroke: colors[i] } }}
-		                  // normalize data
-		                  y={(datum) => {//datum.y / this.state.graphMaxima[i] }
-		                    const graphMax = this.getFullData().map(
-		                      (dataset) => Math.max(...dataset.map((d) => d.y))
-		                    );
-		                    const graphMin = this.getFullData().map(
-		                      (dataset) => Math.min(...dataset.map((d) => d.y))
-		                    );
-		                    graphMax[i] - graphMin[i] == 0
-		                      ? datum.y
-		                      : (datum.y - graphMin[i]) / (graphMax[i] - graphMin[i])}
-		                    }
-		                />
-		              ))}
-		            </VictoryChart>
-		          </View>
-		          <CustomMultiPicker
-		            options={signalOptionList}
-		            search={true} // should show search bar?
-		            multiple={true} //
-		            placeholder={"Search"}
-		            placeholderTextColor={'#757575'}
-		            returnValue={"value"} // label or value
-		            callback={ (res) => this._setGraphData(res) }
-		            rowBackgroundColor={"#eee"}
-		            rowHeight={40}
-		            rowRadius={5}
-		            iconColor={"#00a2dd"}
-		            iconSize={30}
-		            selectedIconName={"ios-checkmark-circle-outline"}
-		            unselectedIconName={"ios-radio-button-off-outline"}
-		            scrollViewHeight={600}
-		            selected={[]} // list of options which are selected by default
-		          />
-		        </View>
-		      </ScrollView>
-		    </View>
+	                    return this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i])}
+	                  }/*this._formatTick(t, this.state.graphMaxima[i])*/
+	                />
+	              ))}
+	              {this.getFullData().map((d, i) => (
+	                <VictoryLine
+	                  key={i}
+	                  data={d}
+	                  style={{ data: { stroke: colors[i] } }}
+	                  // normalize data
+	                  y={(datum) => {//datum.y / this.state.graphMaxima[i] }
+	                    const graphMax = this.getFullData().map(
+	                      (dataset) => Math.max(...dataset.map((d) => d.y))
+	                    );
+	                    const graphMin = this.getFullData().map(
+	                      (dataset) => Math.min(...dataset.map((d) => d.y))
+	                    );
+	                    return graphMax[i] - graphMin[i] == 0
+	                      ? datum.y
+	                      : (datum.y - graphMin[i]) / (graphMax[i] - graphMin[i])}
+	                    }
+	                />
+	              ))}
+	            </VictoryChart>
+	          </View>
+	          <CustomMultiPicker
+	            options={signalOptionList}
+	            search={true} // should show search bar?
+	            multiple={true} //
+	            placeholder={"Search"}
+	            placeholderTextColor={'#757575'}
+	            returnValue={"value"} // label or value
+	            callback={ (res) => this.setGraphData(res, this) }
+	            rowBackgroundColor={"#eee"}
+	            rowHeight={40}
+	            rowRadius={5}
+	            iconColor={"#00a2dd"}
+	            iconSize={30}
+	            selectedIconName={"ios-checkmark-circle-outline"}
+	            unselectedIconName={"ios-radio-button-off-outline"}
+	            scrollViewHeight={600}
+	            selected={[]} // list of options which are selected by default
+	          />
+	        </View>
+	      </ScrollView>
+	    </View>
 		);
 	}
 }
