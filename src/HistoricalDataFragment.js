@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Alert, Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryStack, VictoryArea, VictoryAxis } from "victory-native";
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import CustomMultiPicker from "react-native-multiple-select-list";
 import { Button } from 'react-native-material-ui';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
