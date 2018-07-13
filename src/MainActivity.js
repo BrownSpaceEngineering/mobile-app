@@ -1,9 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, Alert, Dimensions, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
+import { ActivityIndicator, Alert, Dimensions, Linking, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
+import { Button, COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
 import { Font, Location, Permissions } from 'expo';
+import { DialogComponent, DialogTitle, DialogButton }from 'react-native-dialog-component';
 
 import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
@@ -77,8 +78,16 @@ const styles = StyleSheet.create({
     top: (STATUS_BAR_HEIGHT + TOOLBAR_HEIGHT / 2 - 17.5),
     alignSelf: 'flex-end',
     right: Dimensions.get('window').width / 8,
-    zIndex: 100,
-  }
+    zIndex: 100,  
+  },
+  aboutText: {
+    fontSize: 17,
+    color: "#e5e5e5",
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
 });
 
 type State = NavigationState<
@@ -108,7 +117,7 @@ export default class MainActivity extends React.Component {
     loading: true,
     showSearchSpinner: false,
     searchButton: this.searchButton,
-    searchBarOpen: false,
+    searchBarOpen: false,    
   }
 
   static navigationOptions =
@@ -130,23 +139,6 @@ export default class MainActivity extends React.Component {
     });
     var _this = this;
     setTimeout(function(){_this.setState({ loading: false })}, 100);    
-  }  
-
-    
-
-  showAboutDialog() {
-    Alert.alert(
-      'About',
-      "Created by Brown Space Engineering, a team of undergraduates at Brown University. \
-      \n\nTrack EQUiSat on the Web: equisat.brownspace.org \
-      \nLearn more about our 1U Cubesat, EQUiSat: https://brownspace.org/EQUiSat \
-      \nLearn more about the club and see what other projects we are working on: https://brownspace.org \
-      \nHelp support our student-run club: https://brownspace.org/donate \
-      ",
-      [        
-        {text: 'close'},
-      ],      
-    )
   }
 
   _handleIndexChange = index => {
@@ -210,6 +202,8 @@ export default class MainActivity extends React.Component {
       case "share":
         {this.ShareMessage()}
         break;
+      case "info-outline":
+        {this.aboutDialog.show();}
       //case "settings":
       //  {this.OpenSettingsFunction()}
       /*case "menu":
@@ -227,6 +221,8 @@ export default class MainActivity extends React.Component {
     }
   }
 
+  hideAboutDialog = () => this.aboutDialog.dismiss();
+
   render() {
     if (this.state.loading) {
       return <Expo.AppLoading/>;
@@ -240,14 +236,49 @@ export default class MainActivity extends React.Component {
           <Toolbar
             centerElement="EQUiSat" 
             rightElement={{
-              actions: ['share'/*, 'settings'*/],
-              //menu: { labels: ['Settings', 'About'] }
+              actions: ['share', 'info-outline'],              
             }}
             searchable={this.state.searchButton}
             onRightElementPress={(e) => this.onactionItemselected(e)}
             style={{container: {elevation: 0,}}}
             isSearchActive={this.state.searchBarOpen}
           />
+          <DialogComponent
+            ref={(dialogComponent) => { this.aboutDialog = dialogComponent; }}
+            title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="About" />}
+            width={0.9}
+            dialogStyle={{backgroundColor: "#19222a"}}
+            actions={[<DialogButton textStyle={{color: "#e5e5e5"}} key={0} text="CLOSE" align="center" onPress={this.hideAboutDialog}/>]}
+          >
+            <ScrollView>
+              <View style={{alignItems: 'center'}}>
+                <Image source={require('../assets/bse_logo_name_white.png')} />
+              </View>
+              <Text style={[styles.aboutText, {paddingTop: 5}]}>{"Created by Brown Space Engineering, a team of superheroes/undergraduates at Brown University. Design/Implementation by Willem Speckmann & Tyler Fox \n\nTrack EQUiSat on the Web: "} </Text>
+              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://equisat.brownspace.org')}}> http://equisat.brownspace.org </Text>
+              <Text style={styles.aboutText} >{"Learn more about our 1U CubeSat, EQUiSat: "} </Text>
+              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org/EQUiSat')}}> https://brownspace.org/EQUiSat </Text>
+              <Text style={styles.aboutText} >{"Learn more about the club and see what other projects we are working on: "} </Text>
+              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org')}}> https://brownspace.org </Text>
+              <View style={{alignItems: 'center'}}>
+                <Text style={[styles.aboutText, {paddingBottom: 5}]} >{"\nHelp support our student-run club "} </Text>
+              </View>
+              <View style={{alignItems: 'center'}}>
+                <Button raised accent style={{container: {width: 200}}} text=" Donate Now" icon={<Icon name="heart" size={17} style={styles.icon} />} onPress={() => {Linking.openURL('http://brownspace.org/donate')}} />              
+              </View>
+              <Text style={styles.aboutText} >{"\nFollow us for updates:"} </Text>
+              <View style={[styles.rowContainer, {marginTop: 15}]}>
+                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="facebook" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
+                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="twitter" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://twitter.com/browncubesat')}} />
+                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="github-circle" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
+              </View>
+              <View style={{paddingTop: 10, flexDirection: 'row', justifyContent: 'center',}}>
+                <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
+                <Image source={require('../assets/100_emoji.png')} />
+              </View>
+            </ScrollView>
+
+          </DialogComponent>
           <TabView
             style={this.props.style}
             navigationState={this.state}

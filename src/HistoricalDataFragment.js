@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	  	justifyContent: 'space-evenly',
   	},
+  	inlineContainer: {
+		flexDirection: 'row',
+	  	justifyContent: 'flex-start',
+  	},
   	multiSelectContainer: {
 	    backgroundColor: '#19222a',
   	},
@@ -92,7 +96,7 @@ class HistoricalDataFragment extends Component {
     }
     this.setState({confirmText:` - ${selectedItems.length}/${maxItems}`});
     this.setState({ selectedItems });
-    this.setGraphData(selectedItems, this);
+    
   }
 
   showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
@@ -268,7 +272,51 @@ class HistoricalDataFragment extends Component {
 	        mode={"datetime"}
 	      />
 	      <ScrollView>
-	      	<View pointerEvents="none">
+
+	      	 <SectionedMultiSelect
+		          items={this.state.signalItems}
+		          uniqueKey='id'
+		          subKey='children'
+		          selectText='Select Signals...'
+		          searchPlaceholderText='Search Signals...'
+		          showDropDowns={true}
+		          readOnlyHeadings={true}
+		          expandDropDowns={true}
+		          showCancelButton={true}
+		          showChips={false}
+		          confirmText={`Done${this.state.confirmText}`}
+		          onSelectedItemsChange={this.onSelectedItemsChange}
+		          selectedItems={this.state.selectedItems}
+		          noResultsComponent={<Text style={{color: "#e5e5e5"}}>Sorry, no results</Text>}
+		          searchIconComponent={<Icon name="magnify" size={18} style={{ marginHorizontal: 15, color: "#e5e5e5" }}/>}
+		          selectToggleIconComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          dropDownToggleIconUpComponent={<Icon name="chevron-up" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          dropDownToggleIconDownComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
+		          styles={{container: styles.multiSelectContainer, listContainer: styles.multiSelectContainer, item: styles.multiSelectContainer, subItem: styles.multiSelectContainer, searchBar: styles.multiSelectContainer, searchTextInput: {color: "#e5e5e5"}, selectedItem: {backgroundColor: "#6aa2c8"}}}
+		          colors={{primary: "#6aa2c8", text: "#e5e5e5", subText: "#e5e5e5", chipColor: "#6aa2c8", selectToggleTextColor: "#e5e5e5", itemBackground: "#19222a", success: "#e5e5e5"}}
+		          onConfirm={ () => this.setGraphData(this.state.selectedItems, this) }
+		        />
+
+		    <View style={styles.rowContainer}>
+	    		<View style={styles.inlineContainer}>
+	    			<Icon name="checkbox-blank-circle" size={this.state.selectedItems.length > 0 ? 20 : 0} style={{color: colors[0]}}/>
+	    			<Text style={{color: colors[0]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[0] : "" }</Text>
+	    		</View>
+		    	<View style={styles.inlineContainer}>
+		    		<Icon name="checkbox-blank-circle" size={this.state.selectedItems.length > 1 ? 20 : 0} style={{color: colors[1]}}/>
+		    		<Text style={{color: colors[1]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[1] : "" }</Text>
+		    	</View>
+		    	<View style={styles.inlineContainer}>
+		    		<Icon name="checkbox-blank-circle" size={this.state.selectedItems.length > 2 ? 20 : 0} style={{color: colors[2]}}/>
+		    		<Text style={{color: colors[2]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[2] : "" }</Text>
+		    	</View>
+		    	<View style={styles.inlineContainer}>
+		    		<Icon name="checkbox-blank-circle" size={this.state.selectedItems.length > 3 ? 20 : 0} style={{color: colors[3]}}/>
+		    		<Text style={{color: colors[3]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[3] : "" }</Text>
+		    	</View>
+		    </View>
+
+	      	<View pointerEvents="none" styles>
 	            <VictoryChart
 	              theme={VictoryTheme.material}
 	              domain={{ y: [0, 1] }}
@@ -322,31 +370,15 @@ class HistoricalDataFragment extends Component {
 	        </View>
 
 	            <View style={[styles.rowContainer, {paddingTop: 5}]}>
-	          		<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
-		          	<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
-	          	</View>
-	          	 <SectionedMultiSelect
-		          items={this.state.signalItems}
-		          uniqueKey='id'
-		          subKey='children'
-		          selectText='Select Signals...'
-		          searchPlaceholderText='Search Signals...'
-		          showDropDowns={true}
-		          readOnlyHeadings={true}
-		          expandDropDowns={true}
-		          showCancelButton={true}
-		          confirmText={`Done${this.state.confirmText}`}
-		          onSelectedItemsChange={this.onSelectedItemsChange}
-		          selectedItems={this.state.selectedItems}
-		          noResultsComponent={<Text style={{color: "#e5e5e5"}}>Sorry, no results</Text>}
-		          searchIconComponent={<Icon name="magnify" size={18} style={{ marginHorizontal: 15, color: "#e5e5e5" }}/>}
-		          selectToggleIconComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
-		          dropDownToggleIconUpComponent={<Icon name="chevron-up" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
-		          dropDownToggleIconDownComponent={<Icon name="chevron-down" size={22} style={{ color: "#e5e5e5", backgroundColor: "rgba(0,0,0,0)"}}/>}
-		          styles={{container: styles.multiSelectContainer, listContainer: styles.multiSelectContainer, item: styles.multiSelectContainer, subItem: styles.multiSelectContainer, searchBar: styles.multiSelectContainer, searchTextInput: {color: "#e5e5e5"}, selectedItem: {backgroundColor: "#6aa2c8"}}}
-		          colors={{primary: "#6aa2c8", text: "#e5e5e5", subText: "#e5e5e5", chipColor: "#6aa2c8", selectToggleTextColor: "#e5e5e5", itemBackground: "#19222a", success: "#e5e5e5"}}
-		          onConfirm={ () => this.setGraphData(this.state.selectedItems, this) }
-		        />
+	          		<View>
+	          			<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
+	          			<Text style={{color: "#e5e5e5", textAlign: "center"}} >Start Time</Text>
+	          		</View>
+	          		<View>
+		          		<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
+		          		<Text style={{color: "#e5e5e5", textAlign: "center"}}>End Time</Text>
+	          		</View>
+	          	</View>	          	
 	      </ScrollView>
 	    </View>
 		);

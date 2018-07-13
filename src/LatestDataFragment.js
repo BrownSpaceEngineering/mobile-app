@@ -116,10 +116,7 @@ class LatestDataFragment extends Component {
 									<Text style={styles.cardText}>Current State:  </Text>            
 									<Text style={styles.cardText}>{this.state.latestPreamble.preamble.satellite_state}</Text>
 								</View>
-							</ElevatedView>
-							<ElevatedView elevation={5} style={styles.card} >
-
-							</ElevatedView>
+							</ElevatedView>							
 						</View>
 						<ElevatedView elevation={5} style={styles.card} >
 							<Text style={styles.cardTitle}>Battery Info</Text>
