@@ -1,19 +1,27 @@
 {
   "expo": {
    "name": "EQUiSat",
-   "icon": "./assets/equisat_logo_white.png",
+   "icon": "./assets/icon.png",
    "version": "1.0.0",
    "slug": "equisat",   
    "ios": {
-     "bundleIdentifier": "org.brownspace.equisat"
+     "bundleIdentifier": "org.brownspace.equisat",
+     "config": {
+      "googleMapsApiKey": "AIzaSyD8uo6zoHAD9qhDDKVf38zdg76c4KsC-Vg"
+      }
    },
    "android": {
      "package": "org.brownspace.equisat",
      "config": {
-      "googleMaps": {
-        "apiKey": "AIzaSyD8uo6zoHAD9qhDDKVf38zdg76c4KsC-Vg"
-      }
-    }        
+        "googleMaps": {
+          "apiKey": "AIzaSyD8uo6zoHAD9qhDDKVf38zdg76c4KsC-Vg"
+        },        
+      },
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",        
+      ],            
    },
     "splash": {
       "image": "./assets/splash.png",
@@ -21,4 +29,5 @@
       "backgroundColor": "#000000"
     },
     "sdkVersion": "27.0.0",
+
 }}

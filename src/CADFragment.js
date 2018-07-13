@@ -7,11 +7,12 @@ export default class CADFragment extends React.Component {
 
   render() {    
       return(
-        <WebView
+      	<View/>
+        /*<WebView
           style={{flex:1}}
           javaScriptEnabled={true}
           source={{uri: 'https://myhub.autodesk360.com/ue2aaba84/shares/public/SH7f1edQT22b515c761e08a6bec09be6c898?mode=embed'}}
-        />
+        />*/
       );
   }
 }

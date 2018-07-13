@@ -8,7 +8,11 @@ import { Location, Permissions } from 'expo';
 import SnackBar from 'react-native-snackbar-component';
 import axios from 'axios';
 import 'es6-symbol/implement';
-import DialogInput from 'react-native-dialog-input';
+import { DialogComponent, DialogTitle}from 'react-native-dialog-component';
+import PhoneInput from "react-native-phone-input";
+import CountryPicker from 'react-native-country-picker-modal';
+import { Keyboard } from 'react-native';
+
 
 const mapStyle = [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"},{"saturation":"-100"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#d7dee5"},{"lightness":40},{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#19222a"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#19222a"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"color":"#3f4c5a"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"lightness":21}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#257bcb"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#3f4c5a"},{"lightness":"52"},{"weight":"1"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"},{"lightness":"14"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#d7dee5"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#d7dee5"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7dee5"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#19222a"},{"lightness":19}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2b3638"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2b3638"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#19222a"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"color":"#24282b"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
 
@@ -40,12 +44,19 @@ const satName = 'ISS (ZARYA)';
 const isAndroid = (Platform.OS === 'android');
 const satMarkerImage = require('../assets/equisat_logo_white.png');
 const satMarkerImage_android = require('../assets/equisat_logo_white_android.png');
-const userMarkerImage_ = require('../assets/user_location_icon.png');
+const userMarkerImage = require('../assets/user_location_icon.png');
 const userMarkerImage_android = require('../assets/user_location_icon_android.png');
 
 const nextPassErrorStr = "Could not determine next EQUiSat pass over this location. Try again later.";
 
 export default class TrackFragment extends React.Component {
+
+   constructor() {
+    super();
+
+    this.onPressFlag = this.onPressFlag.bind(this);
+    this.selectCountry = this.selectCountry.bind(this);
+  }
 
   state = {
     mapLat: 0,
@@ -82,6 +93,8 @@ export default class TrackFragment extends React.Component {
     notifyLon: 0,
     notifyStatusSnackbarVisible: false,
     notifyStatusSnackbarText: "",
+
+    cca2: 'US',
   }
 
   TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
@@ -107,8 +120,7 @@ export default class TrackFragment extends React.Component {
       return dateArr.join("/") + " at " + timeArr.join(":") + " " + suffix;
 }  
 
-  getNextPass(_this, lat, lon, alt, isUserLoc) {
-    this.setState({ lockedToSatLoc: false });
+  getNextPass(_this, lat, lon, alt, isUserLoc) {    
     _this.serverRequest = 
       axios
         .get(trackServerPrefix + "get_next_pass/"+ satName + "/" + lon + "," + lat + "," + alt)
@@ -151,9 +163,9 @@ export default class TrackFragment extends React.Component {
     _this.serverRequest =
       axios
         .get(trackServerPrefix + 'equisat_tle')
-        .then(function(result) {
-          console.log(TLEStr);
+        .then(function(result) {          
           var TLEStr = result.data.slice(0, -1);
+          console.log(TLEStr);
           if (TLEStr != "") {
             _this.TLEStr = TLEStr;
           } else {
@@ -177,7 +189,7 @@ export default class TrackFragment extends React.Component {
       
       curSatInfo["height"] = curSatInfo["height"].toFixed(2);
       curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);
-      _this.setState({ curSatInfo });
+      _this.setState({ curSatInfo });      
       if (_this.state.lockedToSatLoc) {
         let region = {
           latitude: latitude,
@@ -202,6 +214,7 @@ makeSearchMarker(location) {
     latitudeDelta: 0.5,
     longitudeDelta: 0.5,
   }
+  this.setState({ lockedToSatLoc: false });
   this.map.animateToRegion(region);
   this.getNextPass(this, searchLat, searchLong, 0, false);
 }
@@ -260,7 +273,7 @@ makeSearchMarker(location) {
     }
     this.map.animateToRegion(region);
     var _this = this;
-    setTimeout(function(){ _this.userLocMarker.showCallout(); }, 300);
+    setTimeout(function(){ _this.userLocMarker.showCallout(); }, 1000);
   }
 
   snapToSat() {
@@ -300,7 +313,8 @@ makeSearchMarker(location) {
     if (!isError) {
       this.setState({ notifyLat: lat });
       this.setState({ notifyLon: lon });
-      this.setState({notifyInputNumberDialogVisible: true});      
+      this.subscribeDialog.show();
+      this.phone.focus();
     }
   }
 
@@ -353,13 +367,46 @@ makeSearchMarker(location) {
       });
   }
 
+  handleSubmitNumber = () => {
+    if (this.phone.isValidNumber()) {
+      this.hideSubscribeDialog();
+      this.subscribeSMSNotifications(this.phone.getValue());      
+    } else {
+      Alert.alert(
+            'Invalid Phone Number',
+            'Please enter a valid phone number.',
+            [
+              {text: 'OK'},              
+            ],
+            { cancelable: false }
+          );
+    }
+  }
+
+  hideSubscribeDialog = () => {
+    this.subscribeDialog.dismiss();
+    Keyboard.dismiss();
+  }
+
+  onPressFlag() {
+    this.countryPicker.openModal();
+  }
+
+  selectCountry(country) {
+    this.phone.selectCountry(country.cca2.toLowerCase());
+    this.setState({ cca2: country.cca2 });
+  }
+
   render() {    
     return(
       <View 
         style={styles.container}        
       >        
-        <MapView          
-          onPanDrag={e => this.setState({ lockedToSatLoc: false })}
+        <MapView
+          onMoveShouldSetResponder={() => {
+            this.setState({ lockedToSatLoc: false })
+            return true
+          }}          
           onLongPress={e => this.makeSearchMarker(e.nativeEvent.coordinate)}
           ref={map => {this.map = map}}
           style={styles.map}
@@ -383,7 +430,7 @@ makeSearchMarker(location) {
             opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
             {isAndroid ? null : <Image source={userMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
-            <MapView.Callout onPress={e => this.notifyNextPass(this.state.userNextPassError, this.state.userLat, this.state.userLong)} >              
+            <MapView.Callout style={{ flex: 1, position: 'relative' }} onPress={e => this.notifyNextPass(this.state.userNextPassError, this.state.userLat, this.state.userLong)} >              
               {this.showCalloutText(true)}
             </MapView.Callout>
           </MapView.Marker>
@@ -396,7 +443,7 @@ makeSearchMarker(location) {
             }}
             opacity={this.state.showSearchLocMarker ? 1.0 : 0}
           >
-            <MapView.Callout onPress={e => this.notifyNextPass(this.state.searchNextPassError, this.state.searchLat, this.state.searchLong)}>
+            <MapView.Callout style={{ flex: 1, position: 'relative' }} onPress={e => this.notifyNextPass(this.state.searchNextPassError, this.state.searchLat, this.state.searchLong)}>
               {this.showCalloutText(false)}
             </MapView.Callout>
           </MapView.Marker>
@@ -444,18 +491,23 @@ makeSearchMarker(location) {
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
         <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
-        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>
-        <DialogInput isDialogVisible={this.state.notifyInputNumberDialogVisible}
-            ref={(input) => { this.numberInput = input; }}
-            title={"Subscribe to SMS Notifications"}
-            message={"Enter phone number to receive SMS notifications for EQUiSat passes."}
-            hintInput ={"Phone number"}
-            submitText={"Register"}
-            textInputProps={{keyboardType: "phone-pad", autoFocus: true}}
-            defaultValue={"TEST"}
-            submitInput={ (inputText) => {this.subscribeSMSNotifications(inputText); this.setState({ notifyInputNumberDialogVisible: false })} }
-            closeDialog={ () => {this.setState({ notifyInputNumberDialogVisible: false })}}>
-        </DialogInput>
+        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>     
+        <DialogComponent
+          ref={(dialogComponent) => { this.subscribeDialog = dialogComponent; }}
+          title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="Subscribe to SMS Notifications" />}
+          width={0.9}
+          dialogStyle={{backgroundColor: "#19222a"}}
+        >
+          <PhoneInput 
+            ref={ref => {this.phone = ref;}}
+            onPressFlag={this.onPressFlag}
+            textStyle={{color: "#e5e5e5"}}
+          />
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10}}>
+            <Button accent text="Cancel" onPress={this.hideSubscribeDialog} />
+            <Button accent text="Register" onPress={this.handleSubmitNumber} />
+          </View>
+        </DialogComponent>        
       </View>
     );
   }

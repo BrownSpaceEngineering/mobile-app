@@ -15,6 +15,11 @@ const ta = timeago();
 const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1","gyroscope","magnetometer1,"];
 
 const styles = StyleSheet.create({
+	dataContainer: {
+	    flex: 1,
+	    justifyContent: 'center',
+	    backgroundColor: '#131a20',
+  	},
 	rowContainer: {
 	    flexDirection: 'row',
 	    justifyContent: 'space-evenly',
@@ -57,7 +62,8 @@ class LatestDataFragment extends Component {
 
 	state = {    
 		powerDraw: 1,
-		latestData: null,    
+		latestData: null,
+		latestPreamble: null,  
 	}
 
 	componentDidMount() {    
@@ -94,9 +100,25 @@ class LatestDataFragment extends Component {
 		return powerDraw.toFixed(0);
 	}
 
+	isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+    		return false;
+    }	   
+	    return true;
+	}
+
 	render() {
-		if (!this.state.latestData || !this.state.latestPreamble) {
+		if (this.state.latestData == null || this.state.latestPreamble == null) {
       		return <Expo.AppLoading/>
+    	} else if (this.isEmpty(this.state.latestPreamble)) {
+    		return (
+    			<View style={styles.dataContainer} >						
+					<ElevatedView elevation={5} style={styles.card} >
+						<Text style={styles.cardTitle}>AWAITING FIRST TRANSMISSION</Text>						
+					</ElevatedView>							
+				</View>
+			);
     	} else {
 			return (
 				<ScrollView style={{backgroundColor: "#131a20"}}>

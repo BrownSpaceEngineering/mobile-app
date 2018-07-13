@@ -4,7 +4,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { Button, COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
 import { Font, Location, Permissions } from 'expo';
-import { DialogComponent, DialogTitle, DialogButton }from 'react-native-dialog-component';
+import { DialogComponent, DialogTitle}from 'react-native-dialog-component';
 
 import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
@@ -24,7 +24,7 @@ global.uiTheme = {
     toolbar: {
       container: {
         height: TOOLBAR_HEIGHT,
-        backgroundColor: "#19222a",        
+        backgroundColor: "#19222a",
       },
     },
 };
@@ -247,35 +247,39 @@ export default class MainActivity extends React.Component {
             ref={(dialogComponent) => { this.aboutDialog = dialogComponent; }}
             title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="About" />}
             width={0.9}
-            dialogStyle={{backgroundColor: "#19222a"}}
-            actions={[<DialogButton textStyle={{color: "#e5e5e5"}} key={0} text="CLOSE" align="center" onPress={this.hideAboutDialog}/>]}
+            dialogStyle={{backgroundColor: "#19222a"}}            
           >
             <ScrollView>
-              <View style={{alignItems: 'center'}}>
-                <Image source={require('../assets/bse_logo_name_white.png')} />
-              </View>
-              <Text style={[styles.aboutText, {paddingTop: 5}]}>{"Created by Brown Space Engineering, a team of superheroes/undergraduates at Brown University. Design/Implementation by Willem Speckmann & Tyler Fox \n\nTrack EQUiSat on the Web: "} </Text>
-              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://equisat.brownspace.org')}}> http://equisat.brownspace.org </Text>
-              <Text style={styles.aboutText} >{"Learn more about our 1U CubeSat, EQUiSat: "} </Text>
-              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org/EQUiSat')}}> https://brownspace.org/EQUiSat </Text>
-              <Text style={styles.aboutText} >{"Learn more about the club and see what other projects we are working on: "} </Text>
-              <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org')}}> https://brownspace.org </Text>
-              <View style={{alignItems: 'center'}}>
-                <Text style={[styles.aboutText, {paddingBottom: 5}]} >{"\nHelp support our student-run club "} </Text>
-              </View>
-              <View style={{alignItems: 'center'}}>
-                <Button raised accent style={{container: {width: 200}}} text=" Donate Now" icon={<Icon name="heart" size={17} style={styles.icon} />} onPress={() => {Linking.openURL('http://brownspace.org/donate')}} />              
-              </View>
-              <Text style={styles.aboutText} >{"\nFollow us for updates:"} </Text>
-              <View style={[styles.rowContainer, {marginTop: 15}]}>
-                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="facebook" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
-                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="twitter" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://twitter.com/browncubesat')}} />
-                <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="github-circle" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
-              </View>
-              <View style={{paddingTop: 10, flexDirection: 'row', justifyContent: 'center',}}>
-                <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
-                <Image source={require('../assets/100_emoji.png')} />
-              </View>
+              <View style={{padding: 10}}>
+                <View style={{alignItems: 'center'}}>
+                  <Image source={require('../assets/bse_logo_name_white.png')} />
+                </View>
+                <Text style={[styles.aboutText, {paddingTop: 5}]}>{"Created by Brown Space Engineering, a team of superheroes/undergraduates at Brown University. Design/Implementation by Willem Speckmann & Tyler Fox \n\nTrack EQUiSat on the Web: "} </Text>
+                <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://equisat.brownspace.org')}}> http://equisat.brownspace.org </Text>
+                <Text style={styles.aboutText} >{"Learn more about our 1U CubeSat, EQUiSat: "} </Text>
+                <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org/EQUiSat')}}> https://brownspace.org/EQUiSat </Text>
+                <Text style={styles.aboutText} >{"Learn more about the club and see what other projects we are working on: "} </Text>
+                <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org')}}> https://brownspace.org </Text>
+                <View style={{alignItems: 'center'}}>
+                  <Text style={[styles.aboutText, {paddingBottom: 5}]} >{"\nHelp support our student-run club "} </Text>
+                </View>
+                <View style={{alignItems: 'center'}}>
+                  <Button raised accent style={{container: {width: 200}}} text=" Donate Now" icon={<Icon name="heart" size={17} style={styles.icon} />} onPress={() => {Linking.openURL('http://brownspace.org/donate')}} />              
+                </View>
+                <Text style={styles.aboutText} >{"\nFollow us for updates:"} </Text>
+                <View style={[styles.rowContainer, {marginTop: 15}]}>
+                  <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="facebook" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
+                  <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="twitter" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://twitter.com/browncubesat')}} />
+                  <Button raised accent style={{container: {width: 50, height: 50, padding: 0}}} text="" icon={<Icon name="github-circle" size={20} style={styles.icon} />} onPress={() => {Linking.openURL('http://facebook.com/browncubesat')}} />
+                </View>
+                <View style={{paddingTop: 10, flexDirection: 'row', justifyContent: 'center',}}>
+                  <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
+                  <Image source={require('../assets/100_emoji.png')} />
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
+                  <Button accent text="Close" onPress={this.hideAboutDialog} />
+                </View>
+              </View>          
             </ScrollView>
 
           </DialogComponent>
