@@ -219,9 +219,13 @@ class HistoricalDataFragment extends Component {
   }
 
   _formatTick = (t, i) => {
-		tick_unit = math.unit(t, unitMappings[this.state.selectedItems[i]]);
-		tick_formatted = tick_unit.format({notation: 'fixed', precision: 1});
-		return tick_formatted;
+  		if (i < this.state.selectedItems.length) {
+  			tick_unit = math.unit(t, unitMappings[this.state.selectedItems[i]]);
+			tick_formatted = tick_unit.format({notation: 'fixed', precision: 1});
+			return tick_formatted;
+  		} else {
+  			return "";
+  		}
   }
 
   getFullData = () => {  	
@@ -437,8 +441,8 @@ class HistoricalDataFragment extends Component {
 								);
 								const graphMin = this.getFullData().map(
 									(dataset) => Math.min(...dataset.map((d) => d.y))
-								);								
-								return this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i], i);.replace('degC', 'C')
+								);										
+								return this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i], i).replace('degC', 'C');
 							}}
 		                />
 		              ))}
