@@ -401,7 +401,23 @@ makeSearchMarker(location) {
     return(
       <View 
         style={styles.container}        
-      >        
+      >
+        <DialogComponent
+          ref={(dialogComponent) => { this.subscribeDialog = dialogComponent; }}
+          title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="Subscribe to SMS Notifications" />}
+          width={0.9}
+          dialogStyle={{backgroundColor: "#19222a", position: 'absolute', top:100,}}
+        >
+          <PhoneInput 
+            ref={ref => {this.phone = ref;}}
+            onPressFlag={this.onPressFlag}
+            textStyle={{color: "#e5e5e5"}}
+          />
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10}}>
+            <Button accent text="Cancel" onPress={this.hideSubscribeDialog} />
+            <Button accent text="Register" onPress={this.handleSubmitNumber} />
+          </View>
+        </DialogComponent>
         <MapView
           onMoveShouldSetResponder={() => {
             this.setState({ lockedToSatLoc: false })
@@ -491,23 +507,7 @@ makeSearchMarker(location) {
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
         <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
-        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>     
-        <DialogComponent
-          ref={(dialogComponent) => { this.subscribeDialog = dialogComponent; }}
-          title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="Subscribe to SMS Notifications" />}
-          width={0.9}
-          dialogStyle={{backgroundColor: "#19222a"}}
-        >
-          <PhoneInput 
-            ref={ref => {this.phone = ref;}}
-            onPressFlag={this.onPressFlag}
-            textStyle={{color: "#e5e5e5"}}
-          />
-          <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10}}>
-            <Button accent text="Cancel" onPress={this.hideSubscribeDialog} />
-            <Button accent text="Register" onPress={this.handleSubmitNumber} />
-          </View>
-        </DialogComponent>        
+        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>                   
       </View>
     );
   }

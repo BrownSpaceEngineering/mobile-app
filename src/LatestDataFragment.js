@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { RefreshControl, Dimensions, StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import timeago from 'timeago.js';
 import ElevatedView from 'react-native-elevated-view';
@@ -63,30 +63,41 @@ class LatestDataFragment extends Component {
 	state = {    
 		powerDraw: 1,
 		latestData: null,
-		latestPreamble: null,  
+		latestPreamble: null,
+		refreshing: false,
 	}
 
-	componentDidMount() {    
+	updateData(pullToRefresh) {
+		if (pullToRefresh) {
+			this.setState({refreshing: true});
+		}		
 		var _this = this;
 		getSignalsLatestSingle(curDataSignals)
-		.then(function(result) {
+		.then(function(result) {			
 			var latestData = result.data;
 			latestData.powerDraw = _this.calculatePowerDraw(latestData);
 			_this.setState({ latestData });
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-		getPreambleData(null, 1)
-		.then(function(result) {
-			if (result.data.length > 0) {
-				var latestPreamble = result.data[0];
-				_this.setState({ latestPreamble });
+			if (pullToRefresh) {
+				_this.setState({refreshing: false});
 			}
 		})
 		.catch(function (error) {
 			console.log(error);
 		});
+		getPreambleData(null, 1)
+		.then(function(result) {			
+			var latestPreamble = result.data.length > 0 ? result.data[0] : {};
+			_this.setState({ latestPreamble });
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
+
+	handleOnRefresh = () => this.updateData(true);
+
+	componentDidMount() {    
+		this.updateData(false);
 	}
 
 	calculatePowerDraw(latestData) {
@@ -121,7 +132,15 @@ class LatestDataFragment extends Component {
 			);
     	} else {
 			return (
-				<ScrollView style={{backgroundColor: "#131a20"}}>
+				<ScrollView 
+					style={{backgroundColor: "#131a20"}}
+					refreshControl={
+			          <RefreshControl
+			          	refreshing={this.state.refreshing}
+			            onRefresh={this.handleOnRefresh}
+			          />
+			        }
+				>
 					<View style={styles.dataContainer} >
 						<View style={styles.rowContainer} >
 							<ElevatedView elevation={5} style={styles.card} >
@@ -163,21 +182,21 @@ class LatestDataFragment extends Component {
 							<Text style={styles.cardTitle}>Ambient Temperatures</Text>						
 							<Text style={styles.cardSubtitle}>LEDs</Text>
 							<View style={styles.rowContainer} >
-								<TempColorText label="1" temp={this.state.latestData.LED1TEMP.value} />
-								<TempColorText label="2" temp={this.state.latestData.LED2TEMP.value} />
+								<TempColorText label="1" temp={this.state.latestData.LED1TEMP ? this.state.latestData.LED1TEMP.value : 0} />
+								<TempColorText label="2" temp={this.state.latestData.LED2TEMP ? this.state.latestData.LED2TEMP.value : 0} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="3" temp={this.state.latestData.LED3TEMP.value} />
-								<TempColorText label="4" temp={this.state.latestData.LED4TEMP.value} />
+								<TempColorText label="3" temp={this.state.latestData.LED3TEMP ? this.state.latestData.LED3TEMP.value : 0} />
+								<TempColorText label="4" temp={this.state.latestData.LED4TEMP ? this.state.latestData.LED4TEMP.value : 0} />
 							</View>
 							<Text style={styles.cardSubtitle}>Batteries</Text>
 								<View style={styles.rowContainer} >
-									<TempColorText label="L1" temp={this.state.latestData.L1_TEMP.value} />
-									<TempColorText label="L2" temp={this.state.latestData.L2_TEMP.value} />
+									<TempColorText label="L1" temp={this.state.latestData.L1_TEMP ? this.state.latestData.L1_TEMP.value : 0} />
+									<TempColorText label="L2" temp={this.state.latestData.L2_TEMP ? this.state.latestData.L2_TEMP.value : 0} />
 								</View>
 								<View style={styles.rowContainer} >
-									<TempColorText label="LF1" temp={this.state.latestData.LF1_TEMP.value} />
-									<TempColorText label="LF3" temp={this.state.latestData.LF3_TEMP.value} />
+									<TempColorText label="LF1" temp={this.state.latestData.LF1_TEMP ? this.state.latestData.LF1_TEMP.value : 0} />
+									<TempColorText label="LF3" temp={this.state.latestData.LF3_TEMP ? this.state.latestData.LF3_TEMP.value : 0} />
 								</View>
 							<Text style={styles.cardSubtitle}>Panels</Text>
 							<View style={styles.rowContainer} >
@@ -186,7 +205,7 @@ class LatestDataFragment extends Component {
 							</View>
 							<View style={styles.rowContainer} >
 								<TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_AMB.value} />
-								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE1_AMB.value} />
+								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_AMB.value} />
 							</View>
 							<View style={styles.rowContainer} >
 								<TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_AMB.value} />

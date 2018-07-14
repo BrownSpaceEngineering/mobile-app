@@ -254,9 +254,9 @@ export default class MainActivity extends React.Component {
                 <View style={{alignItems: 'center'}}>
                   <Image source={require('../assets/bse_logo_name_white.png')} />
                 </View>
-                <Text style={[styles.aboutText, {paddingTop: 5}]}>{"Created by Brown Space Engineering, a team of superheroes/undergraduates at Brown University. Design/Implementation by Willem Speckmann & Tyler Fox \n\nTrack EQUiSat on the Web: "} </Text>
+                <Text style={[styles.aboutText, {paddingTop: 5}]}>{"Created by Brown Space Engineering, a team of superheroes/undergraduates at Brown University. Design/Implementation by Willem Speckmann & Tyler Fox. \n\nTrack EQUiSat on the Web: "} </Text>
                 <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://equisat.brownspace.org')}}> http://equisat.brownspace.org </Text>
-                <Text style={styles.aboutText} >{"Learn more about our 1U CubeSat, EQUiSat: "} </Text>
+                <Text style={styles.aboutText} >{"Learn more about EQUiSat: "} </Text>
                 <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org/EQUiSat')}}> https://brownspace.org/EQUiSat </Text>
                 <Text style={styles.aboutText} >{"Learn more about the club and see what other projects we are working on: "} </Text>
                 <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('http://brownspace.org')}}> https://brownspace.org </Text>

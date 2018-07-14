@@ -93,7 +93,7 @@ getBatteryColor(percentage){
     return(
       <View>
         <AnimatedCircularProgress
-          size={90}
+          size={75}
           width={5}
           fill={percent}
           backgroundColor="#3d5875"
