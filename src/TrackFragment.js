@@ -422,7 +422,7 @@ makeSearchMarker(location) {
           onMoveShouldSetResponder={() => {
             this.setState({ lockedToSatLoc: false })
             return true
-          }}          
+          }}
           onLongPress={e => this.makeSearchMarker(e.nativeEvent.coordinate)}
           ref={map => {this.map = map}}
           style={styles.map}

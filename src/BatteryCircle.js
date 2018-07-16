@@ -86,7 +86,7 @@ getBatteryColor(percentage){
 
   render() {
     const { mV, isLion, charging, discharging, number } = this.props;
-    var voltage = mV / 1000;
+    var voltage = (mV / 1000).toFixed(2);
     var percent = isLion ? this.lionVoltageToPercentage(voltage) : this.lifepo4VoltageToPercentage(voltage);
     var color = this.getBatteryColor(percent);    
     //var color = uiTheme.palette.accentColor;    
@@ -101,8 +101,8 @@ getBatteryColor(percentage){
           {
             (fill) => (
               <View style={styles.chargeLabelContainer}>              
-                <Text style={{ fontSize: 20, color: color, }}>
-                  { percent }%
+                <Text style={{ fontSize: 18, color: color, }}>
+                  { voltage }V
                 </Text>
                 <View style={styles.rowContainer}>
                   {charging ? <Icon name="battery-charging" size={20} style={{backgroundColor: "transparent", color: 'white'}} /> : null}

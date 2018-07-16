@@ -163,15 +163,15 @@ class LatestDataFragment extends Component {
 							<Text style={styles.cardTitle}>Battery Info</Text>
 							<Text style={styles.cardSubtitle}>Li-Ion</Text>
 							<View style={styles.rowContainer} >
-								<BatteryCircle isLion={true} charging={!this.state.latestData.L1_CHGN.value} discharging={this.state.latestData.L1_ST.value} number={1} mV={this.state.latestData.L1_REF.value} />
-								<BatteryCircle isLion={true} charging={!this.state.latestData.L2_CHGN.value} discharging={this.state.latestData.L2_ST.value} number={2} mV={this.state.latestData.L2_REF.value} />
+								<BatteryCircle isLion={true} charging={this.state.latestData.L1_CHGN.value} discharging={this.state.latestData.L1_ST.value} number={1} mV={this.state.latestData.L1_REF.value} />
+								<BatteryCircle isLion={true} charging={this.state.latestData.L2_CHGN.value} discharging={this.state.latestData.L2_ST.value} number={2} mV={this.state.latestData.L2_REF.value} />
 							</View>
 							<Text style={styles.cardSubtitle}>LiFePO4</Text>
 							<View style={styles.rowContainer} >
-								<BatteryCircle isLion={false} charging={!this.state.latestData.LF_B1_CHGN.value} number={1} mV={this.state.latestData.LF1REF.value} />
-								<BatteryCircle isLion={false} charging={!this.state.latestData.LF_B1_CHGN.value} number={2} mV={this.state.latestData.LF2REF.value} />
-								<BatteryCircle isLion={false} charging={!this.state.latestData.LF_B2_CHGN.value} number={3} mV={this.state.latestData.LF3REF.value} />
-								<BatteryCircle isLion={false} charging={!this.state.latestData.LF_B2_CHGN.value} number={4} mV={this.state.latestData.LF4REF.value} />
+								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B1_CHGN.value} number={1} mV={this.state.latestData.LF1REF.value} />
+								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B1_CHGN.value} number={2} mV={this.state.latestData.LF2REF.value} />
+								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B2_CHGN.value} number={3} mV={this.state.latestData.LF3REF.value} />
+								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B2_CHGN.value} number={4} mV={this.state.latestData.LF4REF.value} />
 							</View>
 							<View style={[styles.rowContainerLeft, {alignItems: 'flex-end', marginTop: 10}]} >
 								<HorizontalDataValue label="Power Draw" value={this.state.latestData.powerDraw + " mW"} color="#FFFFFF" />

@@ -56,7 +56,7 @@ const tickValues = [
 
 const avcSignals = ["L1_REF","L2_REF", "LREF_AVG","L1_SNS","L2_SNS","PANELREF","L_REF","LF1REF","LF2REF","LF3REF","LF4REF","LFREF_AVG","LFB1SNS","LFB1OSNS","LFB2SNS","LFB2OSNS","LFBSNS_AVG","LED1SNS","LED2SNS","LED3SNS","LED4SNS","LEDSNS_AVG"];
 const tempSignals = ["RAD_TEMP","IMU_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","IR_AMB_AVG","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","LEDTEMP_AVG","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","LTEMP_AVG"];
-const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS ","PD_RBF"];
+const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_RBF"];
 
 const xOffsets = [50, 350, 0, 400];
 const tickPadding = [-5, -15, -15, -5];
@@ -129,7 +129,7 @@ class HistoricalDataFragment extends Component {
     graphData3: [],
     graphData4: [],
     graphCodes: {"0": [], "1": [], "2": [], "3": []},
-    startDateTime: new Date(new Date().getTime() - (60*60*24*7*1000)),
+    startDateTime: new Date(new Date().getTime() - (60*60*24*3*1000)),
     endDateTime: new Date(),
     startDateTimePickerVisible: false,
     endDateTimePickerVisible: false,
@@ -240,7 +240,7 @@ class HistoricalDataFragment extends Component {
       if (full_data[x].length > 0) {
         data.push(full_data[x])
       }
-    }
+    }    
     return data;
   }
 
@@ -257,7 +257,7 @@ class HistoricalDataFragment extends Component {
     }
   }
 
-  setGraphData = (res, _this) => {
+  setGraphData = (res, _this) => {  	
     if (res.length == 0) {
       _this.setState(
         {
@@ -268,30 +268,22 @@ class HistoricalDataFragment extends Component {
         }
       )
     } else if (res.length == 1) {
-			_this.setState(
-				{
-					graphData2: [],
-          graphData3: [],
-          graphData4: []
-				}
-			)
+			_this.setState(	{
+			graphData2: [],
+          	graphData3: [],
+          	graphData4: []
+			})
 		} else if (res.length == 2) {
-			_this.setState(
-				{
-          graphData3: [],
-          graphData4: []
-				}
-			)
+			_this.setState({
+          		graphData3: [],
+          		graphData4: []
+			})
 		} else if (res.length == 3) {
-			_this.setState(
-				{
-          graphData4: []
-				}
-			)
+			_this.setState({ graphData4: []})
 		}
     for (let k=0; k<res.length; k++) {
         let codes = _this._getSignalCodes(res[k]);
-        let graphCodes = _this.state.graphCodes;
+        let graphCodes = _this.state.graphCodes;        
         if (codes != graphCodes[k]) {
           getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
             .then(function(result) {
@@ -415,12 +407,12 @@ class HistoricalDataFragment extends Component {
 			    	{this.displayLabel(this.state.selectedItems.length > 3, 4)}
 		    	</View>
 
-		      	<View pointerEvents="none" styles>
+		      	<View pointerEvents="none" style={{alignItems: 'center', paddingLeft: 25, paddingRight: 25}}>
 		            <VictoryChart
 		              	theme={VictoryTheme.material}
 		              	domain={{ y: [0, 1] }}
 		            	scale={{ x: "time" }}
-						width={400}
+		            	width={400}
 		            >
 		             <VictoryAxis />
 		              {this.getFullData().map((d, i) => (
