@@ -6,6 +6,7 @@ import { Button } from 'react-native-material-ui';
 
 import LatestDataFragment from "./LatestDataFragment.js";
 import HistoricalDataFragment from "./HistoricalDataFragment.js"
+import LastFlashDataFragment from "./LastFlashDataFragment.js"
 
 const initialLayout = {
   height: 0,
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tab: {
-    width: Dimensions.get('window').width / 2,
+    width: Dimensions.get('window').width / 3,
   },
   tabbar: {
     backgroundColor: '#19222a',
@@ -44,19 +45,19 @@ export default class DataFragment extends React.Component {
     routes: [
       { key: 'first', title: 'Latest' },
       { key: 'second', title: 'Historical' },
+      { key: 'third', title: 'Last Flash' },
     ],
     refreshList: false,
   }
 
-  constructor(props) {
+ /* constructor(props) {
     super(props);
     this.tableUpdate = this.tableUpdate.bind(this);
   }
 
   tableUpdate(e) {        
     this.setState({ refreshList: !this.state.refreshList });    
-    this.tableDialog.show();
-  }
+    this.tableDialog.show();*/
 
   LatestView = () => (
     <LatestDataFragment/>
@@ -65,12 +66,16 @@ export default class DataFragment extends React.Component {
   HistoricalView = () => (
     <HistoricalDataFragment tableUpdate={this.tableUpdate} ref={historicalDataFragment => {this.historicalDataFragment = historicalDataFragment}}/>
   );
+  LastFlashView = () => (
+    <LastFlashDataFragment/>
+  );
 
   _handleIndexChange = index => this.setState({ index, });
 
   _renderScene = SceneMap({
     first: this.LatestView,
     second: this.HistoricalView,
+    third: this.LastFlashView,
   });
 
   _renderTabBar = props => (
