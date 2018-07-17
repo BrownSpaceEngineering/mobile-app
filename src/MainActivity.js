@@ -108,7 +108,7 @@ export default class MainActivity extends React.Component {
   };
 
   state = {
-    index: 2,
+    index: 1,
     routes: [
       { key: 'cad', icon: 'printer-3d', color: '#FFFFFF', title: 'CAD'},
       { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},
