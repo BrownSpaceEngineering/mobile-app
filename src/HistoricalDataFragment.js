@@ -58,10 +58,9 @@ const avcSignals = ["L1_REF","L2_REF", "LREF_AVG","L1_SNS","L2_SNS","PANELREF","
 const tempSignals = ["RAD_TEMP","IMU_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","IR_AMB_AVG","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","LEDTEMP_AVG","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","LTEMP_AVG"];
 const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_RBF"];
 
-const xOffsets = [50, 350, 0, 400];
+const xOffsets = [50, Dimensions.get('window').width*.9, 0, Dimensions.get('window').width*.99];
 const tickPadding = [-5, -15, -15, -5];
 const anchors = ["end", "start", "start", "end"];
-const colors = ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 206, 86)", "rgb(75, 192, 192)"];
 
 const maxItems = 4;
 
@@ -129,14 +128,18 @@ class HistoricalDataFragment extends Component {
     graphData3: [],
     graphData4: [],
     graphCodes: {"0": [], "1": [], "2": [], "3": []},
-    startDateTime: new Date(new Date().getTime() - (60*60*24*3*1000)),
+    startDateTime: new Date(new Date().getTime() - (60*60*24*1000)),
     endDateTime: new Date(),
     startDateTimePickerVisible: false,
     endDateTimePickerVisible: false,
     signalItems: [],
     selectedItems: [],
     confirmText: "",
+    tableData: [],
+    tableListItemNum: 0,    
 	}
+
+	colors = ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 206, 86)", "rgb(75, 192, 192)"];		
 
   onSelectedItemsChange = (selectedItems) => {
     if ( selectedItems.length > maxItems ) {
@@ -200,6 +203,34 @@ class HistoricalDataFragment extends Component {
   componentDidMount() {
   	this.makeSignalItems();
   }
+
+  /*showTable = (graphNum) => {  	
+  	this.setState({ tableListItemNum: graphNum });
+  	var graph;
+  	switch (graphNum) {
+  		case 0:
+  			graph = this.state.graphData1;
+  			break;
+  		case 1:
+  			graph = this.state.graphData2;
+  			break;
+  		case 2	:
+  			graph = this.state.graphData3;
+  			break;
+  		default:
+  			graph = this.state.graphData4;
+  			break;
+
+  	}  	
+  	var tableData = [];  	
+  	for (var i = this.state.graphData1.length - 1; i >= 0 ; i--) {
+  		tableData.push({key: this.state.graphData1.length - i});  		
+  		tableData.push({key: this.state.graphData1[i].x.toLocaleString()});
+  		tableData.push({key: this.state.graphData1[i].y.toString()});
+  	}  	
+  	this.setState({ tableData: tableData });   
+  	this.props.tableUpdate();
+  }*/
 
   makeSignalChildrenArr(signalList) {
   	var childrenArr = [];
@@ -286,7 +317,7 @@ class HistoricalDataFragment extends Component {
         let graphCodes = _this.state.graphCodes;        
         if (codes != graphCodes[k]) {
           getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
-            .then(function(result) {
+            .then(function(result) {            	 
              	 if (codes[0] in result.data && result.data[codes[0]]['timestamps'].length > 0) {
 	              let timestamps = result.data[codes[0]]['timestamps'];
 	              let values = [];
@@ -313,8 +344,8 @@ class HistoricalDataFragment extends Component {
 	                  : k == 2
 	                    ? _this.setState(
 	                      { graphData3: signal_data })
-	                    : _this.setState({ graphData4: signal_data })
-	            }
+	                    : _this.setState({ graphData4: signal_data })	              
+	            }				
             })
             .catch(function (error) {
               console.log(error);
@@ -322,7 +353,7 @@ class HistoricalDataFragment extends Component {
         }
         graphCodes[k] = codes
         _this.setState({ graphCodes: graphCodes[k] })
-    }
+    }    
   }
 
 
@@ -331,33 +362,47 @@ class HistoricalDataFragment extends Component {
   			switch(labelNum) {
   				case 1:
   					return (<View style={styles.inlineContainer}>
-	    			<Icon name="checkbox-blank-circle" size={20} style={{color: colors[0]}}/>
-	    			<Text style={{color: colors[0]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[0] : "" }</Text>
+	    			<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[0]}}/>
+	    			<Text style={{color: this.colors[0]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[0] : "" }</Text>
 	    		</View>);
   					break;  					
   				case 2:
   					return (<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: colors[1]}}/>
-		    		<Text style={{color: colors[1]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[1] : "" }</Text>
+		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[1]}}/>
+		    		<Text style={{color: this.colors[1]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[1] : "" }</Text>
 		    		</View>);  					
 	  				break;
   				case 3:
   					return (<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: colors[2]}}/>
-		    		<Text style={{color: colors[2]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[2] : "" }</Text>
+		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[2]}}/>
+		    		<Text style={{color: this.colors[2]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[2] : "" }</Text>
 		    		</View>);
   					break;
   				case 4:
   					return(<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: colors[3]}}/>
-		    		<Text style={{color: colors[3]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[3] : "" }</Text>
+		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[3]}}/>
+		    		<Text style={{color: this.colors[3]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[3] : "" }</Text>
 		    		</View>);
   					break;
   			}
   		} else {
   			return <View/>
   		}
-  	}
+  	}  	
+
+  	FlatListItemSeparator = () => {
+    	return (
+	      	<View
+		        style={{
+	      	    	height: 1,
+	          		width: "100%",
+	          		marginTop: 5,
+	          		marginBottom: 10,
+	          		backgroundColor: this.colors[0],
+	        	}}
+	    	/>
+		)
+	;}
 
 	render() {
 		return (
@@ -407,12 +452,11 @@ class HistoricalDataFragment extends Component {
 			    	{this.displayLabel(this.state.selectedItems.length > 3, 4)}
 		    	</View>
 
-		      	<View pointerEvents="none" style={{alignItems: 'center', paddingLeft: 25, paddingRight: 25}}>
+		      	<View pointerEvents="none" style={{alignItems: 'center'}}>		            
 		            <VictoryChart
 		              	theme={VictoryTheme.material}
 		              	domain={{ y: [0, 1] }}
-		            	scale={{ x: "time" }}
-		            	width={400}
+		            	scale={{ x: "time" }}		            	
 		            >
 		             <VictoryAxis />
 		              {this.getFullData().map((d, i) => (
@@ -420,9 +464,9 @@ class HistoricalDataFragment extends Component {
 							key={i}
 							offsetX={xOffsets[i]}
 							style={{
-								axis: { stroke: colors[i] },
+								axis: { stroke: this.colors[i] },
 								ticks: { padding: tickPadding[i] },
-								tickLabels: { fill: colors[i], textAnchor: anchors[i] }
+								tickLabels: { fill: this.colors[i], textAnchor: anchors[i] }
 							}}
 							// Use normalized tickValues (0 - 1)
 							tickValues={tickValues[i]}
@@ -442,7 +486,7 @@ class HistoricalDataFragment extends Component {
 		                <VictoryLine
 		                  key={i}
 		                  data={d}
-		                  style={{ data: { stroke: colors[i] } }}
+		                  style={{ data: { stroke: this.colors[i] } }}
 		                  // normalize data
 		                  y={(datum) => {//datum.y / this.state.graphMaxima[i] }
 		                    const graphMax = this.getFullData().map(
@@ -457,19 +501,18 @@ class HistoricalDataFragment extends Component {
 		                    }
 		                />
 		              ))}
-		            </VictoryChart>
+		            </VictoryChart>			        
 		        </View>
-
-		            <View style={[styles.rowContainer, {paddingTop: 5}]}>
-		          		<View>
-		          			<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
-		          			<Text style={{color: "#e5e5e5", textAlign: "center"}} >Start Time</Text>
-		          		</View>
-		          		<View>
-			          		<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
-			          		<Text style={{color: "#e5e5e5", textAlign: "center"}}>End Time</Text>
-		          		</View>
-		          	</View>					
+	            <View style={[styles.rowContainer, {paddingTop: 5}]}>
+	          		<View>
+	          			<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
+	          			<Text style={{color: "#e5e5e5", textAlign: "center"}} >Start Time</Text>
+	          		</View>
+	          		<View>
+		          		<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
+		          		<Text style={{color: "#e5e5e5", textAlign: "center"}}>End Time</Text>
+	          		</View>
+	          	</View>	          	
 		      </ScrollView>
 	    </View>
 		);

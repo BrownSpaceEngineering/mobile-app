@@ -12,7 +12,7 @@ import {getSignalsLatestSingle, getPreambleData} from '../api-library-js/EQUiSat
 
 const ta = timeago();
 
-const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1","gyroscope","magnetometer1,"];
+const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1X","accelerometer1Y", "accelerometer1Z","gyroscopeX", "gyroscopeY", "gyroscopeZ","magnetometer1X, magnetometer1Y, magnetometer1Z"];
 
 const styles = StyleSheet.create({
 	dataContainer: {
@@ -182,54 +182,54 @@ class LatestDataFragment extends Component {
 							<Text style={styles.cardTitle}>Ambient Temperatures</Text>						
 							<Text style={styles.cardSubtitle}>LEDs</Text>
 							<View style={styles.rowContainer} >
-								<TempColorText label="1" temp={this.state.latestData.LED1TEMP ? this.state.latestData.LED1TEMP.value : 0} />
-								<TempColorText label="2" temp={this.state.latestData.LED2TEMP ? this.state.latestData.LED2TEMP.value : 0} />
+								<TempColorText label="1" temp={this.state.latestData.LED1TEMP ? this.state.latestData.LED1TEMP.value.toString() : "?"} />
+								<TempColorText label="2" temp={this.state.latestData.LED2TEMP ? this.state.latestData.LED2TEMP.value.toString() : "?"} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="3" temp={this.state.latestData.LED3TEMP ? this.state.latestData.LED3TEMP.value : 0} />
-								<TempColorText label="4" temp={this.state.latestData.LED4TEMP ? this.state.latestData.LED4TEMP.value : 0} />
+								<TempColorText label="3" temp={this.state.latestData.LED3TEMP ? this.state.latestData.LED3TEMP.value.toString() : "?"} />
+								<TempColorText label="4" temp={this.state.latestData.LED4TEMP ? this.state.latestData.LED4TEMP.value.toString() : "?"} />
 							</View>
 							<Text style={styles.cardSubtitle}>Batteries</Text>
 								<View style={styles.rowContainer} >
-									<TempColorText label="L1" temp={this.state.latestData.L1_TEMP ? this.state.latestData.L1_TEMP.value : 0} />
-									<TempColorText label="L2" temp={this.state.latestData.L2_TEMP ? this.state.latestData.L2_TEMP.value : 0} />
+									<TempColorText label="L1" temp={this.state.latestData.L1_TEMP ? this.state.latestData.L1_TEMP.value.toString() : "?"} />
+									<TempColorText label="L2" temp={this.state.latestData.L2_TEMP ? this.state.latestData.L2_TEMP.value.toString() : "?"} />
 								</View>
 								<View style={styles.rowContainer} >
-									<TempColorText label="LF1" temp={this.state.latestData.LF1_TEMP ? this.state.latestData.LF1_TEMP.value : 0} />
-									<TempColorText label="LF3" temp={this.state.latestData.LF3_TEMP ? this.state.latestData.LF3_TEMP.value : 0} />
+									<TempColorText label="LF1" temp={this.state.latestData.LF1_TEMP ? this.state.latestData.LF1_TEMP.value.toString() : "?"} />
+									<TempColorText label="LF3" temp={this.state.latestData.LF3_TEMP ? this.state.latestData.LF3_TEMP.value.toString() : "?"} />
 								</View>
 							<Text style={styles.cardSubtitle}>Panels</Text>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+X" temp={this.state.latestData.IR_RBF_AMB.value} />
-								<TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_AMB.value} />
+								<TempColorText label="+X" temp={this.state.latestData.IR_RBF_AMB.value.toString()} />
+								<TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_AMB.value.toString()} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_AMB.value} />
-								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_AMB.value} />
+								<TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_AMB.value.toString()} />
+								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_AMB.value.toString()} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_AMB.value} />
-								<TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_AMB.value} />
+								<TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_AMB.value.toString()} />
+								<TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_AMB.value.toString()} />
 							</View>
 							<Text style={styles.cardSubtitle}>Misc.</Text>
 							<View style={styles.rowContainer} >
-								<TempColorText label="Radio" temp={this.state.latestData.RAD_TEMP.value} />
-								<TempColorText label="IMU" temp={this.state.latestData.IMU_TEMP.value} />
+								<TempColorText label="Radio" temp={this.state.latestData.RAD_TEMP.value.toString()} />
+								<TempColorText label="IMU" temp={this.state.latestData.IMU_TEMP.value.toString()} />
 							</View>
 						</ElevatedView>
 						<ElevatedView elevation={5} style={styles.card} >
 							<Text style={styles.cardTitle}>Object Temperatures</Text>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+X" temp={this.state.latestData.IR_RBF_OBJ.value} />
-								<TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_OBJ.value} />
+								<TempColorText label="+X" temp={this.state.latestData.IR_RBF_OBJ.value.toString()} />
+								<TempColorText label="-X" temp={this.state.latestData.IR_SIDE1_OBJ.value.toString()} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_OBJ.value} />
-								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_OBJ.value} />
+								<TempColorText label="+Y" temp={this.state.latestData.IR_FLASH_OBJ.value.toString()} />
+								<TempColorText label="-Y" temp={this.state.latestData.IR_SIDE2_OBJ.value.toString()} />
 							</View>
 							<View style={styles.rowContainer} >
-								<TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_OBJ.value} />
-								<TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_OBJ.value} />
+								<TempColorText label="+Z" temp={this.state.latestData.IR_TOP1_OBJ.value.toString()} />
+								<TempColorText label="-Z" temp={this.state.latestData.IR_ACCESS_OBJ.value.toString()} />
 							</View>
 						</ElevatedView>
 						<ElevatedView elevation={5} style={styles.card} >
@@ -250,21 +250,21 @@ class LatestDataFragment extends Component {
 						<View style={styles.rowContainer} >
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Acc</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.accelerometer1.value.x + " g"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.accelerometer1.value.y + " g"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1.value.z + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={this.state.latestData.accelerometer1X ? this.state.latestData.accelerometer1X.value : "?" + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={this.state.latestData.accelerometer1Y ? this.state.latestData.accelerometer1Y.value : "?" + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1Z ? this.state.latestData.accelerometer1Z.value : "?" + " g"} color="#FFFFFF" />
 							</ElevatedView>
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Gyro</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.gyroscope.value.x + " d/s"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.gyroscope.value.y + " d/s"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.gyroscope.value.z + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={this.state.latestData.gyroscopeX ? this.state.latestData.gyroscopeX.value : "?" + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={this.state.latestData.gyroscopeY ? this.state.latestData.gyroscopeY.value : "?" + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={this.state.latestData.gyroscopeZ ? this.state.latestData.gyroscopeZ.value : "?" + " d/s"} color="#FFFFFF" />
 							</ElevatedView>
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Mag</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.magnetometer1.value.x + " mG"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.magnetometer1.value.y + " mG"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.magnetometer1.value.z + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={this.state.latestData.magnetometer1X ? this.state.latestData.magnetometer1X.value : "?" + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={this.state.latestData.magnetometer1Y ? this.state.latestData.magnetometer1Y.value : "?" + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={this.state.latestData.magnetometer1Z ? this.state.latestData.magnetometer1Z.value : "?" + " mG"} color="#FFFFFF" />
 							</ElevatedView>
 						</View>
 					</View>

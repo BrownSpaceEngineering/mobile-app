@@ -38,7 +38,6 @@ const trackServerPrefix = "http://tracking.brownspace.org/api/"
 //TLE Stuff
 const TLEJS = require('tle.js');
 const tlejs = new TLEJS();
-const satName = 'ISS (ZARYA)';
 
 
 const isAndroid = (Platform.OS === 'android');
@@ -123,7 +122,7 @@ export default class TrackFragment extends React.Component {
   getNextPass(_this, lat, lon, alt, isUserLoc) {    
     _this.serverRequest = 
       axios
-        .get(trackServerPrefix + "get_next_pass/"+ satName + "/" + lon + "," + lat + "," + alt)
+        .get(trackServerPrefix + "get_next_pass/"+ lon + "," + lat + "," + alt)
         .then(function(result) {
           var isError = (result.status != 200);          
           if (isUserLoc) {
@@ -162,7 +161,7 @@ export default class TrackFragment extends React.Component {
   getTLE = async (_this) => {
     _this.serverRequest =
       axios
-        .get(trackServerPrefix + 'equisat_tle')
+        .get(trackServerPrefix + 'equisat_tle?timestamp='+new Date().getTime())
         .then(function(result) {          
           var TLEStr = result.data.slice(0, -1);
           console.log(TLEStr);
