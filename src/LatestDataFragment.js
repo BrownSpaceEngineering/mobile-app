@@ -214,7 +214,7 @@ class LatestDataFragment extends Component {
 							<Text style={styles.cardSubtitle}>Misc.</Text>
 							<View style={styles.rowContainer} >
 								<TempColorText label="Radio" temp={this.state.latestData.RAD_TEMP.value.toString()} />
-								<TempColorText label="IMU" temp={this.state.latestData.IMU_TEMP.value.toString()} />
+								<TempColorText label="IMU" temp={this.state.latestData.IMU_TEMP.value.toFixed(2).toString()} />
 							</View>
 						</ElevatedView>
 						<ElevatedView elevation={5} style={styles.card} >

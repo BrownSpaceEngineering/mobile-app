@@ -432,7 +432,7 @@ makeSearchMarker(location) {
             longitudeDelta: 50
           }}
           customMapStyle={mapStyle}
-          showsMyLocationButton={true}
+          showsMyLocationButton={false}
           provider="google"
         >
           <MapView.Marker
@@ -491,7 +491,7 @@ makeSearchMarker(location) {
           offsetX={15}
           offsetY={90}
           fixNativeFeedbackRadius={true}
-          userNativeFeedback={true}          
+          userNativeFeedback={true}
           onPress={() => { this.showUserLoc() }}
         />
         <ActionButton 
@@ -501,7 +501,7 @@ makeSearchMarker(location) {
           offsetX={15}
           offsetY={15}
           fixNativeFeedbackRadius={true}
-          userNativeFeedback={true}          
+          userNativeFeedback={true}
           onPress={() => { this.snapToSat() }}
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
