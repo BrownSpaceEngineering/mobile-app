@@ -470,7 +470,7 @@ makeSearchMarker(location) {
             opacity={(this.state.satCoord.latitude != 0 || this.state.satCoord.latitude != 0)  ? 1.0 : 0}
           >
             {isAndroid ? null : <Image source={satMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
-            <MapView.Callout>
+            <MapView.Callout style={{ flex: 1, position: 'relative' }}>
               <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>EQUiSat</Text>
               <Text>Latitude: {this.state.curSatInfo.lat}</Text>
               <Text>Longitude: {this.state.curSatInfo.lng}</Text>

@@ -1,9 +1,9 @@
 {
   "name": "EQUiSat",
-  "version": "1.1.7",
+  "version": "1.1.11",
   "private": true,
   "devDependencies": {
-    "jest-expo": "^27.0.1",
+    "jest-expo": "^28.0.0",
     "react-native-scripts": "^1.11.1",
     "react-test-renderer": "^16.2.0"
   },
@@ -20,11 +20,11 @@
   },
   "dependencies": {
     "es6-symbol": "^3.1.1",
-    "expo": "27.0.2",
+    "expo": "28.0.0",
     "mathjs": "^5.0.2",
     "npm": "^6.1.0",
-    "react": "16.2.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-27.0.2.tar.gz",
+    "react": "16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
     "react-native-action-button": "^2.8.4",
     "react-native-circular-progress": "^0.2.0",
     "react-native-country-picker-modal": "^0.6.2",
@@ -44,10 +44,5 @@
     "tle.js": "^1.0.21",
     "victory": "0.25.7",
     "victory-native": "0.17.4"
-  },
-  "rnpm": {
-    "assets": [
-      "./assets/fonts"
-    ]
   }
 }

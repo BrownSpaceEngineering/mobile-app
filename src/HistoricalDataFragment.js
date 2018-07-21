@@ -5,7 +5,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Button } from 'react-native-material-ui';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import * as math from 'mathjs';
+const math = require('mathjs');
 
 import {getSignalsLatest, getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
 import {signalToName} from '../api-library-js/HumanReadables.js';

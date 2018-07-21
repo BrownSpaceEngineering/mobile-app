@@ -4,7 +4,7 @@ import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, Vi
 import { Button } from 'react-native-material-ui';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import * as math from 'mathjs';
+const math = require('mathjs');
 
 import {getFlashBurstData} from '../api-library-js/EQUiSatAPI.js';
 import {signalToName} from '../api-library-js/HumanReadables.js';

@@ -24,7 +24,7 @@ class TempColorText extends Component {
     if (tempInC > 90) {
         tempInC = 90;
     }
-    var a = (tempInC + 70)/130;
+    var a = (tempInC + 60)/130;
     a = (a < 0) ? 0 : ((a > 1) ? 1 : a);
     
     // Scrunch the green/cyan range in the middle
@@ -37,13 +37,13 @@ class TempColorText extends Component {
     var h = (h0) * (1 - a) + (h1) * (a);
     
     //return pusher.color("hsv", h, 75, 90).hex6();
-    return ["hsl(",h,",100%,60%)"].join("");
-};
+    return ["hsl(",h,",100%,65%)"].join("");
+}
 
   render() {
     const { label, temp } = this.props;
-    var tempNum = parseFloat(temp);
-    var color = isNaN(tempNum) ? "#e5e5e5" : this.getTemperatureColor(temp);
+    var tempNum = parseFloat(temp);      
+    var color = isNaN(tempNum) ? "#e5e5e5" : this.getTemperatureColor(tempNum);
     return(
       <View>
         <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: color }}>{temp}°C</Text>

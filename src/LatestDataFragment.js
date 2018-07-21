@@ -12,7 +12,7 @@ import {getSignalsLatestSingle, getPreambleData} from '../api-library-js/EQUiSat
 
 const ta = timeago();
 
-const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1X","accelerometer1Y", "accelerometer1Z","gyroscopeX", "gyroscopeY", "gyroscopeZ","magnetometer1X, magnetometer1Y, magnetometer1Z"];
+const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1X","accelerometer1Y", "accelerometer1Z","gyroscopeX", "gyroscopeY", "gyroscopeZ","magnetometer1X", "magnetometer1Y", "magnetometer1Z"];
 
 const styles = StyleSheet.create({
 	dataContainer: {
@@ -74,7 +74,7 @@ class LatestDataFragment extends Component {
 		var _this = this;
 		getSignalsLatestSingle(curDataSignals)
 		.then(function(result) {			
-			var latestData = result.data;
+			var latestData = result.data;			
 			latestData.powerDraw = _this.calculatePowerDraw(latestData);
 			_this.setState({ latestData });
 			if (pullToRefresh) {
@@ -173,9 +173,9 @@ class LatestDataFragment extends Component {
 								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B2_CHGN.value} number={3} mV={this.state.latestData.LF3REF.value} />
 								<BatteryCircle isLion={false} charging={this.state.latestData.LF_B2_CHGN.value} number={4} mV={this.state.latestData.LF4REF.value} />
 							</View>
-							<View style={[styles.rowContainerLeft, {alignItems: 'flex-end', marginTop: 10}]} >
-								<HorizontalDataValue label="Power Draw" value={this.state.latestData.powerDraw + " mW"} color="#FFFFFF" />
-								<HorizontalDataValue label="Solar Panel Voltage" value={(this.state.latestData.PANELREF.value / 1000) + " V"} color="#FFFFFF" />
+							<View style={[styles.rowContainer, {alignItems: 'flex-end', marginTop: 10}]} >
+								<VerticalDataValue label="Power Draw" value={this.state.latestData.powerDraw + " mW"} color="#FFFFFF" />
+								<VerticalDataValue label="Solar Panel Voltage" value={(this.state.latestData.PANELREF.value / 1000) + " V"} color="#FFFFFF" />
 							</View>
 						</ElevatedView>
 						<ElevatedView elevation={5} style={styles.card} >
@@ -250,21 +250,21 @@ class LatestDataFragment extends Component {
 						<View style={styles.rowContainer} >
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Acc</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.accelerometer1X ? this.state.latestData.accelerometer1X.value : "?" + " g"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.accelerometer1Y ? this.state.latestData.accelerometer1Y.value : "?" + " g"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.accelerometer1Z ? this.state.latestData.accelerometer1Z.value : "?" + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={(this.state.latestData.accelerometer1X ? this.state.latestData.accelerometer1X.value : "?") + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={(this.state.latestData.accelerometer1Y ? this.state.latestData.accelerometer1Y.value : "?") + " g"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={(this.state.latestData.accelerometer1Z ? this.state.latestData.accelerometer1Z.value : "?") + " g"} color="#FFFFFF" />
 							</ElevatedView>
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Gyro</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.gyroscopeX ? this.state.latestData.gyroscopeX.value : "?" + " d/s"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.gyroscopeY ? this.state.latestData.gyroscopeY.value : "?" + " d/s"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.gyroscopeZ ? this.state.latestData.gyroscopeZ.value : "?" + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={(this.state.latestData.gyroscopeX ? this.state.latestData.gyroscopeX.value : "?") + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={(this.state.latestData.gyroscopeY ? this.state.latestData.gyroscopeY.value : "?") + " d/s"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={(this.state.latestData.gyroscopeZ ? this.state.latestData.gyroscopeZ.value : "?") + " d/s"} color="#FFFFFF" />
 							</ElevatedView>
 							<ElevatedView elevation={5} style={[styles.card, {alignItems: 'center'}]} >
 								<Text style={styles.cardTitle}>Mag</Text>
-								<HorizontalDataValue label="X" value={this.state.latestData.magnetometer1X ? this.state.latestData.magnetometer1X.value : "?" + " mG"} color="#FFFFFF" />
-								<HorizontalDataValue label="Y" value={this.state.latestData.magnetometer1Y ? this.state.latestData.magnetometer1Y.value : "?" + " mG"} color="#FFFFFF" />
-								<HorizontalDataValue label="Z" value={this.state.latestData.magnetometer1Z ? this.state.latestData.magnetometer1Z.value : "?" + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="X" value={(this.state.latestData.magnetometer1X ? this.state.latestData.magnetometer1X.value : "?") + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="Y" value={(this.state.latestData.magnetometer1Y ? this.state.latestData.magnetometer1Y.value : "?") + " mG"} color="#FFFFFF" />
+								<HorizontalDataValue label="Z" value={(this.state.latestData.magnetometer1Z ? this.state.latestData.magnetometer1Z.value : "?") + " mG"} color="#FFFFFF" />
 							</ElevatedView>
 						</View>
 					</View>

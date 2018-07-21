@@ -80,8 +80,8 @@ getBatteryColor(percentage){
     }
     var scaledValue = (66 - value) / 66;
     //value from 0 to 1
-    var hue=((1-scaledValue)*120).toString(10);
-    return ["hsl(",hue,",100%,50%)"].join("");
+    var hue=((.98-scaledValue)*130).toString(10);
+    return ["hsl(",hue,",100%,65%)"].join("");
   }
 
   render() {
