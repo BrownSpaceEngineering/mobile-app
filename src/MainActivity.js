@@ -243,10 +243,20 @@ export default class MainActivity extends React.Component {
             style={{container: {elevation: 0,}}}
             isSearchActive={this.state.searchBarOpen}
           />
+          <TabView
+            style={this.props.style}
+            navigationState={this.state}
+            renderScene={this._renderScene}
+            renderTabBar={this._renderTabBar}
+            tabBarPosition="bottom"
+            onIndexChange={this._handleIndexChange}
+            swipeEnabled={false}
+          />
           <DialogComponent
             ref={(dialogComponent) => { this.aboutDialog = dialogComponent; }}
             title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="About" />}
             width={0.9}
+            height={0.9}
             dialogStyle={{backgroundColor: "#19222a"}}            
           >
             <ScrollView>
@@ -275,23 +285,14 @@ export default class MainActivity extends React.Component {
                 <View style={{paddingTop: 10, flexDirection: 'row', justifyContent: 'center',}}>
                   <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
                   <Image source={require('../assets/100_emoji.png')} />
-                </View>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
-                  <Button accent text="Close" onPress={this.hideAboutDialog} />
-                </View>
+                </View>                
               </View>          
             </ScrollView>
+            <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
+              <Button accent text="Close" onPress={this.hideAboutDialog} />
+            </View>
 
-          </DialogComponent>
-          <TabView
-            style={this.props.style}
-            navigationState={this.state}
-            renderScene={this._renderScene}
-            renderTabBar={this._renderTabBar}
-            tabBarPosition="bottom"
-            onIndexChange={this._handleIndexChange}
-            swipeEnabled={false}
-          />
+          </DialogComponent>          
         </View>
       </ThemeProvider>
     );

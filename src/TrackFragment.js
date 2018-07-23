@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert, Platform, StyleSheet, Text, View, Image} from 'react-native';
+import { Alert, Platform, StyleSheet, Text, View, Image, TouchableHighlight} from 'react-native';
 import MapView from 'react-native-maps';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { Button } from 'react-native-material-ui';
@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const AUDIBLE_CIRCLE_RADIUS_M = 1000 * 2000;
+
 const trackServerPrefix = "http://tracking.brownspace.org/api/"
 
 //TLE Stuff
@@ -64,6 +66,7 @@ export default class TrackFragment extends React.Component {
     satLocButtonSize: 60,
     satCoord: {latitude: 0, longitude: 0},
     satCoords: [],
+    satCoords2: [],
     lockedToSatLoc: true,
 
     TLEReady: false,  
@@ -96,7 +99,8 @@ export default class TrackFragment extends React.Component {
     cca2: 'US',
   }
 
-  TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
+  //TLEStr = 'ISS (ZARYA)\n1 25544U 98067A   18167.57342809  .00001873  00000-0  35452-4 0  9993\n2 25544  51.6416  21.7698 0002962 191.5103 260.7459 15.54186563118420';
+  TLEStr = '1998-067PA\n1 43552U 98067PA  18203.24282627  .00006515  00000-0  10313-3 0  9994\n2 43552  51.6412 203.9371 0005837 350.6408   9.4476 15.54781596  1354'
 
   printDate(date) {
     // Create an array with the current month, day and time
@@ -135,7 +139,7 @@ export default class TrackFragment extends React.Component {
           }
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("ERR0: " + error);          
           return undefined; });
   }
 
@@ -158,23 +162,30 @@ export default class TrackFragment extends React.Component {
     this.setState({ showUserLocMarker: true });
   };
 
-  getTLE = async (_this) => {
+  getTLE(_this) {
     _this.serverRequest =
       axios
         .get(trackServerPrefix + 'equisat_tle?timestamp='+new Date().getTime())
-        .then(function(result) {          
-          var TLEStr = result.data.slice(0, -1);
-          console.log(TLEStr);
+        .then(function(result) {
+          var TLEStr = result.data;
+          if (TLEStr.slice(-1) == '\n') {
+            TLEStr = TLEStr.slice(0, -1);
+          }
           if (TLEStr != "") {
             _this.TLEStr = TLEStr;
           } else {
             console.log("Received blank TLE");
           }
+          console.log(_this.TLEStr);
           _this.setState({ TLEReady: true });
+          _this.setOrbitPathCoords(_this);
+          setInterval(function(){_this.setOrbitPathCoords(_this);}, 1000*60*5);
         })
         .catch(function (error) {
           _this.setState({ TLEReady: true });
-          console.log(error);
+          _this.setOrbitPathCoords(_this);
+          setInterval(function(){_this.setOrbitPathCoords(_this);}, 1000*60*5);
+          console.log("ERR1: " + error);
         });
   };
 
@@ -239,22 +250,26 @@ makeSearchMarker(location) {
     this.setState({ searchBarOpen: false });
   };
 
-  setOrbitPathCoords(orbitLineArr) {
+  setOrbitPathCoords(_this) {    
+    var orbitLines = tlejs.getGroundTrackLatLng(_this.TLEStr);
     var satCoords = [];
-    for (var i = 0; i < orbitLineArr.length; i++) {
-      satCoords = [ ...satCoords, {latitude: orbitLineArr[i][0], longitude: orbitLineArr[i][1]}];
+    var satCoords2 = [];
+    for (var i = 0; i < orbitLines[1].length; i++) {
+      satCoords = [ ...satCoords, {latitude: orbitLines[1][i][0], longitude: orbitLines[1][i][1]}];      
     }
-    this.setState({ satCoords });
+    for (var i = 0; i < orbitLines[2].length; i++) {      
+      satCoords2 = [ ...satCoords2, {latitude: orbitLines[2][i][0], longitude: orbitLines[2][i][1]}];
+    }
+    _this.setState({ satCoords });
+    _this.setState({ satCoords2 });
   }
 
   componentDidMount() {
-    this._getLocationAsync(); //get user location
-    var _this = this;
-    this.getTLE(this);
+    this._getLocationAsync(); //get user location    
+    this.getTLE(this);    
+    var _this = this;    
     //get sat location every second
-    var orbitLines = tlejs.getGroundTrackLatLng(this.TLEStr);    
-    this.setOrbitPathCoords(orbitLines[1]);
-    this.satUpdateAsyncID =setInterval(function(){_this.updateSatLocation(_this);}, 2000);
+    this.satUpdateAsyncID = setInterval(function(){_this.updateSatLocation(_this);}, 2000);
   }
 
   componentWillUnmount() {
@@ -302,7 +317,11 @@ makeSearchMarker(location) {
           <Text>Max Alt. Time: {this.printDate(new Date(nextPass.max_alt_time *1000))}</Text>
           <Text>Set Azimuth: {nextPass.set_azimuth.toFixed(2)}°</Text>
           <Text>Set Time: {this.printDate(new Date(nextPass.set_time *1000))}</Text>
-          <Button accent text="Notify Me" />
+          <TouchableHighlight style={{padding: 5}} onPress= {()=>console.log("HIGHLIGHTS")} underlayColor='#dddddd'>
+            <View>
+                <Text style={{fontSize: 14, fontWeight: 'bold', textAlign: 'center', color: uiTheme.palette.accentColor}}>NOTIFY ME</Text>
+            </View>
+        </TouchableHighlight>
         </View>
       );
     }
@@ -328,7 +347,7 @@ makeSearchMarker(location) {
         return result.data.success;     
       })
       .catch(function (error) {              
-        console.log(error);
+        console.log("ERR2: " + error);
         _this.setState({ notifyStatusSnackbarText: "Error registering for SMS notifications" });
         _this.setState({ notifyStatusSnackbarVisible: true });
         setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
@@ -362,7 +381,7 @@ makeSearchMarker(location) {
         _this.setState({ notifyStatusSnackbarText: "Error contacting SMS notification server"});
         _this.setState({ notifyStatusSnackbarVisible: true });
         setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
-        console.log(error);
+        console.log("ERR3: " + error);        
       });
   }
 
@@ -405,6 +424,7 @@ makeSearchMarker(location) {
           ref={(dialogComponent) => { this.subscribeDialog = dialogComponent; }}
           title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="Subscribe to SMS Notifications" />}
           width={0.9}
+          dismissOnTouchOutside={false}
           dialogStyle={{backgroundColor: "#19222a", position: 'absolute', top:100,}}
         >
           <PhoneInput 
@@ -444,8 +464,8 @@ makeSearchMarker(location) {
             image={isAndroid ? userMarkerImage_android : null}
             opacity={this.state.showUserLocMarker ? 1.0 : 0 }
           >
-            {isAndroid ? null : <Image source={userMarkerImage} style={{width:40, height:40}} resizeMode="contain" />}
-            <MapView.Callout style={{ flex: 1, position: 'relative' }} onPress={e => this.notifyNextPass(this.state.userNextPassError, this.state.userLat, this.state.userLong)} >              
+            {isAndroid ? null : <Image source={userMarkerImage} style={{width:25, height:25}} resizeMode="contain" />}
+            <MapView.Callout style={{ flex: 1, position: 'relative' }} onPress={e => this.notifyNextPass(this.state.userNextPassError, this.state.userLat, this.state.userLong)} >
               {this.showCalloutText(true)}
             </MapView.Callout>
           </MapView.Marker>
@@ -477,12 +497,24 @@ makeSearchMarker(location) {
               <Text>Altitude: {this.state.curSatInfo.height}km</Text>
               <Text>Velocity: {this.state.curSatInfo.velocity}km/s</Text>
             </MapView.Callout>
-          </MapView.Marker.Animated>
-          
+          </MapView.Marker.Animated>                
+
+          <MapView.Polyline            
+            coordinates={this.state.satCoords2}
+            strokeWidth={5}
+            strokeColor="#3b5a70"/>
+
           <MapView.Polyline            
             coordinates={this.state.satCoords}
             strokeWidth={5}
             strokeColor={uiTheme.palette.accentColor}/>
+
+          <MapView.Circle
+            center={this.state.satCoord}
+            radius={this.state.TLEReady ? AUDIBLE_CIRCLE_RADIUS_M : 0}
+            strokeWidth={2}
+            zIndex={99}
+            strokeColor="#e5e5e5" />
         </MapView>        
         <ActionButton 
           buttonColor={uiTheme.palette.accentColor}

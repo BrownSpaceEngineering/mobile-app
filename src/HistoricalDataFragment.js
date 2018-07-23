@@ -288,7 +288,7 @@ class HistoricalDataFragment extends Component {
     }
   }
 
-  setGraphData = (res, _this) => {  	
+  setGraphData = (res, _this) => {    	
     if (res.length == 0) {
       _this.setState(
         {
@@ -314,43 +314,43 @@ class HistoricalDataFragment extends Component {
 		}
     for (let k=0; k<res.length; k++) {
         let codes = _this._getSignalCodes(res[k]);
-        let graphCodes = _this.state.graphCodes;        
-        if (codes != graphCodes[k]) {
-          getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
-            .then(function(result) {            	 
-             	 if (codes[0] in result.data && result.data[codes[0]]['timestamps'].length > 0) {
-	              let timestamps = result.data[codes[0]]['timestamps'];
-	              let values = [];
-	              for (let q=0; q<codes.length; q++){
-	                values.push(result.data[codes[q]]['values']);
-	              }
-	              let signal_data = [];
-	              for (let b=0; b<timestamps.length; b++) {
-	                let dateTime = new Date(timestamps[b]);
-	                let avg_values=[];
-	                for (let a=0; a<codes.length; a++) {
-	                  avg_values.push(values[a][b]);
-	                }
-	                let average = codes.length == 0
-	                  ? 0
-	                  : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
-	                signal_data.push({x: dateTime, y: average});
-	              }
-	              k == 0 ? _this.setState(
-	              { graphData1: signal_data })
-	                : k == 1
-	                  ? _this.setState(
-	                    { graphData2: signal_data })
-	                  : k == 2
-	                    ? _this.setState(
-	                      { graphData3: signal_data })
-	                    : _this.setState({ graphData4: signal_data })	              
-	            }				
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
+        let graphCodes = _this.state.graphCodes;         
+             
+      getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
+        .then(function(result) {            	 
+         	 if (codes[0] in result.data && result.data[codes[0]]['timestamps'].length > 0) {
+              let timestamps = result.data[codes[0]]['timestamps'];
+              let values = [];
+              for (let q=0; q<codes.length; q++){
+                values.push(result.data[codes[q]]['values']);
+              }
+              let signal_data = [];
+              for (let b=0; b<timestamps.length; b++) {
+                let dateTime = new Date(timestamps[b]);
+                let avg_values=[];
+                for (let a=0; a<codes.length; a++) {
+                  avg_values.push(values[a][b]);
+                }
+                let average = codes.length == 0
+                  ? 0
+                  : avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
+                signal_data.push({x: dateTime, y: average});
+              }
+              k == 0 ? _this.setState(
+              { graphData1: signal_data })
+                : k == 1
+                  ? _this.setState(
+                    { graphData2: signal_data })
+                  : k == 2
+                    ? _this.setState(
+                      { graphData3: signal_data })
+                    : _this.setState({ graphData4: signal_data })	              
+            }				
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
         graphCodes[k] = codes
         _this.setState({ graphCodes: graphCodes[k] })
     }    
@@ -430,7 +430,7 @@ class HistoricalDataFragment extends Component {
 					showDropDowns={true}
 					readOnlyHeadings={true}
 					expandDropDowns={true}
-					showCancelButton={true}
+					showCancelButton={false}
 					showChips={false}
 					confirmText={`Done${this.state.confirmText}`}
 					onSelectedItemsChange={this.onSelectedItemsChange}
@@ -503,7 +503,7 @@ class HistoricalDataFragment extends Component {
 		              ))}
 		            </VictoryChart>			        
 		        </View>
-	            <View style={[styles.rowContainer, {paddingTop: 5}]}>
+	            <View style={[styles.rowContainer, {paddingTop: 5, paddingHorizontal: 10}]}>
 	          		<View>
 	          			<Button raised accent text={this.state.startDateTime.toLocaleString()} onPress={this.showStartDateTimePicker} />
 	          			<Text style={{color: "#e5e5e5", textAlign: "center"}} >Start Time</Text>

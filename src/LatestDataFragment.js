@@ -8,11 +8,12 @@ import BatteryCircle from './BatteryCircle';
 import TempColorText from './TempColorText';
 import HorizontalDataValue from './HorizontalDataValue';
 import VerticalDataValue from './VerticalDataValue';
+import PhotodiodeValue from './PhotodiodeValue';
 import {getSignalsLatestSingle, getPreambleData} from '../api-library-js/EQUiSatAPI.js';
 
 const ta = timeago();
 
-const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1X","accelerometer1Y", "accelerometer1Z","gyroscopeX", "gyroscopeY", "gyroscopeZ","magnetometer1X", "magnetometer1Y", "magnetometer1Z"];
+const curDataSignals = ["L1_REF","L2_REF","LF1REF","LF2REF","LF3REF","LF4REF","L1_ST","L2_ST","L1_CHGN","L2_CHGN","LF_B1_CHGN","LF_B2_CHGN","L1_SNS","L2_SNS","PANELREF","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","RAD_TEMP","IMU_TEMP","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_TOP2","accelerometer1X","accelerometer1Y", "accelerometer1Z","gyroscopeX", "gyroscopeY", "gyroscopeZ","magnetometer1X", "magnetometer1Y", "magnetometer1Z", "boot_count"];
 
 const styles = StyleSheet.create({
 	dataContainer: {
@@ -157,6 +158,10 @@ class LatestDataFragment extends Component {
 									<Text style={styles.cardText}>Current State:  </Text>            
 									<Text style={styles.cardText}>{this.state.latestPreamble.preamble.satellite_state}</Text>
 								</View>
+								<View style={styles.rowContainerLeft} >
+									<Text style={styles.cardText}>Boot Count:  </Text>            
+									<Text style={styles.cardText}>{this.state.latestData.boot_count.value}</Text>
+								</View>
 							</ElevatedView>							
 						</View>
 						<ElevatedView elevation={5} style={styles.card} >
@@ -235,16 +240,16 @@ class LatestDataFragment extends Component {
 						<ElevatedView elevation={5} style={styles.card} >
 							<Text style={styles.cardTitle}>Photodiodes</Text>
 							<View style={styles.rowContainer} >
-								<VerticalDataValue label="+X" value={this.state.latestData.PD_TOP2.value} color="#FFFFFF" />
-								<VerticalDataValue label="-X" value={this.state.latestData.PD_SIDE1.value} color="#FFFFFF" />
-							</View>
-							<View style={styles.rowContainer} >
-								<VerticalDataValue label="+Y" value={this.state.latestData.PD_FLASH.value} color="#FFFFFF" />
-								<VerticalDataValue label="-Y" value={this.state.latestData.PD_SIDE2.value} color="#FFFFFF" />
-							</View>
-							<View style={styles.rowContainer} >
-								<VerticalDataValue label="+Z" value={this.state.latestData.PD_TOP1.value} color="#FFFFFF" />
-								<VerticalDataValue label="-Z" value={this.state.latestData.PD_ACCESS.value} color="#FFFFFF" />
+								<View>
+									<PhotodiodeValue label="+X" num={this.state.latestData.PD_TOP2.value} />
+									<PhotodiodeValue label="+Y" num={this.state.latestData.PD_FLASH.value} />
+									<PhotodiodeValue label="+Z" num={this.state.latestData.PD_TOP1.value} />
+								</View>
+								<View>
+									<PhotodiodeValue label="-X" num={this.state.latestData.PD_SIDE1.value} />
+									<PhotodiodeValue label="-Y" num={this.state.latestData.PD_SIDE2.value} />
+									<PhotodiodeValue label="-Z" num={this.state.latestData.PD_ACCESS.value} />
+								</View>
 							</View>
 						</ElevatedView>
 						<View style={styles.rowContainer} >
