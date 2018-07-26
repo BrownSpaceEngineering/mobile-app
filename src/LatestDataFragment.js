@@ -61,20 +61,20 @@ const styles = StyleSheet.create({
 
 class LatestDataFragment extends Component {
 
-	state = {    
+	state = {
 		powerDraw: 1,
 		latestData: null,
 		latestPreamble: null,
 		refreshing: false,
 	}
 
-	updateData(pullToRefresh) {
+	updateData(pullToRefresh) {		
 		if (pullToRefresh) {
 			this.setState({refreshing: true});
-		}		
+		}
 		var _this = this;
 		getSignalsLatestSingle(curDataSignals)
-		.then(function(result) {			
+		.then(function(result) {
 			var latestData = result.data;			
 			latestData.powerDraw = _this.calculatePowerDraw(latestData);
 			_this.setState({ latestData });
@@ -101,13 +101,13 @@ class LatestDataFragment extends Component {
 		this.updateData(false);
 	}
 
-	calculatePowerDraw(latestData) {
-		var powerDraw = 0;
-		if (latestData.L1_ST.value && latestData.L1_SNS.value < 0) {
-			powerDraw += (latestData.L1_SNS.value * -1 * latestData.L1_REF.value / 1000);
+	calculatePowerDraw(latestData) {		
+		var powerDraw = 0.;
+		if (latestData.L1_ST.value && latestData.L1_SNS.value < 0) {			
+			powerDraw += (latestData.L1_SNS.value * -1. * latestData.L1_REF.value / 1000.);
 		}
-		if (latestData.L2_ST.value && latestData.L2_SNS.value < 0) {
-			powerDraw += (latestData.L2_SNS.value * -1 * latestData.L2_REF.value / 1000);
+		if (latestData.L2_ST.value && latestData.L2_SNS.value < 0) {			
+			powerDraw += (latestData.L2_SNS.value * -1. * latestData.L2_REF.value / 1000.);
 		}
 		return powerDraw.toFixed(0);
 	}
@@ -148,7 +148,7 @@ class LatestDataFragment extends Component {
 								<Text style={styles.cardTitle}>Last Transmission</Text>
 								<View style={styles.rowContainerLeft} >
 									<Icon name="clock" size={20} style={styles.icon} />
-									<Text style={styles.cardText}>{ta.format(new Date(this.state.latestPreamble.created))}</Text>
+									<Text style={styles.cardText}>{ta.format(new Date(this.state.latestPreamble.added))}</Text>
 								</View>
 								<View style={styles.rowContainerLeft} >
 									<Icon name="radio-tower" size={20} style={styles.icon} />

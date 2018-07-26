@@ -5,7 +5,7 @@ import { Button } from 'react-native-material-ui';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 const math = require('mathjs');
-
+import timeago from 'timeago.js';
 import {getFlashBurstData} from '../api-library-js/EQUiSatAPI.js';
 import {signalToName} from '../api-library-js/HumanReadables.js';
 
@@ -29,9 +29,25 @@ const styles = StyleSheet.create({
   	multiSelectSearchIcon: {
 	    backgroundColor: '#FFFFFF',
   	},
+  	cardText: {
+	   color: 'white',
+	   fontSize: 14,
+	   marginBottom: 5,
+	},
+	icon: {
+	   backgroundColor: "transparent",
+	   color: "white",
+	   paddingRight: 5,
+	},
+	rowContainerLeft: {
+	    flexDirection: 'row',
+	    justifyContent: 'flex-start',
+  	},
 });
 
 const timeStamps = [-20, 0, 20, 40, 60, 80, 100];
+
+const ta = timeago();
 
 const unitMappings = {
 	"LF1REF": "mV",
@@ -80,13 +96,14 @@ class LastFlashDataFragment extends Component {
 
 	state = {
 		signalItems: [],
-    selectedItems: [],
+    	selectedItems: ["LFREF_AVG", "LFBSNS_AVG", "LEDTEMP_AVG", "LTEMP_AVG"],
 		confirmText: "",
 		graphData1: [],
 		graphData2: [],
 		graphData3: [],
 		graphData4: [],
 		haveFlashData: false,
+		added: "",
 	}
 
 	makeSignalChildrenArr(signalList) {
@@ -104,6 +121,8 @@ class LastFlashDataFragment extends Component {
 		.then(function(result) {
 			if (result.data.length > 0) {
 				_this.setState({ haveFlashData: true });
+				_this.setState({ added: result.data[0].added});				
+				_this.setGraphData(_this.state.selectedItems, _this);
 			}
 		})
 		.catch(function (error) {
@@ -206,7 +225,7 @@ class LastFlashDataFragment extends Component {
     return data;
   }
 
-	setGraphData(signals, _this) {
+	setGraphData(signals, _this) {		
 		if (signals.length == 0) {
       _this.setState(
         {
@@ -234,7 +253,7 @@ class LastFlashDataFragment extends Component {
       let codes = _this._getSignalCodes(signals[k]);
 			getFlashBurstData(codes, 1)
 			.then(function(result) {				
-				const result_data = result.data[1]['payload']['burst'];
+				const result_data = result.data[0]['payload']['burst'];
 				// const result_data = [{"LED3TEMP":-104,"LF1REF":3584,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":433,"LF2REF":3291,"LED4SNS":467,"LED1SNS":433,"LFB1SNS":-750,"LED3SNS":100,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2852,"LF4REF":3273,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3638,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":200,"LF2REF":3273,"LED4SNS":367,"LED1SNS":400,"LFB1SNS":-750,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2944,"LF4REF":3236,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3620,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":0,"LF2REF":3236,"LED4SNS":867,"LED1SNS":800,"LFB1SNS":-750,"LED3SNS":0,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2962,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3602,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-450,"LED2SNS":67,"LF2REF":3236,"LED4SNS":333,"LED1SNS":500,"LFB1SNS":-450,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2925,"LF4REF":3218,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-103},{"LED3TEMP":-104,"LF1REF":3529,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":267,"LF2REF":3254,"LED4SNS":300,"LED1SNS":400,"LFB1SNS":-750,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2944,"LF4REF":3236,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3638,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":300,"LF2REF":3236,"LED4SNS":433,"LED1SNS":367,"LFB1SNS":-750,"LED3SNS":200,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2907,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3620,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":333,"LF2REF":3254,"LED4SNS":400,"LED1SNS":333,"LFB1SNS":-750,"LED3SNS":167,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2907,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104}]
 				let signal_data = [];
 				for (let q=0; q<timeStamps.length; q++) {
@@ -274,6 +293,12 @@ class LastFlashDataFragment extends Component {
 			return (
 				<View style={styles.dataContainer}>
 		      <ScrollView>
+		      			<View style={{alignItems: "center", flex: 1}}>
+		      				<View style={[styles.rowContainerLeft, {paddingTop: 5}]} >
+								<Icon name="clock" size={20} style={styles.icon} />
+								<Text style={styles.cardText}>{ta.format(new Date(this.state.added))}</Text>
+							</View>
+						</View>
 						<SectionedMultiSelect
 							items={this.state.signalItems}
 							uniqueKey='id'

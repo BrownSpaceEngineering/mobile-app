@@ -35,11 +35,11 @@ class PhotodiodeValue extends Component {
   render() {
     const { label, num} = this.props;    
     return(
-      <View style={{paddingVertical: 5}} >        
-        <View style={styles.rowContainer}>           
+      <View style={{paddingVertical: 5}} >
+        <View style={styles.rowContainer}>
           <Icon name="white-balance-sunny" size={24} style={num > 0 ? styles.on : styles.off} />
           <Icon name="white-balance-sunny" size={24} style={num > 1 ? styles.on : styles.off} />
-          <Icon name="white-balance-sunny" size={24} style={num > 2 ? styles.on : styles.off} />          
+          <Icon name="white-balance-sunny" size={24} style={num > 2 ? styles.on : styles.off} />
         </View>
         <Text style={styles.labelStyle}>{label}</Text>
       </View>
