@@ -15,7 +15,7 @@ const initialLayout = {
 
 const accentColor= "#6aa2c8"
 
-const styles = StyleSheet.create({  
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -55,8 +55,8 @@ export default class DataFragment extends React.Component {
     this.tableUpdate = this.tableUpdate.bind(this);
   }
 
-  tableUpdate(e) {        
-    this.setState({ refreshList: !this.state.refreshList });    
+  tableUpdate(e) {
+    this.setState({ refreshList: !this.state.refreshList });
     this.tableDialog.show();*/
 
   LatestView = () => (
@@ -98,7 +98,7 @@ export default class DataFragment extends React.Component {
         ref={(dialogComponent) => { this.tableDialog = dialogComponent }}
         title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title={this.historicalDataFragment.state.selectedItems.length > 0 ? this.historicalDataFragment.state.selectedItems[this.historicalDataFragment.state.tableListItemNum] : ""} />}
         width={0.9}
-        dialogStyle={{backgroundColor: "#19222a"}} >      
+        dialogStyle={{backgroundColor: "#19222a"}} >
           <View style={{alignItems: 'center'}}>
             <View style={styles.rowContainer} >
             <Text style={{fontSize: 16, color: this.historicalDataFragment.colors[this.historicalDataFragment.state.tableListItemNum]}}>#</Text>
@@ -122,12 +122,12 @@ export default class DataFragment extends React.Component {
     );
     } else {
       return <View/>
-    }   
+    }
   }
 
   render() {
       return(
-        <View style={styles.container}>          
+        <View style={styles.container}>
           <TabView
             style={[styles.container, this.props.style]}
             navigationState={this.state}
@@ -138,6 +138,6 @@ export default class DataFragment extends React.Component {
           />
           {this.renderTableDialogComponent()}
         </View>
-      );    
+      );
   }
 }

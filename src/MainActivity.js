@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Alert, Dimensions, Linking, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
+import { ActivityIndicator, Dimensions, Linking, StyleSheet, Text, View, Image, ScrollView, Share, StatusBar, WebView } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { Button, COLOR, BottomNavigation, Dialog, DialogDefaultActions, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import { TabView, TabBar, SceneMap, type Route, type NavigationState } from 'react-native-tab-view';
@@ -11,7 +11,7 @@ import TrackFragment from './TrackFragment';
 import DataFragment from './DataFragment';
 import CADFragment from './CADFragment';
 
-const VERSION_NUMBER = "Version 1.2.1"
+const VERSION_NUMBER = "Version 1.3.0";
 
 const TOOLBAR_HEIGHT = 60;
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     top: (STATUS_BAR_HEIGHT + TOOLBAR_HEIGHT / 2 - 17.5),
     alignSelf: 'flex-end',
     right: Dimensions.get('window').width / 8,
-    zIndex: 100,  
+    zIndex: 100,
   },
   aboutText: {
     fontSize: 17,
@@ -106,7 +106,7 @@ export default class MainActivity extends React.Component {
     autoFocus: true,
     placeholder: 'Type a location for next pass',
     onChangeText: (text) => this.trackFragment.setState({ searchText: text }),
-    onSubmitEditing: () => this.trackFragment._getGeocodeLatLong(),              
+    onSubmitEditing: () => this.trackFragment._getGeocodeLatLong(),
   };
 
   state = {
@@ -119,34 +119,34 @@ export default class MainActivity extends React.Component {
     loading: true,
     showSearchSpinner: false,
     searchButton: this.searchButton,
-    searchBarOpen: false,    
+    searchBarOpen: false,
   }
 
   static navigationOptions =
   {
      header: null,
-  };  
+  };
 
   OpenSettingsFunction = () => { this.props.navigation.navigate('SettingsActivity'); }
 
   ShareMessage=()=> {
-    Share.share({      
-      message: "I'm tracking EQUiSat, Brown University's first-ever satellite, using the EQUiSat App! equisat.brownspace.org",        
+    Share.share({
+      message: "I'm tracking EQUiSat, Brown University's first-ever satellite, using the EQUiSat App! equisat.brownspace.org",
     });
-  }  
+  }
 
   componentDidMount() {
     Font.loadAsync({
       'Roboto': require('../assets/fonts/Roboto-Medium.ttf'),
     });
     var _this = this;
-    setTimeout(function(){_this.setState({ loading: false })}, 100);    
+    setTimeout(function(){_this.setState({ loading: false })}, 100);
   }
 
   _handleIndexChange = index => {
-    this.setState({ index });    
-    switch(index) {            
-      case 1: //on track tab        
+    this.setState({ index });
+    switch(index) {
+      case 1: //on track tab
         if (this.state.searchButton == null) {
           this.setState({ searchButton: this.searchButton });
         }
@@ -154,26 +154,26 @@ export default class MainActivity extends React.Component {
       default: //otherwise
         if (this.state.searchButton != null) {
           this.setState({ searchButton: null });
-        }        
+        }
         break;
     }
-  }    
+  }
 
   _renderScene = ({ route }) => {
   switch(route.key) {
-      case "cad":        
+      case "cad":
         return <CADFragment/>;
         break;
-      case "track":                  
+      case "track":
         return <TrackFragment ref={trackFragment => {this.trackFragment = trackFragment}}/>;
         break;
-      case "data":        
+      case "data":
         return <DataFragment/>;
         break;
     }
   }
 
-  _renderIcon = ({ route }) => (    
+  _renderIcon = ({ route }) => (
     <Icon name={route.icon} size={24} style={styles.icon} />
   );
 
@@ -188,11 +188,11 @@ export default class MainActivity extends React.Component {
     return null;
   };
 
-  _renderTabBar = props => (    
+  _renderTabBar = props => (
     <TabBar
       {...props}
-      renderIcon={this._renderIcon}      
-      renderBadge={this._renderBadge}      
+      renderIcon={this._renderIcon}
+      renderBadge={this._renderBadge}
       indicatorStyle={styles.indicator}
       labelStyle={styles.label}
       style={styles.tabbar}
@@ -230,15 +230,15 @@ export default class MainActivity extends React.Component {
       return <Expo.AppLoading/>;
     } else {
       let searchSpinner = (this.state.showSearchSpinner) ? (<ActivityIndicator animating={this.state.showSearchSpinner} size="large" color="#19222a"  style={styles.searchSpinner}/>) : (null);
-      return (      
+      return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={{ flex: 1 }}>
           <StatusBarBackground/>
           {searchSpinner}
           <Toolbar
-            centerElement="EQUiSat" 
+            centerElement="EQUiSat"
             rightElement={{
-              actions: ['share', 'info-outline'],              
+              actions: ['share', 'info-outline'],
             }}
             searchable={this.state.searchButton}
             onRightElementPress={(e) => this.onactionItemselected(e)}
@@ -259,10 +259,10 @@ export default class MainActivity extends React.Component {
             title={<DialogTitle titleTextStyle={{color: "#e5e5e5"}} title="About" />}
             width={0.9}
             height={0.9}
-            dialogStyle={{backgroundColor: "#19222a"}}            
+            dialogStyle={{backgroundColor: "#19222a"}}
           >
             <ScrollView>
-              <View style={{padding: 10}}>
+              <View style={{paddingBottom: 10, paddingHorizontal: 10}}>
                 <View style={{alignItems: 'center'}}>
                   <Image source={require('../assets/bse_logo_name_white.png')} />
                 </View>
@@ -277,7 +277,7 @@ export default class MainActivity extends React.Component {
                   <Text style={[styles.aboutText, {paddingBottom: 5}]} >{"\nHelp support our student-run club "} </Text>
                 </View>
                 <View style={{alignItems: 'center'}}>
-                  <Button raised accent style={{container: {width: 200}}} text=" Donate Now" icon={<Icon name="heart" size={17} style={styles.icon} />} onPress={() => {Linking.openURL('http://brownspace.org/donate')}} />              
+                  <Button raised accent style={{container: {width: 200}}} text=" Donate Now" icon={<Icon name="heart" size={17} style={styles.icon} />} onPress={() => {Linking.openURL('http://brownspace.org/donate')}} />
                 </View>
                 <Text style={styles.aboutText} >{"\nFollow us for updates:"} </Text>
                 <View style={[styles.rowContainer, {marginTop: 15}]}>
@@ -288,17 +288,17 @@ export default class MainActivity extends React.Component {
                 <View style={{paddingTop: 10, flexDirection: 'row', justifyContent: 'center',}}>
                   <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
                   <Image source={require('../assets/100_emoji.png')} />
-                </View>                
-              </View>          
+                </View>
+              </View>
             </ScrollView>
             <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
               <Button accent text="Close" onPress={this.hideAboutDialog} />
             </View>
 
-          </DialogComponent>          
+          </DialogComponent>
         </View>
       </ThemeProvider>
     );
-    }    
+    }
   }
 }

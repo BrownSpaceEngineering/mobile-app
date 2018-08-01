@@ -50,6 +50,8 @@ const userMarkerImage_android = require('../assets/user_location_icon_android.pn
 
 const nextPassErrorStr = "Could not determine next EQUiSat pass over this location. Try again later.";
 
+console.ignoredYellowBox = ['Setting a timer'];
+
 export default class TrackFragment extends React.Component {
 
    constructor() {
@@ -61,7 +63,7 @@ export default class TrackFragment extends React.Component {
 
   state = {
     mapLat: 0,
-    mapLong: 0,    
+    mapLong: 0,
     curSatInfo: {lat: 0, lng: 0, height: 0, velocity: 0},
     satLocButtonSize: 60,
     satCoord: {latitude: 0, longitude: 0},
@@ -69,7 +71,7 @@ export default class TrackFragment extends React.Component {
     satCoords2: [],
     lockedToSatLoc: true,
 
-    TLEReady: false,  
+    TLEReady: false,
 
     searchText: "",
     searchLat: 0,
@@ -77,13 +79,13 @@ export default class TrackFragment extends React.Component {
     searchNextPass: {max_alt: 0, max_alt_time: 0, rise_azimuth: 0, rise_time: 0, set_azimuth: 0, set_time: 0},
     searchNextPassError: true,
     showSearchLocMarker: false,
-    searchErrorSnackbarVisible: false,    
+    searchErrorSnackbarVisible: false,
 
     userLat: 0,
     userLong: 0,
     userAlt: 0,
     userLocErrorSnackbarVisible: false,
-    gotUserLoc: false,    
+    gotUserLoc: false,
     showUserLoc: false,
     showUserLocMarker: false,
     userNextPass: {max_alt: 0, max_alt_time: 0, rise_azimuth: 0, rise_time: 0, set_azimuth: 0, set_time: 0},
@@ -121,14 +123,14 @@ export default class TrackFragment extends React.Component {
       }
     // Return the formatted string
       return dateArr.join("/") + " at " + timeArr.join(":") + " " + suffix;
-}  
+}
 
-  getNextPass(_this, lat, lon, alt, isUserLoc) {    
-    _this.serverRequest = 
+  getNextPass(_this, lat, lon, alt, isUserLoc) {
+    _this.serverRequest =
       axios
         .get(trackServerPrefix + "get_next_pass/"+ lon + "," + lat + "," + alt)
         .then(function(result) {
-          var isError = (result.status != 200);          
+          var isError = (result.status != 200);
           if (isUserLoc) {
             _this.setState({ userNextPassError: isError })
             _this.setState({ userNextPass: result.data });
@@ -139,7 +141,7 @@ export default class TrackFragment extends React.Component {
           }
         })
         .catch(function (error) {
-          console.log("ERR0: " + error);          
+          console.log("ERR0: " + error);
           return undefined; });
   }
 
@@ -150,7 +152,7 @@ export default class TrackFragment extends React.Component {
       _this.setState({ locErrorSnackbarVisible: true })
       setTimeout(function(){_this.setState({ locErrorSnackbarVisible: false })}, 5000);
     }
-    var location = await Location.getCurrentPositionAsync({});      
+    var location = await Location.getCurrentPositionAsync({});
     var userLat = location.coords.latitude;
     var userLong = location.coords.longitude;
     var userAlt = location.coords.longitude;
@@ -196,10 +198,10 @@ export default class TrackFragment extends React.Component {
       var longitude = curSatInfo.lng;
       let satCoord = {latitude: latitude, longitude: longitude};
       _this.setState({ satCoord });
-      
+
       curSatInfo["height"] = curSatInfo["height"].toFixed(2);
       curSatInfo["velocity"] = curSatInfo["velocity"].toFixed(2);
-      _this.setState({ curSatInfo });      
+      _this.setState({ curSatInfo });
       if (_this.state.lockedToSatLoc) {
         let region = {
           latitude: latitude,
@@ -250,14 +252,14 @@ makeSearchMarker(location) {
     this.setState({ searchBarOpen: false });
   };
 
-  setOrbitPathCoords(_this) {    
+  setOrbitPathCoords(_this) {
     var orbitLines = tlejs.getGroundTrackLatLng(_this.TLEStr);
     var satCoords = [];
     var satCoords2 = [];
     for (var i = 0; i < orbitLines[1].length; i++) {
-      satCoords = [ ...satCoords, {latitude: orbitLines[1][i][0], longitude: orbitLines[1][i][1]}];      
+      satCoords = [ ...satCoords, {latitude: orbitLines[1][i][0], longitude: orbitLines[1][i][1]}];
     }
-    for (var i = 0; i < orbitLines[2].length; i++) {      
+    for (var i = 0; i < orbitLines[2].length; i++) {
       satCoords2 = [ ...satCoords2, {latitude: orbitLines[2][i][0], longitude: orbitLines[2][i][1]}];
     }
     _this.setState({ satCoords });
@@ -265,9 +267,9 @@ makeSearchMarker(location) {
   }
 
   componentDidMount() {
-    this._getLocationAsync(); //get user location    
-    this.getTLE(this);    
-    var _this = this;    
+    this._getLocationAsync(); //get user location
+    this.getTLE(this);
+    var _this = this;
     //get sat location every second
     this.satUpdateAsyncID = setInterval(function(){_this.updateSatLocation(_this);}, 2000);
   }
@@ -299,7 +301,7 @@ makeSearchMarker(location) {
       longitudeDelta: 50,
     }
     this.map.animateToRegion(region);
-  
+
   }
 
   showCalloutText(userLoc) {
@@ -340,13 +342,13 @@ makeSearchMarker(location) {
     var _this = this;
     axios
       .get(trackServerPrefix + 'register/' + phoneNumber + ',' + _this.state.notifyLat + ',' + _this.state.notifyLon)
-      .then(function(result) {        
+      .then(function(result) {
         _this.setState({ notifyStatusSnackbarText: (result.data.success ? "Successfully registered for SMS notifications" : "Error registering for SMS notifications") });
-        _this.setState({ notifyStatusSnackbarVisible: true });      
+        _this.setState({ notifyStatusSnackbarVisible: true });
         setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
-        return result.data.success;     
+        return result.data.success;
       })
-      .catch(function (error) {              
+      .catch(function (error) {
         console.log("ERR2: " + error);
         _this.setState({ notifyStatusSnackbarText: "Error registering for SMS notifications" });
         _this.setState({ notifyStatusSnackbarVisible: true });
@@ -377,24 +379,24 @@ makeSearchMarker(location) {
           _this.registerNumber(phoneNumber);
         }
       })
-      .catch(function (error) {        
+      .catch(function (error) {
         _this.setState({ notifyStatusSnackbarText: "Error contacting SMS notification server"});
         _this.setState({ notifyStatusSnackbarVisible: true });
         setTimeout(function(){_this.setState({ notifyStatusSnackbarVisible: false })}, 5000);
-        console.log("ERR3: " + error);        
+        console.log("ERR3: " + error);
       });
   }
 
   handleSubmitNumber = () => {
     if (this.phone.isValidNumber()) {
       this.hideSubscribeDialog();
-      this.subscribeSMSNotifications(this.phone.getValue());      
+      this.subscribeSMSNotifications(this.phone.getValue());
     } else {
       Alert.alert(
             'Invalid Phone Number',
             'Please enter a valid phone number.',
             [
-              {text: 'OK'},              
+              {text: 'OK'},
             ],
             { cancelable: false }
           );
@@ -415,10 +417,10 @@ makeSearchMarker(location) {
     this.setState({ cca2: country.cca2 });
   }
 
-  render() {    
+  render() {
     return(
-      <View 
-        style={styles.container}        
+      <View
+        style={styles.container}
       >
         <DialogComponent
           ref={(dialogComponent) => { this.subscribeDialog = dialogComponent; }}
@@ -427,7 +429,7 @@ makeSearchMarker(location) {
           dismissOnTouchOutside={false}
           dialogStyle={{backgroundColor: "#19222a", position: 'absolute', top:100,}}
         >
-          <PhoneInput 
+          <PhoneInput
             ref={ref => {this.phone = ref;}}
             onPressFlag={this.onPressFlag}
             textStyle={{color: "#e5e5e5"}}
@@ -497,14 +499,14 @@ makeSearchMarker(location) {
               <Text>Altitude: {this.state.curSatInfo.height}km</Text>
               <Text>Velocity: {this.state.curSatInfo.velocity}km/s</Text>
             </MapView.Callout>
-          </MapView.Marker.Animated>                
+          </MapView.Marker.Animated>
 
-          <MapView.Polyline            
+          <MapView.Polyline
             coordinates={this.state.satCoords2}
             strokeWidth={5}
             strokeColor="#3b5a70"/>
 
-          <MapView.Polyline            
+          <MapView.Polyline
             coordinates={this.state.satCoords}
             strokeWidth={5}
             strokeColor={uiTheme.palette.accentColor}/>
@@ -515,8 +517,8 @@ makeSearchMarker(location) {
             strokeWidth={2}
             zIndex={99}
             strokeColor="#e5e5e5" />
-        </MapView>        
-        <ActionButton 
+        </MapView>
+        <ActionButton
           buttonColor={uiTheme.palette.accentColor}
           size={this.state.gotUserLoc ? 60 : 0}
           renderIcon={active => active ? (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} /> ) : (<Icon name="crosshairs-gps" style={styles.actionButtonIcon} />)}
@@ -526,7 +528,7 @@ makeSearchMarker(location) {
           userNativeFeedback={true}
           onPress={() => { this.showUserLoc() }}
         />
-        <ActionButton 
+        <ActionButton
           buttonColor={uiTheme.palette.accentColor}
           size={60}
           renderIcon={active => active ? (<EQUiSatIcon/> ) : (<EQUiSatIcon/>)}
@@ -538,7 +540,7 @@ makeSearchMarker(location) {
         />
         <SnackBar visible={this.state.userLocErrorSnackbarVisible} textMessage="Can't get location: Permission Denied" actionHandler={()=>{this.setState({userLocErrorSnackbarVisible: false})}} actionText="OK"/>
         <SnackBar visible={this.state.searchErrorSnackbarVisible} textMessage="No results for location" actionHandler={()=>{this.setState({searchErrorSnackbarVisible: false})}} actionText="OK"/>
-        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>                   
+        <SnackBar visible={this.state.notifyStatusSnackbarVisible} textMessage={this.state.notifyStatusSnackbarText}/>
       </View>
     );
   }

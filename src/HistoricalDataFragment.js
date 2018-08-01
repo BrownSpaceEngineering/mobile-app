@@ -7,7 +7,7 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 const math = require('mathjs');
 
-import {getSignalsLatest, getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
+import {getSignalsInPeriod} from '../api-library-js/EQUiSatAPI.js';
 import {signalToName} from '../api-library-js/HumanReadables.js';
 
 const styles = StyleSheet.create({
@@ -56,7 +56,7 @@ const tickValues = [
 
 const avcSignals = ["L1_REF","L2_REF", "LREF_AVG","L1_SNS","L2_SNS","PANELREF","L_REF","LF1REF","LF2REF","LF3REF","LF4REF","LFREF_AVG","LFB1SNS","LFB1OSNS","LFB2SNS","LFB2OSNS","LFBSNS_AVG","LED1SNS","LED2SNS","LED3SNS","LED4SNS","LEDSNS_AVG"];
 const tempSignals = ["RAD_TEMP","IMU_TEMP","IR_FLASH_AMB","IR_SIDE1_AMB","IR_SIDE2_AMB","IR_RBF_AMB","IR_ACCESS_AMB","IR_TOP1_AMB","IR_AMB_AVG","IR_FLASH_OBJ","IR_SIDE1_OBJ","IR_SIDE2_OBJ","IR_RBF_OBJ","IR_ACCESS_OBJ","IR_TOP1_OBJ","LED1TEMP","LED2TEMP","LED3TEMP","LED4TEMP","LEDTEMP_AVG","L1_TEMP","L2_TEMP","LF1_TEMP","LF3_TEMP","LTEMP_AVG"];
-const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_RBF"];
+const attitudeSignals = ["PD_TOP1","PD_SIDE1","PD_SIDE2","PD_FLASH","PD_ACCESS","PD_RBF", "accelerometer1X", "accelerometer1Y", "accelerometer1Z", "gyroscopeX", "gyroscopeY", "gyroscopeZ", "magnetometer1X", "magnetometer1Y", "magnetometer1Z"];
 
 const xOffsets = [50, Dimensions.get('window').width*.9, 0, Dimensions.get('window').width*.99];
 const tickPadding = [-5, -15, -15, -5];
@@ -117,7 +117,16 @@ const unitMappings = {
 	"PD_SIDE2": "b",
 	"PD_FLASH": "b",
 	"PD_ACCESS ": "b",
-	"PD_RBF": "b"
+	"PD_RBF": "b",
+	"accelerometer1X": "g",
+	"accelerometer1Y": "g",
+	"accelerometer1Z": "g",
+	"gyroscopeX": "deg/s",
+	"gyroscopeY": "deg/s",
+	"gyroscopeZ": "deg/s",
+	"magnetometer1X": "g",
+	"magnetometer1Y": "g",
+	"magnetometer1Z": "g",
 }
 
 class HistoricalDataFragment extends Component {
@@ -136,10 +145,10 @@ class HistoricalDataFragment extends Component {
     selectedItems: [],
     confirmText: "",
     tableData: [],
-    tableListItemNum: 0,    
+    tableListItemNum: 0,
 	}
 
-	colors = ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 206, 86)", "rgb(75, 192, 192)"];		
+	colors = ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 206, 86)", "rgb(75, 192, 192)"];
 
   onSelectedItemsChange = (selectedItems) => {
     if ( selectedItems.length > maxItems ) {
@@ -153,9 +162,9 @@ class HistoricalDataFragment extends Component {
 		)
       return;
     }
-    this.setState({confirmText:` - ${selectedItems.length}/${maxItems}`});   	
+    this.setState({confirmText:` - ${selectedItems.length}/${maxItems}`});
     this.setState({ selectedItems });
-    
+
   }
 
   showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
@@ -204,7 +213,7 @@ class HistoricalDataFragment extends Component {
   	this.makeSignalItems();
   }
 
-  /*showTable = (graphNum) => {  	
+  /*showTable = (graphNum) => {
   	this.setState({ tableListItemNum: graphNum });
   	var graph;
   	switch (graphNum) {
@@ -221,14 +230,14 @@ class HistoricalDataFragment extends Component {
   			graph = this.state.graphData4;
   			break;
 
-  	}  	
-  	var tableData = [];  	
+  	}
+  	var tableData = [];
   	for (var i = this.state.graphData1.length - 1; i >= 0 ; i--) {
-  		tableData.push({key: this.state.graphData1.length - i});  		
+  		tableData.push({key: this.state.graphData1.length - i});
   		tableData.push({key: this.state.graphData1[i].x.toLocaleString()});
   		tableData.push({key: this.state.graphData1[i].y.toString()});
-  	}  	
-  	this.setState({ tableData: tableData });   
+  	}
+  	this.setState({ tableData: tableData });
   	this.props.tableUpdate();
   }*/
 
@@ -259,7 +268,7 @@ class HistoricalDataFragment extends Component {
   		}
   }
 
-  getFullData = () => {  	
+  getFullData = () => {
     var data = [];
     const full_data = [
       this.state.graphData1,
@@ -271,7 +280,7 @@ class HistoricalDataFragment extends Component {
       if (full_data[x].length > 0) {
         data.push(full_data[x])
       }
-    }    
+    }
     return data;
   }
 
@@ -288,7 +297,7 @@ class HistoricalDataFragment extends Component {
     }
   }
 
-  setGraphData = (res, _this) => {    	
+  setGraphData = (res, _this) => {
     if (res.length == 0) {
       _this.setState(
         {
@@ -314,10 +323,10 @@ class HistoricalDataFragment extends Component {
 		}
     for (let k=0; k<res.length; k++) {
         let codes = _this._getSignalCodes(res[k]);
-        let graphCodes = _this.state.graphCodes;         
-             
+        let graphCodes = _this.state.graphCodes;
+
       getSignalsInPeriod(codes, _this.state.startDateTime.getTime(), _this.state.endDateTime.getTime())
-        .then(function(result) {            	 
+        .then(function(result) {
          	 if (codes[0] in result.data && result.data[codes[0]]['timestamps'].length > 0) {
               let timestamps = result.data[codes[0]]['timestamps'];
               let values = [];
@@ -344,51 +353,54 @@ class HistoricalDataFragment extends Component {
                   : k == 2
                     ? _this.setState(
                       { graphData3: signal_data })
-                    : _this.setState({ graphData4: signal_data })	              
-            }				
+                    : _this.setState({ graphData4: signal_data })
+            }
         })
         .catch(function (error) {
           console.log(error);
         });
-        
+
         graphCodes[k] = codes
         _this.setState({ graphCodes: graphCodes[k] })
-    }    
+    }
   }
 
+  	getLabelText(signalName) {
+  		switch (signalName) {
+  			case "accelerometer1X":
+  				return "Acc_X";
+  			case "accelerometer1Y":
+  				return "Acc_Y";
+  			case "accelerometer1Z":
+  				return "Acc_Z";
+  			case "gyroscopeX":
+  				return "Gyro_X";
+  			case "gyroscopeY":
+  				return "Gyro_Y";
+  			case "gyroscopeZ":
+  				return "Gyro_Z";
+  			case "magnetometer1X":
+  				return "MagX";
+  			case "magnetometer1Y":
+  				return "MagY";
+  			case "magnetometer1Z":
+  				return "MagZ";
+  			default:
+  				return signalName;
+  		}
+  	}
 
   	displayLabel(shouldDisplay, labelNum) {
   		if (shouldDisplay) {
-  			switch(labelNum) {
-  				case 1:
-  					return (<View style={styles.inlineContainer}>
-	    			<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[0]}}/>
-	    			<Text style={{color: this.colors[0]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[0] : "" }</Text>
+  			return (
+  				<View style={styles.inlineContainer}>
+	    			<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[labelNum-1]}}/>
+	    			<Text style={{color: this.colors[labelNum-1]}}>{this.state.selectedItems.length > 0 ? this.getLabelText(this.state.selectedItems[labelNum-1]) : "" }</Text>
 	    		</View>);
-  					break;  					
-  				case 2:
-  					return (<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[1]}}/>
-		    		<Text style={{color: this.colors[1]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[1] : "" }</Text>
-		    		</View>);  					
-	  				break;
-  				case 3:
-  					return (<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[2]}}/>
-		    		<Text style={{color: this.colors[2]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[2] : "" }</Text>
-		    		</View>);
-  					break;
-  				case 4:
-  					return(<View style={styles.inlineContainer}>
-		    		<Icon name="checkbox-blank-circle" size={20} style={{color: this.colors[3]}}/>
-		    		<Text style={{color: this.colors[3]}}>{this.state.selectedItems.length > 0 ? this.state.selectedItems[3] : "" }</Text>
-		    		</View>);
-  					break;
-  			}
   		} else {
-  			return <View/>
+  			return null;
   		}
-  	}  	
+  	}
 
   	FlatListItemSeparator = () => {
     	return (
@@ -452,11 +464,11 @@ class HistoricalDataFragment extends Component {
 			    	{this.displayLabel(this.state.selectedItems.length > 3, 4)}
 		    	</View>
 
-		      	<View pointerEvents="none" style={{alignItems: 'center'}}>		            
+		      	<View pointerEvents="none" style={{alignItems: 'center'}}>
 		            <VictoryChart
 		              	theme={VictoryTheme.material}
 		              	domain={{ y: [0, 1] }}
-		            	scale={{ x: "time" }}		            	
+		            	scale={{ x: "time" }}
 		            >
 		             <VictoryAxis />
 		              {this.getFullData().map((d, i) => (
@@ -471,13 +483,13 @@ class HistoricalDataFragment extends Component {
 							// Use normalized tickValues (0 - 1)
 							tickValues={tickValues[i]}
 							// Re-scale ticks by multiplying by correct maxima
-							tickFormat={(t) => {								
+							tickFormat={(t) => {
 								const graphMax = this.getFullData().map(
 									(dataset) => Math.max(...dataset.map((d) => d.y))
 								);
 								const graphMin = this.getFullData().map(
 									(dataset) => Math.min(...dataset.map((d) => d.y))
-								);										
+								);
 								return this._formatTick((t * (graphMax[i] - graphMin[i])) + graphMin[i], i).replace('degC', 'C');
 							}}
 		                />
@@ -501,7 +513,7 @@ class HistoricalDataFragment extends Component {
 		                    }
 		                />
 		              ))}
-		            </VictoryChart>			        
+		            </VictoryChart>
 		        </View>
 	            <View style={[styles.rowContainer, {paddingTop: 5, paddingHorizontal: 10}]}>
 	          		<View>
@@ -512,7 +524,7 @@ class HistoricalDataFragment extends Component {
 		          		<Button raised accent text={this.state.endDateTime.toLocaleString()} onPress={this.showEndDateTimePicker} />
 		          		<Text style={{color: "#e5e5e5", textAlign: "center"}}>End Time</Text>
 	          		</View>
-	          	</View>	          	
+	          	</View>
 		      </ScrollView>
 	    </View>
 		);
