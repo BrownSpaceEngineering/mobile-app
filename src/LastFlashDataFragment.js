@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   	},
 });
 
-const timeStamps = [-20, 0, 20, 40, 60, 80, 100];
+const xAxisTimestamps = ["-20 ms", "0 ms", "20 ms", "40 ms", "60 ms", "80 ms", "100 ms"];
 
 const ta = timeago();
 
@@ -251,7 +251,7 @@ class LastFlashDataFragment extends Component {
 				const result_data = result.data[0]['payload']['burst'];
 				// const result_data = [{"LED3TEMP":-104,"LF1REF":3584,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":433,"LF2REF":3291,"LED4SNS":467,"LED1SNS":433,"LFB1SNS":-750,"LED3SNS":100,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2852,"LF4REF":3273,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3638,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":200,"LF2REF":3273,"LED4SNS":367,"LED1SNS":400,"LFB1SNS":-750,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2944,"LF4REF":3236,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3620,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":0,"LF2REF":3236,"LED4SNS":867,"LED1SNS":800,"LFB1SNS":-750,"LED3SNS":0,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2962,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3602,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-450,"LED2SNS":67,"LF2REF":3236,"LED4SNS":333,"LED1SNS":500,"LFB1SNS":-450,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2925,"LF4REF":3218,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-103},{"LED3TEMP":-104,"LF1REF":3529,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":267,"LF2REF":3254,"LED4SNS":300,"LED1SNS":400,"LFB1SNS":-750,"LED3SNS":233,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2944,"LF4REF":3236,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3638,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":300,"LF2REF":3236,"LED4SNS":433,"LED1SNS":367,"LFB1SNS":-750,"LED3SNS":200,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2907,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104},{"LED3TEMP":-104,"LF1REF":3620,"LED2TEMP":-104,"LED1TEMP":-104,"LFB2OSNS":0,"LF3_TEMP":-104,"LFB2SNS":-750,"LED2SNS":333,"LF2REF":3254,"LED4SNS":400,"LED1SNS":333,"LFB1SNS":-750,"LED3SNS":167,"gyroscope":{"y":-1.82,"x":-1.82,"z":0.14},"LF3REF":2907,"LF4REF":3254,"LF1_TEMP":-104,"LFB1OSNS":0,"LED4TEMP":-104}]
 				let signal_data = [];
-				for (let q=0; q<timeStamps.length; q++) {
+				for (let q=0; q<xAxisTimestamps.length; q++) {
 					let avg_values = [];
 					for (let b=0; b<codes.length; b++) {
 						avg_values.push(result_data[q][codes[b]]);
@@ -259,7 +259,7 @@ class LastFlashDataFragment extends Component {
 					let average = codes.length == 0
 						? 0
 						: avg_values.reduce(function(a, b) { return a + b; }) / codes.length;
-					signal_data.push({x: timeStamps[q], y: average});
+					signal_data.push({x: xAxisTimestamps[q], y: average});
 				}
 				 k == 0 ? _this.setState(
 				 { graphData1: signal_data })
