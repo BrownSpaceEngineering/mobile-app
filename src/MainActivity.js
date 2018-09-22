@@ -11,7 +11,7 @@ import TrackFragment from './TrackFragment';
 import DataFragment from './DataFragment';
 import CADFragment from './CADFragment';
 
-const VERSION_NUMBER = "Version 1.3.0";
+const VERSION_NUMBER = "Version 1.3.1";
 
 const TOOLBAR_HEIGHT = 60;
 
@@ -289,6 +289,7 @@ export default class MainActivity extends React.Component {
                   <Image style={{marginRight: 30}} source={require('../assets/fire_emoji.png')} />
                   <Image source={require('../assets/100_emoji.png')} />
                 </View>
+                <Text style={[styles.aboutText, {color: '#6aa2c8'}]} onPress={() => {Linking.openURL('https://brownspace.org/app-privacy-policy/')}}> Privacy Policy </Text>
               </View>
             </ScrollView>
             <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
