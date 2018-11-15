@@ -1,0 +1,49 @@
+[
+    {
+        "outputFile": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/incremental/mergeDevDebugResources/merged.dir/values-v11/values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "/private/var/root/.android/build-cache/a290a0ee1004248f424477d5551537ca69a4b152/output/res/values-v11/values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 4,
+                        "endColumn": 12,
+                        "endOffset": 187
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 192,
+                    "endLine": 9,
+                    "endColumn": 10,
+                    "endOffset": 466
+                },
+                "from": {
+                    "file": "/private/var/root/.android/build-cache/1538b080574b361218bddb92aa7dab01f69035ff/output/res/values-v11/values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 6,
+                        "endColumn": 10,
+                        "endOffset": 329
+                    }
+                }
+            }
+        ]
+    }
+]

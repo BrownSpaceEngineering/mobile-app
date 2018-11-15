@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_default.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/color-v23/abc_tint_spinner.xml"
+    }
+]

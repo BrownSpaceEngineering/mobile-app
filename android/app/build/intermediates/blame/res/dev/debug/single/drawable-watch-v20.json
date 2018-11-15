@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable-watch-v20/abc_dialog_material_background.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable-watch-v20/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4e22fec7bbac548449d64d6f61da46c4dda47cf5/output/res/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable-watch-v20/common_google_signin_btn_text_disabled.xml",
+        "source": "/private/var/root/.android/build-cache/4e22fec7bbac548449d64d6f61da46c4dda47cf5/output/res/drawable-watch-v20/common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4e22fec7bbac548449d64d6f61da46c4dda47cf5/output/res/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml"
+    }
+]

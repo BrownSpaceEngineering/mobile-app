@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/d2df7460dce73de58addc087774996cc599484b7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5388b3a068be4420a7a13fde1cfbf034110415e8">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_002290fca29626cbba63141299badbc0d04b568f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/1f2a307d4e70490fab316be340254e81275f4faa/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4d2b8ad415048e88b41ba4afcaafe36150e69b8c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_396fbf8cae32edb56353738f6fad42d60b73aba0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho/1.3.1/2c4076b466a0eb4d6ddf5721edd35cd1adc1f317/stetho-1.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2c4076b466a0eb4d6ddf5721edd35cd1adc1f317">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/stetho-1.3.1_29225966cb97125f53e0f6ca30e1bc4684087d24/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/cdff7827735f293d77043c7bce54a4895f970b50/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="912098f1836f71ca32622260bb888d5aff5c05e4">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_74d58c8eed5e0508d352185ceb5292f9ecc5d497/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/eb77e6478c4ead046b5a739576a363a3767f3e1a/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="43579bbbc605c8815aa55ad85d856fb5588250d2">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_57eaf838af85c4cecf9e599297e407381a413d50/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/picasso-2.5.2_0fe5342142366d40e912846ed61700bc9cfc6c43/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4bc6843eedd48396e4c5c48812897d9ca199d658/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d03ab1939f3b9e97bbcbc2f2fa0ff14c77a6b0ac">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_231ac4cc1bbac239197db7592f2692c2ed1df90f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/e953fa4ee560b8ff3b434f3e42f335eb37795dce/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8a9fd7c97f1d13f97f3b52f9d2e54cd857d5acf9">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_639b457aee813d2edc346dc528e44d6d1b0329ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/86d97666df960cae6576f93684c4fb5aee8757b7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_0381c77c50f235533672ef54e9c6f17d8c530e1a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/780bb024d99bf029dfbb7f07a2af6a2440119d6c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="cc95ad466da44800955b79689023485ea39924a3">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_c6bf04a5587fd2e8db071acb66d1761c65810ceb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/d6c65be9bf35bf7cc7780f5cfc03819c59b22692/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="0d394688dd7030b83dea8eed3fa483410c24afe0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_a0c5951e6d4edb92b3d2f807b13a12b890b65c5e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.facebook.device.yearclass/yearclass/1.0.1/adfc67ed7e13d1648f20c2a5d6cb757ce43d9c22/yearclass-1.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="adfc67ed7e13d1648f20c2a5d6cb757ce43d9c22">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/yearclass-1.0.1_51a889a8579a6920c9e2a8d2da718e4be34afb6a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/94dcd2c23fa2c11b88e659658edda88ce24bc629/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c9ef45dcbd082cd63aac09a5e2cd443adb5df837">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_dc6dc1a2299e9a624b63ad33a1026adeb61a9031/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.raizlabs.android/DBFlow-Core/2.2.1/e07bfc8e2041edf27469bd94e08bc19f52f4dee7/DBFlow-Core-2.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e07bfc8e2041edf27469bd94e08bc19f52f4dee7">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/DBFlow-Core-2.2.1_6f62d95751cf9eb090806fcbd1329c57248d54c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/958f8ab4df1505ab0ebb77236cddd5e3579b5619/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b49a35edc3c04e5394bb287a7281d097a12968a7">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_76efd17d2f2ec21310063ba0be4231c8c166187c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/0dc65537026908f1d008c23a11cc2c6e7757e62f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e3a3c8dc3e6db5655f5affc2ceb7f630f75450c0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_bffa61f8d5fe54426c9f4c3ed7facdb6013d2a09/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/2900414c3cec993cdc851cdc64a972140266189c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f5f24465070db97eee34415311977360aae3b2fa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/eda2b5de25096171eb1deaf74fa180c90a19829d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="18506a0205794e6d7fcd3549968bc321975348c6">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_a6e723bb4942258bf73005b95873bdf64d057d9f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/80878b66b5f91082acbfc2e554d9e14cdf228b3d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b384ba956eb808b80d223b363e55998edf0dce7b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/073ebd0d04ec3532247e471ff20736247b59a5ab/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="42a37372fca7123a593202ba76a7f98fbd691f05">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_76d0c0ab322b646fdc7764f750feb7ebccedad58/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/c076496b2c245d4b45fbf6bcba97d3bc725d5086/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="1b4f94fecd526ee8ab425e20cfe17695549beb01">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_d359d9a16c4651bb34d45b2f895914f302140912/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho-okhttp3/1.3.1/c596b3b33b5a92107bb70544bb5ee35f597bc6d8/stetho-okhttp3-1.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c596b3b33b5a92107bb70544bb5ee35f597bc6d8">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/stetho-okhttp3-1.3.1_bc62718145ed553f6732f23dbd17ecd27172c49d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/25ec7931cb53ad23563a70e93b1e1c2fd5e06d62/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="dc83ab7a5ce1e0296cf18a52a6edbcfef815e6cf">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_aa749d8ecbb07ee301c08ae10299543548c704d0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4ed6f9e152592fc00142191e78587e12abeda324/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ffde64dbb0fc07c8b9735c6c42a06a36be15ed13">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_bfb3e391b1449904974b417abba83ea348cb6c07/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/43a9537a347b1084f846b531fdf0c82b2c26414c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ad5bb101ced4d3939225c9b57e5a3d81547c1fbb">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f9263de890d082007cfb454e640e078361b134e0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/prov/1.53.0.0/72c4892e05c7563fbab0c4ada0187cd879113389/prov-1.53.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="72c4892e05c7563fbab0c4ada0187cd879113389">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/prov-1.53.0.0_bdfd402013351683e21d4f0ce3f76f901e75c85c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.1.1/39ded76b5e1ce1c5b2688e1d25cdc20ecee32007/support-annotations-27.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="39ded76b5e1ce1c5b2688e1d25cdc20ecee32007">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/support-annotations-27.1.1_fa7b5264bd38353d3f5ec494186e5017cee45c5f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/967b74a25df257d07da53dc1039f9c2db4530183/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e41a052c714bf67f743c22ed74153422ad773f88">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_75be9a3478826e1953d24352be3031da518cb099/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/964a51e2b21ef69781e270fe3a687154bb60ba84/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b8b26b28aae0ba8e2db55ad9fe0ebc770530c5ef">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5b5d9f91825050717be9a7013cc5043dd2b1badd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/28b1c0dc83565cbde924350e9bff8828cf1b29d6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e6172a6e0872c156ae82fe8b51d82b2daed424aa">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_75fc6f0c49de6e7eddb8bee0e88214c1398ebc74/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/09830b161bbf4808b77d27ca749981a4b49bb98b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ab6e491b5d7bda2f47991a30f6bfe9a8b134ff8b">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_cdb4bb36e08df2f131a24e7be6ea44fb4c06d093/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/d0c4565bcfb053dfdd60604b84c31a90645fcfe1/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6a2bcb61342d09fe9acf55c9daf63961c8866cc0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_50a3c6909e63b305046a7989f6409cd55e3bc8bc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/1538b080574b361218bddb92aa7dab01f69035ff/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e6b2394a617245d0c6990950991cd9eb19fa9e58">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_2822f50e703981a72c6b58e57d8523f667ddde35/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ead87bd46ea579df0838a7ae1da20aa863ba78d4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d8ec04dc91c0c90a0ceeca77c94c8b15cb7f3892">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9c2c0e070afead55a8df5c5756def35ca55dbe1a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.amplitude/android-sdk/2.9.2/5ff2f760c3bcad9d4e60f1f84aa695321184ebc0/android-sdk-2.9.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5ff2f760c3bcad9d4e60f1f84aa695321184ebc0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/android-sdk-2.9.2_8441cdf68ecf94891f0912b0b660bcff7112f440/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/willem.speckmann/mobile-app/android/maven/expolib_v1/com/squareup/okhttp3/okhttp-urlconnection/3.6.0/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ae77d4921dcf287b3776baabfbca09b55616ab13">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-urlconnection-3.6.0_4f2476e6d40dbf17c323fdb27515d35a4e2cf35c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/41a2acfc86075c117bdd1b4cb3cdba4f3c36f054/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ba42e6949397668e88ea3d2b188078ddf0143813">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_4b976e9e99898e08e37f4b0e61d66cbc6711ba83/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/91ef097fb3b3375d7e027facc1b91f3f7308695d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_308df89f2abd5e52fb2ad8a14fb97379b07cd383/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/64a4294efa959f3321f24816833c2f602f16f4db/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ec657bb192b20229696216bf233779b16bf75a54">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_279b533f5224cf0b5aa25d837284ea8b9dfe129d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/jackson-core-2.2.3_aaf8b06116f763191563d14a5344e6c3db390848/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d968b9bd0011800e0d333d1571b8d34bcb8a0b6e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_7b4796c0af398164e859bd1080fcc326cd37bd59/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/14e717634d43a0f584e815017189f4d8737d3937/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="3304d33470ff64cf83bce9189ff3648a42eb2aa7">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_95e4ac2701bb78036e11d9a1946db8364e0374b6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/0fd0726bf0b43ae876ec101a96b1b8c57fa47812/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="79b01f1eace6ce22c6ffd67000bd6b5c5d2477a9">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_3d3c26fa2c2c8e5013a4e31cf4fef4b32863a761/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/71acd1069ae848e020cf28aba6874f4249af4ca3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="fc421b0511f4e492d097c84702b2a00f101fe08a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b02954747893c8fd2d180b2c0effe6442d5099c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/4b95f4897fa13f2cd904aee711aeafc0c5295cd8/commons-codec-1.10.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-codec-1.10_53bcb534ea3918abd4cf0a964cab71a236f1d924/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4e22fec7bbac548449d64d6f61da46c4dda47cf5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5824717818f7ac8bd17b200b1b182c0313740c60">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_3a4ffd17bcc71b11097df0ce7deee2ed00396a71/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/77df16f96277d14852b94fa64fa9b9c7f94c0523/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c97dc8446f6a46da5620f40b3737e162d53c40c2">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_00db7ab4dd48d663c781abd9e6d33a1c4ab8eb12/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/99745649f22907ba20cc4801a67c8770c2074abb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="131115ec18ae3951c1584c543de8baa9ac20012a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_a5ecae0c7ff899c0c9a2b779170fb4a6a704c963/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.3.2/f47e3fc99fb2755b8a354d60efa021a0b88f4180/core-3.3.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f47e3fc99fb2755b8a354d60efa021a0b88f4180">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/core-3.3.2_3bc14805971972b6b0b1b5936d358f1f9ce11c1c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/da99ed696e0770941bde4aa6929a49ce3424d645/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7721fdd1d59c4b8ae136c087b7590ec69061d97f">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_c05f6a05c3ca99b6387ca94f6582a33b4a9a8ba9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okio-1.9.0_92034e370601d30b55cd98f5af69a6e03941a756/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/a290a0ee1004248f424477d5551537ca69a4b152/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="9111e38999fee0b16a1ccd057b779f5b08f330e2">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_508106c135b7dd1021f2d27ad8817fcf50f8c84c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/de.greenrobot/eventbus/2.4.0/ddd166d01b3158d1c00576d29f7ed15c030df719/eventbus-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/eventbus-2.4.0_18bb03f65c0011f35c47c74a11eda54683d420ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ba6db5b983195ef55f48d47b743850720791e0b5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="243341581f994665f19570c50ac0a61610029983">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_e3d3f439d2ef2ac724a1379b01edde9ff8f73066/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4177490f5f2efe44a3b43878785bf07495c72c80/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="1fd3ceac7f415975323d52c6c6057db409a907f6">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f825c7305bdf92dd5db38cc96a822d8e4d78e333/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/75d28fb1b9f49a00710f145d29535c7f0cc9418f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="86d6aa538262141c7dcbc416da1aefad99accbe0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9ccd644249ae036fb08384eb6c5ebb5a4663b019/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/215a2d1e26138f32c3e73f23a8c528e6696e87e2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="791ae2023f98dca602015cd1661accbd4590ed03">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_240c629a11c5e8c56661e8766d7289ede8afb4df/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/1ff4b29a6317dfa200dc9cbea7fc7b570e90699c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="874f1143c11f5d38533efe512bf913e3e847e7df">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5b32018f4e29bab8dea2d108dfc00caf8980e455/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/9908250b75a015ea6745faa8765f829bc1987d81/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5524d0add10caa159d69f48f284aa52dcc0b62ba">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_2b7fb6d452386fd073a984ca91fc4946496f9e05/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/e8ccb07e64604c0844e3c42a5fb39a88273ea7fb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c9a721adcd7dbae7a197b0ef81102336539f63ff">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_169c0a5b8da4fc26e1dfdc9b268b8e8c00ed5af4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/1982d80a34aaf39855cad272cad6a8628f575c6c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="48782a67d19439b9d65699a389b96dd335cefa36">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_1b79c243fb421bb3add15c17d54f7cc36d53b572/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.segment.analytics.android/analytics/4.3.0/88ab91d4641af4bed4b39aa3fd7cf487b66b9d5e/analytics-4.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="88ab91d4641af4bed4b39aa3fd7cf487b66b9d5e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/analytics-4.3.0_1ae507b981d797395e87cf5346055461ac290e4c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/c5761c38e19512fcfd4eb12540d91deffe60e14e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="16f423bae182fd81553d109269f7a5e13fd1cb52">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_6b437a59389cce267dafcc3ff9fc75ea5d75ef0d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6eb79bde4cf6bbb7573bcf7dfbaf8a313f57612e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_39ee59838428803f3fc6533a17df661b0245f37a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/501e1fe97bc056a29f55912e11889f735f6cee11/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="adfb92acadeeff1086115fff6b318e95df8b2b29">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_6ca9f18e538e9909f7167fad44108d55be984339/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/a7f3effa652f4d3cc15173a5c737f54b3c293742/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4c9dde3866f60967d73035b3445bb0f703429612">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_08a18797f4c1f8bf7643424e020cffdb8cd94460/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/staticlayout-proxy-1.0_e5305602d6c8fb5e05aa32e56f00120ab39f6a7b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/81ba96013c031427d6b3dcac1bf499e54c0a96c4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a5db9a2dd46d84285ef737f65030b74b6e8ee2a4">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b3c016096c9dd6b5be53fae0721293433ff45b92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/98fd25f1541459a76fe7ed96c293974c83f1b9b9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e2bbe48deed35056023eed2cdc0cc92e5c7d3617">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_d5faa901c63836e03f986f3775031f52572c0879/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4c6a9370b883c075c3c33714699cef1f8a790483/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="1fddd828aa2365a453562d62b07da4a2d94a24ad">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_bbdaf1b7b3c0d5cb111f64184e39182d6bef58c6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="18b102b2476ffddb9a7640c82b17c9c5f56a3fa1">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b676624f02295f4228ee3fb87918960cb0970869/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/f9ebbddfd69442d206a4471f1a46ce7164c9eaaf/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="63762d99e25ebfd92f60558dcef8aef334cc6dd3">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_91d40daea85cdd649623f2bac8eb9caed2ba3d06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/8feee0cbe7757f84e03ca227ddc293afdb3e0f33/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="03530f261b6f66dbcae414f12c732bd943f5ba53">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_1a85e468438204f388c251ba2bf46fdee4aa2c5f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/00c5c0a21b54d6fbadfcaa9c8b61a5aacb5c3ffe/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="dadd19c267660689369ead06c677094c715684c2">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9eec42e5d80a3758247b62ac7cce02cba20d8cfd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/3730318b570eb02fb8ab7bbdb537f7eb45020c3d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a34a28ae586a32e1a33eeb63378732b473cad2be">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_a044d23be57ac49c11d57c6d7d78904fc1fb66e3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/3ecb590b8e5118c1dc8a786600698d80bce7118f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="53e8932b1ac8c7dfc35cfeda1f9efbc9822ceaf3">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_28e31ffdea9eaf7e7ab1660da2430c8ceaec0480/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/bolts-applinks-1.4.0_19774d57cbb1ca6a2cadc314732abc1d6776de87/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="287f4dec8dc2d40a238b12562b437438499cd2fb">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_201a95f1b990d764b80d843c29dd9cf35f46903d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/38051eda5d59334136fbbed816c4ff919c3ce140/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2248421bf443fb780c0b4dbea66bf1e3642072f9">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_d429a39e5b21c0035ff5f1ce2af4dee69940d688/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/dae0c3f36df3cc40e0cfdea7fe82633b71a707ef/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f62c9b8dbebad7bc02ddd5704433e15e3a628e1a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_58aa3900bbfb8bda6354b27a75874beef26077cd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/a15c067517fd8d36c1ef33c083644632b74a61bc/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2482bfd874e8b3927f4141105674ad392ff83698">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_3a76800c175f25bf24d803f7750ac412d3e83698/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2bf96b7aa8b611c177d329452af1dc933e14501c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-cli-1.2_aa4f4de477dc9e986dd1aad00893b1f01354750a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.5/442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375/universal-image-loader-1.9.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/universal-image-loader-1.9.5_7010fd4d8766dd5719a0da0b94765e03b5aa87a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/jsr305-3.0.0_e3e1dfcdf1091ad62101747e52cf18170b899a78/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/b823e42891b8be739b96a1d9b9343a8b945b643d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="dae2154348a4c38a18e8d1042cf445faea4647d0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_de2d075ab97c2cfdaf846d3adf97c2e7dc08700d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.1.0/8007981f7d7540d89cd18471b8e5dcd2b4f99167/common-1.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8007981f7d7540d89cd18471b8e5dcd2b4f99167">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/common-1.1.0_8de7c21b78d1cedc2702dbb10b9aa1c304ed136f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/f275cbc95b25a807c65ff358c85cc2ee28b80431/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="9af3b9b8114e685291aa00e6572b0a9131244956">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_655083c17081d3841044800b62a08f7361e0f5db/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/718e1c1a7e7e24a37fb7478b2f6710468f337a72/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="031cce39c6f4028380fa55bf57e96444093630c7">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f670d33c5df1e16ac8d2cb3da2fc6fdb88b37a08/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/00c5c0a21b54d6fbadfcaa9c8b61a5aacb5c3ffe/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a355c5391e1a3e45c80bf363c7ae3e43aff510aa">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_36c0b7d6719121f0945bc3d1c5a7692d9b40a7ec/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/f1d0d877bd3349853e72637f3fd5d9313ada9f7c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_e88e1dcb9eb4d51e92679451d0062d9b83be9a90/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/f572063ea6c236e67684539b6eabe87a6dbbe83a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2bf08e690b0b1101131099542db44488cd1d5170">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_59ed5b4159ad070281338db537ac8c0e1c5a08e6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/e8d9e945a38dbdc378d9c54d8f3c475366a5bd14/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9a243642c98c15148db8d8552bb97e954b1628c4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/bf0a815997e4a57f7f1d38f621bc3cbccd9c3fe1/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2feadd535770271ca57b7b431f42151aa4af324a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_6cc2e8fc1c94232a73837a9c53825cdcf2e64106/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/42353519ab95b3726f7af430d06a9b10fc4326ee/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e1086213a85bf2bfc3f6448d66581198ba380f69">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_ebb7f09c1102f80bdd41536c41cd9d323dc3143f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.8.1/bc373fb6bc7bca3035041b924f158fd2b946ee8d/butterknife-annotations-8.8.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="bc373fb6bc7bca3035041b924f158fd2b946ee8d">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/butterknife-annotations-8.8.1_f9cd761527c12ae292bffd8415acb0ffcfd7d531/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/99e8b9c3669fa7b4ba2d8a47ad94cea40b154821/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4ae05aa6f149d3bed5759aa07c4439c1ba6ad828">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_90a2027bdd90025cc9457aaf06c4a69611b3aaff/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/618ee490e8e5f59311e0d7b2109c680a5cfd53e4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="611605b6b640c1558f9bdea41de8ff837ab68ca8">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f1ad100c6f49c71d062d212671946cd6a66209cb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/6dd9adfa7e00ca44f39663bb4aac3bdc9c7d5e6b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="3ecb9d2aad9a03dd8d0914b715cc1fc11d942c6c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_15825cac1b1601bcbdf7e003d63ff77fc10fe044/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/2d2c213110ff51569a3ae5a922d72f1c6012dbce/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4a88eaa7f9a31907def9a7968367475bdf5170be">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_35346dc83192ecf04c930e40af3795e338471e91/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/bbe3f316a667be74a73dce1abd7a7cbc7bf56916/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="13469de5eef4b3c0488c0e4963fef197fc745f8a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_cb0428e4e88892c16e18c74e109c57d39047c342/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="cac4539de2fbfcb1c4c44c55166f0332b92d34b7">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5016fb961e5988df9ade40824a2d4b18812b2a97/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/willem.speckmann/mobile-app/android/maven/expolib_v1/com/squareup/okio/okio/1.13.0/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="89890cffce351fec7caf3fdfd4351c7f4b4769b4">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okio-1.13.0_5f021c6a2c05f66f0131476b5e67a8bd366fd76c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/7d0b39408b35b01771b82c9e3cb0bbc170917af1/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="82231c00c16c59ee23a508bec9fc6bc3e60c96b2">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_fc4f44bbdd2d72c6fdc308f3814eb39fc5ad936b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/7d0b39408b35b01771b82c9e3cb0bbc170917af1/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="418dca1ee8bac0cc2f78f8f34b594c4d89eec057">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5e18ac8eec132ef50bf169ae5dc681ac4864dc5b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/0e627ed9a34b5a9d7073cc116683f439e0950384/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9ec52c5934afa267b7bfd2dd28ae6c9b88a3fbcc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/1.3.2/b6dde38349ba9bb5e6ea6320531eae969985dae5/commons-io-1.3.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b6dde38349ba9bb5e6ea6320531eae969985dae5">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-io-1.3.2_ffdb564d2406a7fa89d34c88fbf3b7312f826c93/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/bf9cbbfa6523856e436c9ec20c5b86a566c8a122/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a7bf36963372211d8b9e000939020b1c3242234e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f8c21ef545a3f93330018ac80d6af44ce47b2379/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-ws/3.4.1/8ace66ef7002d98f633377c9e67daeeb196d8c3b/okhttp-ws-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8ace66ef7002d98f633377c9e67daeeb196d8c3b">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-ws-3.4.1_322b23a0ca8e3c1eb20c0e828a325fde7ff68f8d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/willem.speckmann/mobile-app/android/maven/expolib_v1/com/squareup/okhttp3/okhttp/3.6.0/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="565de69ddf97fffe074cba6cb0512520cdce4394">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-3.6.0_a8892a7b476c2ba598dbbddc727279b560fc8f07/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/00de152fddde2c8c9fd35bd8c9f327e4c1c38a52/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b346a5d3fc5d6d1d36c6262c8cc865b76df9f40c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9f3b015d54d4dfecf27cb00c56200d4f7ad01f7d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4c674d6d54ea80e8edc12d461ea1ba72a40f07e0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2f1cc63c85dfeb86263311713a0810d23112495e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f52fb3b9147bfa1ffc9bd3ce1b97be7ab8a5b32b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/28b1c0dc83565cbde924350e9bff8828cf1b29d6/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="83d6e98f2b48f3cf1ec0e7c2b3bf2b3d4618f680">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_539da625bae4ac0adf23901276a982d3ce161caa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ed7a7db3c850c8a050f70ff078ba540c5fed5e8e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c05b622abb1e290bb30625a3f1a41e72ed9e4d2e">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_acb2e3537ca26ece9d5a25f4e47dc37d12e6df83/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/b1009e1a8dbe638bfac31606deb99252a9e85604/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a38a8974c8d066800237d22a86df2e88cb9e065c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_7d3f854af1173b0b7c7439b9f4f7152295ebb40f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/89e0a50e1956478d371c23f310cf114964062f2a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_6db497808cd3588c238809697a46e24591234ab7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/99dbe0a555e8b77bb6049c13fd5a9dc6858b9357/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="4798b2c2dd1fa53176696fa416890d27acbf5617">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_84967642ec195f45a115ce5f6c72597ef63a748d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/da99ed696e0770941bde4aa6929a49ce3424d645/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="67b6fa134bb2e2163e293f7ae9b898b985979515">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_30cd93ab882e3624b9c27bfc3d67a20bf9c2dbf1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4ab70f5be7917dbf698d53ffab2c60672c448672/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_35de139476b0a750190b375257e231313512cc59/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/core/1.53.0.0/619f704791db186304325bd129b2e7ec34f77438/core-1.53.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="619f704791db186304325bd129b2e7ec34f77438">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/core-1.53.0.0_0547c8a76346e3429f483bf5890abdb04bd05c09/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/eb77e6478c4ead046b5a739576a363a3767f3e1a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="a315c4dce1b163f2ddf71bab62f3b56eb05c6a15">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_aa1aaa5b431f64f092388281e0f11997af5c7559/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/javax.inject-1_b64d0aaebd612e64d8c19002cd6f1c00e9fa086c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ab6767ba9816b1d12dd4adb1fc2a284bb6e43e44/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_137f91ec63ee84a7e6193e3e4674c5a63c74593d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4c674d6d54ea80e8edc12d461ea1ba72a40f07e0/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ea01f90e60978bc6871543cd76136a97a19450b5">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_b024ad7af6787d03e5ea62d2c7f86bc8018093f7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ca8da36e470d70445602f3c14f12659b9a21758b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b739661c7142579d33f42801cfb71882cd217727">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_e21a5a4b299b597e8314658fd5e9fe9fd10a86d5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.4.1/63994437f62bc861bc20c605d12962f7246116d1/okhttp-urlconnection-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="63994437f62bc861bc20c605d12962f7246116d1">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-urlconnection-3.4.1_3a9fa2db5e957d42c7f74ab76a281f86f6e39c72/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-3.4.1_feedac7e64b9529289caba241193a90c4fd79a6a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/a1891b06add0e9001c0de7927b473b6eba5d8998/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="43777ad2c3f87b64ced35a875ce2befa178a23da">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b4598f9b9c1dccf46144b3d74ecb5ddaae220a9f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/bfe94073063dd73ab964442b96e7a0164c831431/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6a2f9209ff0d33539df6866d019181ecd1ecd047">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_854a7598ad57fc8020235b789f45829257420465/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/f453d793917ced522f091cb15bee331146dfd7d9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="406ec4522e2ada8bf362a00946a40dd97ff6a168">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9b1098ad97fc251c23c5df810a1190e0a7e67fa6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/bolts-tasks-1.4.0_7aad2f4df60dc69e0c016e9feac2f46f7f9dfef7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/9c85c8c96849558edf2ba645799de1c9746e7d65/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="22569eca3029ab00583c332a2be220cdbf091b35">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5d19cddc02ba8e3ed0b85b0d9f139b9b1759f8b8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ed8395f343c428cd55c60499f04323083f4ef0db">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_db1fa8e5b6ecfe6d1d09a6c0e445e8c451508017/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="733e2b724ca23eb12ae5ae37b3ce40cf85423a32">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_d35778ca29fc4019d7cf927eb5ebd09f548d282d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/infer-annotations-4.0_dbe36f245eac1e0ac3e9968c3f3b37f761d655a8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/ef91fb39efccda158caa320fd486528b95b91d5f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="53dc9d74b0ac22d201549cd806780597d9679e9a">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f861d30c76c00fb75556c29494c61ee3035ccad3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/6dabcf11ecb12c17d5c967eee80ee27d5508c82d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="71d380aeac037e63bab7bda2ba211777e16a2f42">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_310bb53aa1bedff3a45bdac98263414408dbe66c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/5d8d44633b7da3264197649fab14c94879561164/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="23dcb4803d3103bde3f3f5db978a726338fe49ae">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_2be94a509102c803858e8050647dd9c3694f5bcd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.1.0/edf3f7bfb84a7521d0599efa3b0113a0ee90f85/common-1.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="0edf3f7bfb84a7521d0599efa3b0113a0ee90f85">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/common-1.1.0_84db510a7b93a733f3f19d9034a801ab1782f458/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/074eb31cc6bb4bbbc50ca115b8ef36ccd0abd68d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_2cf37dbb3616dc9e7c7f69e2a21236922c4e482c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/bbf621111a3b36dac285adba04a6e2d85ea9ed96/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="82ea5a937ab84229fbd2f3fc8cf2a72cbdf0ee0f">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_2b47050850d75f9e350c569a1606dedbc3ffc70c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/private/var/root/.android/build-cache/c1f56f6943307f0e281c58909e8f302c6c3ceb18/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="86877c708443b19ab64c91727bc9ab02c812a15c">
+        <dex dex="/Users/willem.speckmann/mobile-app/android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_5b2a1b2da654ba0de9839143bf9102acf124660a/classes.dex" />
+    </item>
+
+</items>

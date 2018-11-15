@@ -1,0 +1,98 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_fade_out.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_fade_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_popup_exit.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_slide_down.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_slide_down.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_slide_up.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_slide_up.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_tooltip_exit.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_slide_in_top.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_fade_in.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/fade_in.xml",
+        "source": "/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/res/anim/fade_in.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_fade_in.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_fade_in.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_slide_out_top.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_push_up_out.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_push_up_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_popup_enter.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_fade_out.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/fade_out.xml",
+        "source": "/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/res/anim/fade_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/slide_up.xml",
+        "source": "/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/res/anim/slide_up.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/slide_down.xml",
+        "source": "/private/var/root/.android/build-cache/67e2d8e7b3386dbb2be259b9ce01de7b832e8ede/output/res/anim/slide_down.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/abc_tooltip_enter.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/anim/abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/cycle.xml",
+        "source": "/private/var/root/.android/build-cache/a290a0ee1004248f424477d5551537ca69a4b152/output/res/anim/cycle.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/shake.xml",
+        "source": "/private/var/root/.android/build-cache/a290a0ee1004248f424477d5551537ca69a4b152/output/res/anim/shake.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/anim/catalyst_push_up_in.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/anim/catalyst_push_up_in.xml"
+    }
+]
