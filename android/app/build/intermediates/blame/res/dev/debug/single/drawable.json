@@ -1,0 +1,322 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_dark_focused.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_dark_focused.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_seekbar_thumb_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_light_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_go_search_api_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_vector_test.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_vector_test.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_ab_back_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_btn_borderless_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_icon.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_button_icon.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/stp_card_form_back.png",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/stp_card_form_back.png"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/notification_bg.xml",
+        "source": "/private/var/root/.android/build-cache/5d8d44633b7da3264197649fab14c94879561164/output/res/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/notification_icon_background.xml",
+        "source": "/private/var/root/.android/build-cache/5d8d44633b7da3264197649fab14c94879561164/output/res/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/edit_text_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/edit_text_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/messenger_button_white_bg_round.xml",
+        "source": "/private/var/root/.android/build-cache/a15c067517fd8d36c1ef33c083644632b74a61bc/output/res/drawable/messenger_button_white_bg_round.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/spinner_background_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/spinner_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_dark_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_dark_normal.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_send_background.xml",
+        "source": "/private/var/root/.android/build-cache/25ec7931cb53ad23563a70e93b1e1c2fd5e06d62/output/res/drawable/com_facebook_button_send_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/notification_bg_low.xml",
+        "source": "/private/var/root/.android/build-cache/5d8d44633b7da3264197649fab14c94879561164/output/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_textfield_search_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_send_button_icon.xml",
+        "source": "/private/var/root/.android/build-cache/25ec7931cb53ad23563a70e93b1e1c2fd5e06d62/output/res/drawable/com_facebook_send_button_icon.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_switch_thumb_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/splash_background.xml",
+        "source": "/Users/willem.speckmann/mobile-app/android/app/src/main/res/drawable/splash_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/btn_default_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/btn_default_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/stp_card_form_front.png",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/stp_card_form_front.png"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/header_dark.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/header_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/background_white.xml",
+        "source": "/private/var/root/.android/build-cache/a290a0ee1004248f424477d5551537ca69a4b152/output/res/drawable/background_white.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_light_focused.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_light_focused.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_item_background_holo_light.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/crop_image_menu_crop_stub.xml",
+        "source": "/private/var/root/.android/build-cache/2d2c213110ff51569a3ae5a922d72f1c6012dbce/output/res/drawable/crop_image_menu_crop_stub.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_cab_background_top_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_menu_overflow_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_login_silver_background.xml",
+        "source": "/private/var/root/.android/build-cache/964a51e2b21ef69781e270fe3a687154bb60ba84/output/res/drawable/com_facebook_button_login_silver_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/messenger_button_blue_bg_selector.xml",
+        "source": "/private/var/root/.android/build-cache/a15c067517fd8d36c1ef33c083644632b74a61bc/output/res/drawable/messenger_button_blue_bg_selector.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/card_512.png",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/card_512.png"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_clear_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_login_background.xml",
+        "source": "/private/var/root/.android/build-cache/964a51e2b21ef69781e270fe3a687154bb60ba84/output/res/drawable/com_facebook_button_login_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ratingbar_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/card_input_custom_background.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/card_input_custom_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/messenger_button_blue_bg_round.xml",
+        "source": "/private/var/root/.android/build-cache/a15c067517fd8d36c1ef33c083644632b74a61bc/output/res/drawable/messenger_button_blue_bg_round.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_like_background.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_button_like_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_voice_search_api_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_list_selector_holo_light.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/tooltip_frame_light.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/tooltip_frame_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/notification_tile_bg.xml",
+        "source": "/private/var/root/.android/build-cache/5d8d44633b7da3264197649fab14c94879561164/output/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_item_background_holo_dark.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_disabled.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_disabled.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_background.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_button_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_seekbar_tick_mark_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_dialog_material_background.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_button_login_logo.xml",
+        "source": "/private/var/root/.android/build-cache/964a51e2b21ef69781e270fe3a687154bb60ba84/output/res/drawable/com_facebook_button_login_logo.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_search_api_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_light_focused.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_light_focused.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/loading_status_bar_background.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/drawable/loading_status_bar_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/messenger_button_white_bg_selector.xml",
+        "source": "/private/var/root/.android/build-cache/a15c067517fd8d36c1ef33c083644632b74a61bc/output/res/drawable/messenger_button_white_bg_selector.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/tooltip_frame_dark.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_btn_check_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_auth_dialog_background.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_auth_dialog_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_auth_dialog_cancel_background.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_auth_dialog_cancel_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_auth_dialog_header_background.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_auth_dialog_header_background.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ratingbar_indicator_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_ratingbar_small_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_text_disabled.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/private/var/root/.android/build-cache/c1eadb342e680680b310b4664fd5e9829ea45c91/output/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_dark_focused.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_dark_focused.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/com_facebook_favicon_blue.xml",
+        "source": "/private/var/root/.android/build-cache/71d14b16ec1f3d7d145edd527c461c74f649b648/output/res/drawable/com_facebook_favicon_blue.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/drawable/common_google_signin_btn_icon_light_normal.xml",
+        "source": "/private/var/root/.android/build-cache/4f8119977aaf67d4de3b0f907cc4f276a149ba76/output/res/drawable/common_google_signin_btn_icon_light_normal.xml"
+    }
+]

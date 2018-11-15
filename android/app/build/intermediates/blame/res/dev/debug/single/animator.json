@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/animator/card_flip_right_in.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/animator/card_flip_right_in.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/animator/card_flip_right_out.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/animator/card_flip_right_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/animator/card_flip_left_out.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/animator/card_flip_left_out.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/animator/card_flip_left_in.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/animator/card_flip_left_in.xml"
+    }
+]

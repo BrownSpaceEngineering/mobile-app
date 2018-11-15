@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/xml/stub_material.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/xml/stub_material.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/xml/preferences.xml",
+        "source": "/private/var/root/.android/build-cache/17c428bc7481472277bf2bc2811c4c6e9bdaa39a/output/res/xml/preferences.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/xml/provider_paths.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/xml/provider_paths.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/xml/stub_classic.xml",
+        "source": "/private/var/root/.android/build-cache/004d188a71b6a9cd9cd7864f47ea96d5f5cf1086/output/res/xml/stub_classic.xml"
+    },
+    {
+        "merged": "/Users/willem.speckmann/mobile-app/android/app/build/intermediates/res/merged/dev/debug/xml/global_tracker.xml",
+        "source": "/Users/willem.speckmann/mobile-app/android/app/build/generated/res/google-services/dev/debug/xml/global_tracker.xml"
+    }
+]

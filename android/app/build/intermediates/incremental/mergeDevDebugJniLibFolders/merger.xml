@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/willem.speckmann/mobile-app/android/app/src/main/jniLibs"/></dataSet><dataSet config="dev"><source path="/Users/willem.speckmann/mobile-app/android/app/src/dev/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/willem.speckmann/mobile-app/android/app/src/debug/jniLibs"/></dataSet><dataSet config="devDebug"><source path="/Users/willem.speckmann/mobile-app/android/app/src/devDebug/jniLibs"/></dataSet></merger>
