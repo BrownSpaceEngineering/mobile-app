@@ -169,6 +169,8 @@ export default class TrackFragment extends React.Component {
       axios
         .get(trackServerPrefix + 'equisat_tle?timestamp='+new Date().getTime())
         .then(function(result) {
+          console.log('TLE data');
+          console.log(result.data);
           var TLEStr = result.data;
           if (TLEStr.slice(-1) == '\n') {
             TLEStr = TLEStr.slice(0, -1);
@@ -194,6 +196,8 @@ export default class TrackFragment extends React.Component {
   updateSatLocation(_this) {
     if (_this.state.TLEReady) {
       curSatInfo = tlejs.getSatelliteInfo(this.TLEStr, Date.now(), 0, 0, 0);
+      console.log('sat info: ');
+      console.log(curSatInfo);
       var latitude = curSatInfo.lat;
       var longitude = curSatInfo.lng;
       let satCoord = {latitude: latitude, longitude: longitude};

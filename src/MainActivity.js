@@ -10,6 +10,7 @@ import StatusBarBackground from './StatusBarBackground';
 import TrackFragment from './TrackFragment';
 import DataFragment from './DataFragment';
 import CADFragment from './CADFragment';
+import FindFragment from './FindFragment.js';
 
 const VERSION_NUMBER = "Version 1.3.1";
 
@@ -115,6 +116,7 @@ export default class MainActivity extends React.Component {
       { key: 'cad', icon: 'printer-3d', color: '#FFFFFF', title: 'CAD'},
       { key: 'track', icon: 'map-marker-radius', color: '#FFFFFF', title: 'Track'},
       { key: 'data', icon: 'chart-line', color: '#FFFFFF', title: 'Data'},
+      { key: 'find', icon: 'mdi-crosshairs-gps', color: '#FFFFFF', title: 'Find Equisat'}
     ],
     loading: true,
     showSearchSpinner: false,
@@ -169,6 +171,9 @@ export default class MainActivity extends React.Component {
         break;
       case "data":
         return <DataFragment/>;
+        break;
+      case "find":
+        return <FindFragment/>;
         break;
     }
   }
